@@ -1,14 +1,16 @@
 ﻿using System;
 using System.Web;
 using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
+
 namespace SignalRChat
 {
-    public class ChatHub : Hub
+    [HubName("HubMessage")]
+    public class MyHub : Hub
     {
-        public void Send(string name, string message)
+        public void SendMessage(string remetente, string destinatario, string message)
         {
-            // Call the broadcastMessage method to update clients.
-            Clients.All.broadcastMessage(name, message);
+            Clients.All.messageAdded(remetente, destinatario, message);
         }
     }
 }

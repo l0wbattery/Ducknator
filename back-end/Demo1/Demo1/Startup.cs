@@ -12,11 +12,11 @@ namespace SignalRChat
     {
         public void Configuration(IAppBuilder app)
         {
-
             app.Map("/signalr", map =>
             {
                 //worry about locking it down to specific origin later
                 map.UseCors(CorsOptions.AllowAll);
+                
                 map.RunSignalR(new HubConfiguration());
             });
             //now start the WebAPI app
