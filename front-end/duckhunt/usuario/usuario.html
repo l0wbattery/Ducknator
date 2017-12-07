@@ -1,0 +1,43 @@
+<div class="row" style="margin-top:50px;">
+    <div class="container col-md-6 col-md-offset-3">
+        <form novalidate name="formUsuario" ng-submit="salvar(usuario)">
+            <div class="form-group">
+                <label for="primeiroNome">Primeiro Nome :</label>
+                <input type="text" class="form-control" name="primeiroNome" id="primeiroNome" ng-class="{'is-invalid': isNotValid('primeiroNome')}" ng-model="usuario.PrimeiroNome" placeholder="Primeiro Nome" ng-minlength="2" ng-maxlength="40" required>
+                <span ng-show="formUsuario.primeiroNome.$touched && formUsuario.primeiroNome.$error.minlength">Tamanho mínimo de 2</span>
+                <span ng-show="formUsuario.primeiroNome.$touched && formUsuario.primeiroNome.$error.maxlength">Tamanho máximo de 40</span>
+            </div>
+            <div class="form-group">
+                <label for="ultimoNome">Ultimo Nome :</label>
+                <input type="text" class="form-control" ng-class="{'is-invalid': isNotValid('ultimoNome')}" id="ultimoNome" name="ultimoNome" ng-model="usuario.UltimoNome" placeholder="Ultimo Nome" ng-minlength="2" ng-maxlength="40" required>
+                <span ng-show="formUsuario.ultimoNome.$touched && formUsuario.ultimoNome.$error.minlength">Tamanho mínimo de 2</span>
+                <span ng-show="formUsuario.ultimoNome.$touched && formUsuario.ultimoNome.$error.maxlength">Tamanho máximo de 40</span>
+            </div>
+            <div class="form-group">
+                <label for="cpf">CPF :</label>
+                <input type="text" class="form-control" id="cpf" name="cpf" ng-model="usuario.Cpf" ng-class="{'is-invalid': isNotValid('cpf')}" placeholder="CPF" required ng-minlength="11" ng-maxlength="11">
+                <span ng-show="formUsuario.cpf.$touched && formUsuario.cpf.$error.maxlength || formUsuario.cpf.$error.minlength">CPF apenas números</span>
+            </div>
+            <div class="form-group">
+                <label for="dataNasc">Data de Nascimento :</label>
+                <input type="date" class="form-control" id="dataNasc" ng-model="usuario.DataNascimento" required>
+            </div>
+            <div class="form-group">
+                <label for="email">E-Mail :</label>
+                <input type="email" class="form-control" id="email" ng-model="usuario.Email" placeholder="E-mail" required>
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha :</label>
+                <input type="password" class="form-control" id="senha" name="senha" ng-model="usuario.Senha" ng-class="{'is-invalid': isNotValid('senha')}" placeholder="Senha" required ng-minlength="2" ng-maxlength="40">
+                <span ng-show="formUsuario.senha.$touched && formUsuario.senha.$error.minlength">Senha deve conter no minimo 8 caracteres</span>
+                <span ng-show="formUsuario.senha.$touched && formUsuario.senha.$error.maxlength">Senha deve conter no maximo 40 caracteres</span>
+            </div>
+            <div class="form-group">
+                <label for="senhaConfirmada">Confirme sua Senha</label>
+                <input ng-model="usuario.SenhaConfirmada" ng-pattern="{{usuario.Senha}}" id="senhaConfirmada" name="senhaConfirmada" class="form-control" placeholder="Confirme sua Senha" aria-describedby="basic-addon1" type="password" ng-maxlength="128" required>
+            </div>
+            <input type="submit" class="btn btn-primary" value="Cadastrar-se">
+        </form>
+    </div>
+</div>
+

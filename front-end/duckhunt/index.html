@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Autenticação</title>
+  <link rel="stylesheet" href="https://bootswatch.com/4/lux/bootstrap.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/angular-toastr@2/dist/angular-toastr.css">
+</head>
+
+<body ng-app="app" ng-controller="IndexController">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary col-md-12">
+      <a class="navbar-brand" >Malvada AirLines</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/#!/homme">Home</a>
+          </li>
+          <li class="nav-item" ng-if="!auth.isAutenticado()">
+            <a class="nav-link" href="/#!/login">Login</a>
+          </li>
+          <li class="nav-item" ng-if="auth.isAutenticado()">
+            <a class="nav-link" href="/#!/reserva">Reservas</a>
+          </li>
+          <li class="nav-item dropdown" ng-if="auth.possuiPermissao('Admin')">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Trechos</a>
+            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item" href="/#!/trecho">Trecho Cadastro</a>
+              <a class="dropdown-item" href="/#!/trecholistar">Trecho Listar</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown" ng-if="auth.possuiPermissao('Admin')">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Locais</a>
+            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item" href="/#!/local">Local Cadastro</a>
+              <a class="dropdown-item" href="/#!/locallistar">Local Listar</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown" ng-if="auth.possuiPermissao('Admin')">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Classes de Voo</a>
+            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item" href="/#!/classedevoo">Classe de Voo Cadastro</a>
+              <a class="dropdown-item" href="/#!/classedevoolistar">Classe de Voo Listar</a>
+            </div>
+          </li>
+          <li class="nav-item dropdown" ng-if="auth.possuiPermissao('Admin')">
+            <a class="nav-link dropdown-toggle" data-toggle="dropdown"  role="button" aria-haspopup="true" aria-expanded="false">Opcionais</a>
+            <div class="dropdown-menu" x-placement="bottom-start" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;">
+              <a class="dropdown-item" href="/#!/opcional">Opcional Cadastro</a>
+              <a class="dropdown-item" href="/#!/opcionallistar">Opcional Listar</a>
+            </div>
+          </li>
+          <li class="nav-item" ng-if="auth.isAutenticado()">
+            <button class="btn btn-primary" style="padding-top:9.5px; padding-left: 10px;" ng-click="logout();">Logout</button>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Rotas -->
+    <ng-view></ng-view>
+</body>
+
+<!-- Angular, Rotas, Local Storage (Módulo 'auth' depende dele) -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" type="text/javascript"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js" type="text/javascript"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js" type="text/javascript"></script>
+
+<!-- Autenticação -->
+<script src="auth/auth.module.js" type="text/javascript"></script>
+
+<!-- Aplicação -->
+<script src="app.module.js" type="text/javascript"></script>
+<script src="app.route.js" type="text/javascript"></script>
+<script src="home/home.controller.js" type="text/javascript"></script>
+<script src="index.controller.js" type="text/javascript"></script>
+<script src="login/login.controller.js" type="text/javascript"></script>
+<script src="privado/privado.controller.js" type="text/javascript"></script>
+<script src="reserva/reserva.service.js" type="text/javascript"></script>
+<script src="local/local.service.js" type="text/javascript"></script>
+<script src="trecho/trecho.service.js" type="text/javascript"></script>
+<script src="opcional/opcional.service.js" type="text/javascript"></script>
+<script src="usuario/usuario.service.js" type="text/javascript"></script>
+<script src="classeDeVoo/classeDeVoo.service.js" type="text/javascript"></script>
+<script src="reserva/reserva.controller.js" type="text/javascript"></script>
+<script src="usuario/usuario.controller.js" type="text/javascript"></script>
+<script src="trecho/trecho.controller.js" type="text/javascript"></script>
+<script src="trecho/trechoListar.controller.js" type="text/javascript"></script>
+<script src="local/local.controller.js" type="text/javascript"></script>
+<script src="local/localListar.controller.js" type="text/javascript"></script>
+<script src="opcional/opcional.controller.js" type="text/javascript"></script>
+<script src="opcional/opcionalListar.controller.js" type="text/javascript"></script>
+<script src="classedevoo/classeDeVoo.controller.js" type="text/javascript"></script>
+<script src="classedevoo/classeDeVooListar.controller.js" type="text/javascript"></script>
+<script src="https://cdn.jsdelivr.net/npm/angular-toastr@2/dist/angular-toastr.tpls.js"></script>
+<script src="https://bootswatch.com/_vendor/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="https://bootswatch.com/_vendor/popper.js/dist/umd/popper.min.js" type="text/javascript"></script>
+<script src="https://bootswatch.com/_vendor/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="https://bootswatch.com/_assets/js/custom.js" type="text/javascript"></script>
+
+
+</html>
