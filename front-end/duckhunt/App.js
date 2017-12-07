@@ -25,8 +25,8 @@
                 connectionState: function () {
                     return connection.state;
                 },
-                sendMessage: function (remetente, destinatario) {
-                    proxy.invoke('SendMessage', remetente, destinatario);
+                sendMessage: function (bolaGamma, bolaAlpha) {
+                    proxy.invoke('SendMessage', bolaGamma, bolaAlpha);
                 },
             }
         }]);
@@ -46,41 +46,50 @@
     //     noteService.sendMessage($scope.messages.x, $scope.messages.y);
     // };
 
-    // app.controller('messageController', function ($scope, noteService) {
+    app.controller('messageController', function ($scope, noteService) {
 
-    //     noteService.connect();
-    //     $scope.messages = [];
+        noteService.connect();
+        //$scope.posicaoBola = [];
 
-    //     $scope.$on('messageAdded', function (event, remetente, destinatario) {
-    //         //var mensagem = { de: remetente, para: destinatario, mensagem: message };
-    //         var mensagem = { de: remetente, para: destinatario };
+        $scope.bolaGamma;
+        $scope.bolaAlpha;
 
-    //         $scope.messages.push(mensagem);
-    //         $scope.$apply();
-    //     });
+        //Recebe mensagens do servidor
+        $scope.$on('messageAdded', function (event, gamma, alpha) {
+            //var mensagem = { de: remetente, para: destinatario, mensagem: message };
 
-    //     $scope.sendMessage = function () {
-    //         noteService.sendMessage($scope.remetente, $scope.destinatario);
-    //     };
+            $scope.bolaGamma = gamma;
+            $scope.bolaAlpha = alpha;
+
+            //var mensagem = { x: x, y: y };
+
+            //$scope.posicaoBola.push(mensagem);
+            //$scope.$apply();
+        });
+
+        //$scope.sendMessage = function () {
+        //    noteService.sendMessage($scope.remetente, $scope.destinatario);
+        //};
 
 
-
+        //Envia informação dos sensores para o servidor
         function handleMotionEvent(event) {
-            
-                var x = event.rotationRate.gamma;
-                var y = event.rotationRate.alpha;
-            
-                // Do something awesome.
 
-                //Okay :3
+            var bolaGamma = event.rotationRate.gamma;
+            var bolaAlpha = event.rotationRate.alpha;
 
-                console.log(x*100);
-                console.log(":3 Oii")
-                console.log(y)
-                noteService.sendMessage(x, y);
-            }
-            
-            window.addEventListener("devicemotion", handleMotionEvent, true);
+            // Do something awesome.
 
-    });
-})()
+            //Okay :3
+
+            console.log(bolaGamma * 100);
+            console.log(":3 Oii")
+            console.log(bolaAlpha * 100)
+            noteService.sendMessage(bolaGamma, bolaAlpha);
+        }
+
+        window.addEventListener("devicemotion", handleMotionEvent, true);
+
+    })
+})();
+
