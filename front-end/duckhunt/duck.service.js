@@ -4,12 +4,7 @@ function ($, $rootScope) {
     var connection;
     return {
         connect: function () {
-<<<<<<< HEAD
-            connection = $.hubConnection('http://192.168.0.13:3000/signalr');
-            //connection = $.hubConnection('http://192.168.0.15:3000/signalr');
-=======
             connection = $.hubConnection('http://192.168.0.15:3000/signalr');
->>>>>>> ef0b40ec0b9de6ef2b4446cb65e198017c6b60b4
             proxy = connection.createHubProxy('HubMessage');
             connection.start();
             proxy.on('messageAdded', function (bolaGamma, bolaAlpha) {

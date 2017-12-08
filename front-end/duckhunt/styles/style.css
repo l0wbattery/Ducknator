@@ -117,14 +117,10 @@ h2:hover {
   opacity: 1;
 }
 
-.btn {
+.btn, .btn-nome {
   color: #000;
   background-color: yellow;
   box-shadow: .2em .2em #f05805;
-  width: 400px;
-  height: 100px;
-  font-size: 50px;
-  margin-top: 40px;
   display: flex;
   align-self: center;
   justify-content: center;
@@ -132,32 +128,65 @@ h2:hover {
   transition-duration: .2s;
 }
 
-.btn:active {
+.btn-nome {
+  width: 200px;
+  height: 200vh;
+  font-size: 20px;
+  margin-top: 10px;
+}
+
+.btn {
+  width: 400px;
+  height: 100px;
+  font-size: 50px;
+  margin-top: 40px;
+}
+
+.btn:active, .btn-nome:active {
   box-shadow: 0 0 transparent;
   transition-duration: .2s;
 }
 
-.content {
+.content-token, .content-nome {
   display: flex;
   flex-direction: column;
   color : yellow;
-  font-size: 80px;
   border: 1px solid #fff;
   padding: 15% 5%;
   border-width: medium;
-  height: 1200px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.content > input {
-  width: 800px;
+.content-token {
+  height: 1200px;
   font-size: 80px;
+}
+
+.content-nome {
+  height: 95vh;
+  width: 90vw;
+  font-size: 60px;
+}
+
+.content-nome > input {
+  font-size: 50px;
+  width: 600px;
+  caret-color: yellow;
+}
+
+.content-token > input, .content-nome > input {
   background-color: transparent;
   color: #fff;
   border: 0;
-  border-bottom: 2px solid #f05805;
+  border-bottom: 2px solid #fff;
   text-align: center;
   padding-bottom: 10px;
+}
+
+.content-token > input {
+  width: 800px;
+  font-size: 80px;
+
 }
