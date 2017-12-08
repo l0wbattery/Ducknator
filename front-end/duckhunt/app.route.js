@@ -1,6 +1,10 @@
 angular.module('duckHunt').config(function ($routeProvider){
     $routeProvider.when('/home',{
         templateUrl: 'home.html',
+        controller: 'homeController'
+    })
+    .when('/desktopteste',{
+        templateUrl: 'desktop.html',
         controller: 'desktopController'
     })
     .when('/mobile',{
@@ -13,5 +17,5 @@ angular.module('duckHunt').config(function ($routeProvider){
         controller: 'jogoController'
     })
 
-    .otherwise('/home')
+    .otherwise('/desktopteste')
 });
