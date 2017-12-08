@@ -8,18 +8,9 @@ namespace SignalRChat
     [HubName("HubMessage")]
     public class MyHub : Hub
     {
-        public void SendMessage(string x, string y)
+        public void SendMessage(string bolaGamma, string bolaAlpha)
         {
-            Clients.All.messageAdded(x, y);
+            Clients.All.messageAdded(bolaGamma, bolaAlpha);
         }
     }
-    //[HubName("HubMotion")]
-    //public class MyMotionHub : Hub
-    //{
-    //    public void SendMessage(string remetente, string destinatario, string message)
-    //    {
-    //        Clients.All.messageAdded(remetente, destinatario, message);
-
-    //    }
-    //}
 }

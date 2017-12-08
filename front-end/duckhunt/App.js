@@ -8,7 +8,7 @@
             var connection;
             return {
                 connect: function () {
-                    connection = $.hubConnection('http://10.99.150.49:3000/signalr');
+                    connection = $.hubConnection('192.168.1.3:3000/signalr');
                     proxy = connection.createHubProxy('HubMessage');
                     //proxy = connection.createHubProxy('HubMotion');
                     connection.start();
