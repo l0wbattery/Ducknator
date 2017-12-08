@@ -5,12 +5,12 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace SignalRChat
 {
-    [HubName("HubMessage")]
-    public class MyHub : Hub
-    {
-        public void SendMessage(string bolaGamma, string bolaAlpha)
-        {
-            Clients.All.messageAdded(bolaGamma, bolaAlpha);
-        }
-    }
+    //[HubName("HubMessage")]
+    //public class MyHub : Hub
+    //{
+    //    public void SendMessage(string bolaGamma, string bolaAlpha)
+    //    {
+    //        Clients.All.messageAdded(bolaGamma, bolaAlpha);
+    //    }
+    //}
 }

@@ -1,6 +1,6 @@
 angular.module('duckHunt').config(function ($routeProvider){
     $routeProvider.when('/home',{
-        templateUrl: 'index.html',
+        templateUrl: 'home.html',
         controller: 'desktopController'
     })
     .when('/mobile',{
