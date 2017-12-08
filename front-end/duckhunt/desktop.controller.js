@@ -4,8 +4,6 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
     $scope.bolaGamma = 0;
     $scope.bolaAlpha = 0;
 
-
-
     //Recebe mensagens do servidor
     $scope.$on('messageAdded', function (event, gamma, alpha) {
 
@@ -19,9 +17,6 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
         if ($scope.bolaGamma <= 0) $scope.bolaGamma = 0;
 
         $scope.stylewtf = "top:" + ($scope.bolaGamma) + "px; left:" + ($scope.bolaAlpha) + "px;";
-        // console.log($scope.bolaGamma);
-        // console.log("-----------------------");
-        // console.log($scope.bolaAlpha);
         $scope.$apply();
     });
 
@@ -29,10 +24,6 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
 
         var bolaGamma = event.rotationRate.gamma;
         var bolaAlpha = event.rotationRate.alpha;
-
-        console.log($scope.bolaGamma);
-        console.log("-----------------------");
-        console.log($scope.bolaAlpha);
 
         duckService.sendMessage(bolaGamma, bolaAlpha);
     }

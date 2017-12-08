@@ -1,7 +1,7 @@
 @font-face{
     font-family: '8bit'; 
-    src: url('../Styles/8bitwonder.ttf');
-    /* src: url('../Styles/8-bit-operator-8-bold.ttf'); */
+    src: url('../Styles/8-bit-operator-8-bold.ttf');
+    
 }
 
 .tela-de-jogo{
@@ -45,11 +45,12 @@
     left: 80px;
 
     font-family: '8bit';
+    color: greenyellow;
 
     background-color: black;
     width: 100px;
-    height: 30px;
-    
+    height: 24px;
+
 }
 
 .box-municao{
@@ -58,6 +59,7 @@
     left: 74px;
 
     font-family: '8bit';
+    color: aqua;
 
     background-color: black;
     border-style: solid;
@@ -68,12 +70,18 @@
     height: 50px;
 }
 
+p {
+    margin:3px;
+    margin-left: 5px;
+}
+
 .box-patos{
     position: absolute;
     top: 190px;
     left: 247px;
 
     font-family: '8bit';
+    color: greenyellow;
 
     background-color: black;
     border-style: solid;
@@ -91,6 +99,7 @@
     left: 570px;
 
     font-family: '8bit';
+    color: white;
     
     background-color: black;
     border-style: solid;
