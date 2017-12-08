@@ -1,0 +1,87 @@
+.tela-de-jogo{
+    width: 800px;
+    height: 600px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.mira{
+    position: absolute;
+    background-image: url("../Sprites/mira.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50px;
+    width:50px;
+}
+
+.console-informacoes{
+    background-image: url("../Sprites/grasss.png");
+    background-repeat: no-repeat;
+    background-size: 800px, 600px;
+    position: relative;
+    top: 350px;
+    height: 250px;
+    width: 800px;
+}
+
+.fundo{
+    background-image: url("../Sprites/scene.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 800px;
+    height: 600px;   
+}
+
+.box-numero-round{
+    position: absolute;
+    top: 155px;
+    left: 80px;
+
+    background-color: black;
+    width: 100px;
+    height: 30px;
+    
+}
+
+.box-municao{
+    position: absolute;
+    top: 190px;
+    left: 80px;
+
+    background-color: black;
+    border-style: solid;
+    border-width: 3px;
+    border-color: greenyellow;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+}
+
+.box-patos{
+    position: absolute;
+    top: 190px;
+    left: 250px;
+
+    background-color: black;
+    border-style: solid;
+    border-width: 3px;
+    border-color: greenyellow;
+    border-radius: 10px;
+
+    width: 300px;
+    height: 50px;
+}
+
+.box-score{
+    position: absolute;
+    top: 190px;
+    left: 570px;
+    
+    background-color: black;
+    border-style: solid;
+    border-width: 3px;
+    border-color: greenyellow;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+}
