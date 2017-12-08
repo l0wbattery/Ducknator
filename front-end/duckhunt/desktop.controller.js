@@ -1,17 +1,5 @@
 angular.module('duckHunt').controller('desktopController', function ($scope, duckService) {
-                
-    
 
-    /*$scope.$on('messageAdded', function (event, remetente, destinatario, message) {
-        var mensagem = { de: remetente, para: destinatario, mensagem: message };
-        $scope.messages.push(mensagem);
-        $scope.$apply();
-    });
-    
-    $scope.sendMessage = function () {
-        duckService.sendMessage($scope.remetente, $scope.destinatario, $scope.mensagem);
-    };
-    */
     duckService.connect();
     $scope.bolaGamma = 0;
     $scope.bolaAlpha = 0;
