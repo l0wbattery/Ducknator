@@ -1,3 +1,9 @@
+@font-face{
+    font-family: '8bit'; 
+    src: url('../Styles/8bitwonder.ttf');
+    /* src: url('../Styles/8-bit-operator-8-bold.ttf'); */
+}
+
 .tela-de-jogo{
     width: 800px;
     height: 600px;
@@ -15,13 +21,14 @@
 }
 
 .console-informacoes{
-    background-image: url("../Sprites/grasss.png");
+    background-image: url("../Sprites/grass.png");
     background-repeat: no-repeat;
     background-size: 800px, 600px;
     position: relative;
     top: 350px;
     height: 250px;
     width: 800px;
+    font-family: '8bit';
 }
 
 .fundo{
@@ -37,6 +44,8 @@
     top: 155px;
     left: 80px;
 
+    font-family: '8bit';
+
     background-color: black;
     width: 100px;
     height: 30px;
@@ -46,7 +55,9 @@
 .box-municao{
     position: absolute;
     top: 190px;
-    left: 80px;
+    left: 74px;
+
+    font-family: '8bit';
 
     background-color: black;
     border-style: solid;
@@ -60,7 +71,9 @@
 .box-patos{
     position: absolute;
     top: 190px;
-    left: 250px;
+    left: 247px;
+
+    font-family: '8bit';
 
     background-color: black;
     border-style: solid;
@@ -76,6 +89,8 @@
     position: absolute;
     top: 190px;
     left: 570px;
+
+    font-family: '8bit';
     
     background-color: black;
     border-style: solid;
