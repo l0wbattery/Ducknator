@@ -15,6 +15,7 @@ namespace SignalRSelfHost
             // use http://*:8080 to bind to all addresses. 
             // See http://msdn.microsoft.com/en-us/library/system.net.httplistener.aspx 
             // for more information.
+
             string url = "http://192.168.0.100:8080";
             using (WebApp.Start(url))
             {
@@ -34,6 +35,9 @@ namespace SignalRSelfHost
     [HubName("HubMessage")]
     public class MyHub : Hub
     {
+        int retornoGamma;
+        int retornoAlpha;
+
         private static int tiros = 0;
         private static int yBola = 300;
         private static int xBola = 300;
@@ -57,6 +61,7 @@ namespace SignalRSelfHost
             {
                 yBola = 0;
             }
+
             Clients.All.messageAdded(xBola, yBola, tiros);
         }
         public void Atirar(int posicaoPatoY,int posicaoPatoX)
@@ -75,5 +80,16 @@ namespace SignalRSelfHost
                 ? lower <= num && num <= upper
                 : lower < num && num < upper;
         }
+
+        //Cria limites de movimento da mira;
+        // Não estou usando ainda, porem irei utilizar
+        private void LimitaMovimentoDaMira(int Gamma, int Alpha)
+        {
+            if (Gamma > 800) retornoGamma = 800;
+            if (Alpha > 600) retornoAlpha = 600;
+            if (Gamma < 0) retornoGamma = 0;
+            if (Alpha < 0) retornoAlpha = 0;
+        }
+
     }
 }
