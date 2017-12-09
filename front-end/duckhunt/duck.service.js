@@ -4,9 +4,13 @@ function ($, $rootScope) {
     var connection;
     return {
         connect: function () {
+            var self = this;
+
             connection = $.hubConnection('http://192.168.0.100:8080/signalr');
             proxy = connection.createHubProxy('HubMessage');
-            connection.start();
+            connection.start().done(function() {
+                console.log("Conectado")
+            });
             proxy.on('messageAdded', function (bolaGamma, bolaAlpha) {
                 $rootScope.$broadcast('messageAdded', bolaGamma, bolaAlpha);
             });
@@ -21,7 +25,9 @@ function ($, $rootScope) {
             return connection.state;
         },
         sendMessage: function (bolaGamma, bolaAlpha) {
-            proxy.invoke('SendMessage', bolaGamma, bolaAlpha);
+            if(this.isConnected()) {
+                proxy.invoke('SendMessage', bolaGamma, bolaAlpha);
+            }
         },
     }
 }]);
