@@ -253,7 +253,7 @@ background-size: cover;
 }
 
 .gun:active {
-  background-color: rgba(0, 0, 0, 0, 0.5);
+  background-color: #0f0
 }
 
 
@@ -264,6 +264,7 @@ background-size: cover;
   font-size: 70px;
   animation: hide linear 1s forwards;
   animation-delay: 3s;
+  font-family: oitobit;
 }
 
 @keyframes hide {
