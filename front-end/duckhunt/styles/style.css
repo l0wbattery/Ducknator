@@ -293,6 +293,7 @@ background-size: cover;
 .mira{
   position: absolute;
   background-image: url("../Sprites/misra.png");
+  background-image: url("../Sprites/mira.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 50px;
