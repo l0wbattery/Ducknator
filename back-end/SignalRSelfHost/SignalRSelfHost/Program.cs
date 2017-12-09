@@ -15,7 +15,12 @@ namespace SignalRSelfHost
             // use http://*:8080 to bind to all addresses. 
             // See http://msdn.microsoft.com/en-us/library/system.net.httplistener.aspx 
             // for more information.
+<<<<<<< HEAD
             string url = "http://192.168.0.13:8081";
+=======
+
+            string url = "http://192.168.0.100:8080";
+>>>>>>> 786aa76cd4fc38aab0df2a9e4c55c0b81200c554
             using (WebApp.Start(url))
             {
                 Console.WriteLine("Server running on {0}", url);
@@ -34,19 +39,61 @@ namespace SignalRSelfHost
     [HubName("HubMessage")]
     public class MyHub : Hub
     {
+        int retornoGamma;
+        int retornoAlpha;
+
         private static int tiros = 0;
+        private static int yBola = 300;
+        private static int xBola = 300;
         public void SendMessage(double bolaGamma, double bolaAlpha)
         {
-            int retornoGamma = (int)Math.Round(bolaGamma * 10);
-            int retornoAlpha = (int)Math.Round(bolaAlpha * 10);
-            Clients.All.messageAdded(retornoGamma, retornoAlpha, tiros);
+            xBola = xBola + ((int)Math.Round(bolaGamma * 10) * -1);
+            yBola = yBola + ((int)Math.Round(bolaAlpha * 10) * -1);
+            if (xBola > 800)
+            {
+                xBola = 800;
+            }
+            if(xBola < 0)
+            {
+                xBola = 0;
+            }
+            if (yBola > 600)
+            {
+                yBola = 600;
+            }
+            if (yBola < 0)
+            {
+                yBola = 0;
+            }
+
+            Clients.All.messageAdded(xBola, yBola, tiros);
         }
-        public void Atirar(double bolaGamma, double bolaAlpha)
+        public void Atirar(int posicaoPatoY,int posicaoPatoX)
         {
+            bool acertou = false;
             tiros++;
-            int retornoGamma = (int)Math.Round(bolaGamma * 10);
-            int retornoAlpha = (int)Math.Round(bolaAlpha * 10);
-            Clients.All.messageAdded(retornoGamma, retornoAlpha, tiros);
+            if (Between(yBola, posicaoPatoY - 20, posicaoPatoY + 20) && Between(xBola, posicaoPatoX - 20, posicaoPatoX + 20))
+                acertou = true;
+            
+            Clients.All.atirou(acertou);
         }
+
+        public bool Between(int num, int lower, int upper, bool inclusive = false)
+        {
+            return inclusive
+                ? lower <= num && num <= upper
+                : lower < num && num < upper;
+        }
+
+        //Cria limites de movimento da mira;
+        // Não estou usando ainda, porem irei utilizar
+        private void LimitaMovimentoDaMira(int Gamma, int Alpha)
+        {
+            if (Gamma > 800) retornoGamma = 800;
+            if (Alpha > 600) retornoAlpha = 600;
+            if (Gamma < 0) retornoGamma = 0;
+            if (Alpha < 0) retornoAlpha = 0;
+        }
+
     }
 }

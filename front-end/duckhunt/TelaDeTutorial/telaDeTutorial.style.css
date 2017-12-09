@@ -1,0 +1,25 @@
+body{
+    margin: 0px;
+}
+
+@font-face{
+    font-family: '8bit'; 
+    src: url('../Styles/8-bit-operator-8-bold.ttf'); 
+}
+
+.mira{
+    position: absolute;
+    background-image: url("../Sprites/mira.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50px;
+    width:50px;
+}
+
+.fundo{
+    
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    overflow: hidden;
+}

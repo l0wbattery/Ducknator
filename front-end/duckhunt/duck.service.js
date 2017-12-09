@@ -11,8 +11,11 @@ function ($, $rootScope) {
             connection.start().done(function() {
                 console.log("Conectado")
             });
-            proxy.on('messageAdded', function (bolaGamma, bolaAlpha) {
-                $rootScope.$broadcast('messageAdded', bolaGamma, bolaAlpha);
+            proxy.on('messageAdded', function (bolaGamma, bolaAlpha,tiros) {
+                $rootScope.$broadcast('messageAdded', bolaGamma, bolaAlpha,tiros);
+            });
+            proxy.on('atirou', function (atirou) {
+                $rootScope.$broadcast('atirou', atirou);
             });
         },
         isConnecting: function () {
@@ -27,6 +30,11 @@ function ($, $rootScope) {
         sendMessage: function (bolaGamma, bolaAlpha) {
             if(this.isConnected()) {
                 proxy.invoke('SendMessage', bolaGamma, bolaAlpha);
+            }
+        },
+        atirar: function (posicaoPatoY,posicaoPatoX){
+            if(this.isConnected()){
+                proxy.invoke('Atirar',posicaoPatoY,posicaoPatoX);
             }
         },
     }
