@@ -34,17 +34,19 @@ namespace SignalRSelfHost
     [HubName("HubMessage")]
     public class MyHub : Hub
     {
+        private static int tiros = 0;
         public void SendMessage(double bolaGamma, double bolaAlpha)
         {
             int retornoGamma = (int)Math.Round(bolaGamma * 10);
             int retornoAlpha = (int)Math.Round(bolaAlpha * 10);
-            Clients.All.messageAdded(retornoGamma, retornoAlpha);
+            Clients.All.messageAdded(retornoGamma, retornoAlpha, tiros);
         }
         public void Atirar(double bolaGamma, double bolaAlpha)
         {
+            tiros++;
             int retornoGamma = (int)Math.Round(bolaGamma * 10);
             int retornoAlpha = (int)Math.Round(bolaAlpha * 10);
-            Clients.All.messageAdded(retornoGamma, retornoAlpha);
+            Clients.All.messageAdded(retornoGamma, retornoAlpha, tiros);
         }
     }
 }
