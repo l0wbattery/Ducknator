@@ -1,1 +1,7 @@
-angular.module('duckHunt', ['ngRoute']).value('$', $);
+angular
+    .module('duckHunt', ['ngRoute'])
+    .value('$', $)
+    .run(function(duckService) {
+        duckService.connect();
+    })
+;
