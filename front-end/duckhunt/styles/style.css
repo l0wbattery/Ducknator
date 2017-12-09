@@ -81,6 +81,12 @@ body {
   src: url('8-bit-operator-8-bold.ttf');
 }
 
+/* Usada na tela de tutorial */
+@font-face{
+  font-family: '8bit'; 
+  src: url('../Styles/8-bit-operator-8-bold.ttf'); 
+}
+
 .token-text {
   background-color: #000;
   color: #f05805;
@@ -253,7 +259,7 @@ background-size: cover;
 }
 
 .gun:active {
-  background-color: rgba(0, 0, 0, 0, 0.5);
+  background-color: #0f0
 }
 
 
@@ -264,10 +270,11 @@ background-size: cover;
   font-size: 70px;
   animation: hide linear 1s forwards;
   animation-delay: 3s;
+  font-family: oitobit;
 }
 
 @keyframes hide {
-  0 {
+  0% {
     top: 200px;
     left: 20px;
     opacity: 1;
@@ -281,3 +288,61 @@ background-size: cover;
     opacity: 0;
   }
 }
+
+/* Usada na tela de jogo e tutorial */
+.mira{
+  position: absolute;
+  background-image: url("../Sprites/misra.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 50px;
+  width:50px;
+}
+
+.tela-tutorial{
+  width: 100vw;
+  height: 100vh;
+}
+
+.tela-tutorial-fundo{
+  
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  overflow: hidden;
+}
+
+.tela-tutorial-borda{
+  margin: 5%;
+  border-style: solid;
+  border-color: white;
+  border-width: 2px;
+  height: 90%;
+  width: 90%;
+}
+
+.tela-tutorial-pato{
+  height: 66px;
+  width: 68px;
+  background: url("../Sprites/sprites.png") no-repeat -1412px -3px;
+  animation: pato-voando 1s steps(3) infinite;
+}
+
+.tela-tutorial-aviso-instrucoes{
+  word-wrap: normal;
+}
+
+.tela-tutorial-aviso-giroscopio{
+  word-wrap: normal;
+}
+
+.tela-tutorial-aviso-som{
+  word-wrap: normal;
+}
+
+@keyframes pato-voando {
+  0%  { background-position: -1412px -3px; }
+  50%   { background-position: -1495px -3px; }
+  100%    { background-position:  -1575px -3px; }
+}
+
