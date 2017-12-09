@@ -4,6 +4,7 @@ using Microsoft.Owin.Hosting;
 using Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.AspNet.SignalR.Hubs;
+using System.Collections.Generic;
 
 namespace SignalRSelfHost
 {
@@ -16,7 +17,7 @@ namespace SignalRSelfHost
             // See http://msdn.microsoft.com/en-us/library/system.net.httplistener.aspx 
             // for more information.
 
-            string url = "http://192.168.0.100:8080";
+            string url = "http://192.168.0.13:8080";
             using (WebApp.Start(url))
             {
                 Console.WriteLine("Server running on {0}", url);
@@ -90,6 +91,34 @@ namespace SignalRSelfHost
             if (Gamma < 0) retornoGamma = 0;
             if (Alpha < 0) retornoAlpha = 0;
         }
+
+        //Método que retorna um token aleatório entre 0 e 8999
+        //public Object GenerateToken()
+        //{
+        //    Random rand = new Random();
+        //    var result = "";
+        //    while(context.Salas.map(x => x.getToken()).toList().toString.contains(result) = true)
+        //    {                
+        //        result = rand.Next(8999).ToString().PadLeft(4, '0');
+        //    }
+                
+            //Cria uma sala para a pessoa
+            //Sala sala = new Sala(Int32.Parse(result));
+
+            //return sala;
+        //    return null;
+        //}
+
+        //Método que recebe o token da pessoa e conecta ela em uma sala
+        //public Object ReceberToken(int token)
+        //{
+            //faz um get nas salas livres (com 1 conexao)
+            //List<Sala> salasLivres = xontext.Salas.where(x -> x.numeroParticipantes = 1).toList();
+            //verificar se o token recebido é igual ao token de alguma
+
+            //return salasLivres.Where(x => x.token.Equals(token)).firstOrDefault();
+        //    return null;
+        //}
 
     }
 }
