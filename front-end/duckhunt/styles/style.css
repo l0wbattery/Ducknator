@@ -5,6 +5,7 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: black; 
 }
 
 *:active, *:focus {
@@ -292,7 +293,6 @@ background-size: cover;
 /* Usada na tela de jogo e tutorial */
 .mira{
   position: absolute;
-  background-image: url("../Sprites/misra.png");
   background-image: url("../Sprites/mira.png");
   background-repeat: no-repeat;
   background-size: cover;
@@ -300,50 +300,57 @@ background-size: cover;
   width:50px;
 }
 
-.tela-tutorial{
-  width: 100vw;
-  height: 100vh;
-}
-
-.tela-tutorial-fundo{
-  
-  width: 100%;
-  height: 100%;
-  background-color: gray;
-  overflow: hidden;
-}
-
-.tela-tutorial-borda{
-  margin: 5%;
-  border-style: solid;
-  border-color: white;
-  border-width: 2px;
-  height: 90%;
-  width: 90%;
-}
-
 .tela-tutorial-pato{
+  position: relative; 
+  top: -30%; 
   height: 66px;
-  width: 68px;
-  background: url("../Sprites/sprites.png") no-repeat -1412px -3px;
-  animation: pato-voando 1s steps(3) infinite;
+  width: 83px;
+  background: url("../Sprites/sprites.png") no-repeat -1404px -3px; 
+  animation: pato-voando 0.5s steps(3) infinite;
 }
 
-.tela-tutorial-aviso-instrucoes{
-  word-wrap: normal;
+.tela-tutorial-aviso{ 
+  display:inline-block; 
+  word-wrap: normal; 
+  font-family: '8bit'; 
+  font-size: 20px; 
+  color:  white; 
+  min-width: 100px; 
+  max-width: 350px; 
+   
+} 
+
+.aviso-instrucoes{
+    position: absolute; 
+    top: 15%; 
+    left: 50%; 
+    transform: translateX(-50%); 
+    text-align: center; 
+    display: inline-block; 
+    word-wrap: normal; 
+    font-family: '8bit'; 
+    color: yellow; 
+    font-size: 25px; 
+    min-width: 200px; 
+    max-width: 350px;
 }
 
-.tela-tutorial-aviso-giroscopio{
-  word-wrap: normal;
+.aviso-giroscopio{
+  position: absolute; 
+  right: 7%; 
+  bottom: 7%; 
+  text-align: right; 
 }
 
-.tela-tutorial-aviso-som{
-  word-wrap: normal;
+.aviso-som{
+  position: absolute; 
+  left: 7%; 
+  bottom: 7%; 
+  text-align: left; 
 }
 
 @keyframes pato-voando {
-  0%  { background-position: -1412px -3px; }
-  50%   { background-position: -1495px -3px; }
-  100%    { background-position:  -1575px -3px; }
+  from { background-position: -1404px -3px; } 
+  to { background-position: -1652px -3px; } 
 }
 
