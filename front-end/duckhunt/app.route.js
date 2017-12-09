@@ -1,21 +1,29 @@
 angular.module('duckHunt').config(function ($routeProvider){
     $routeProvider.when('/home',{
-        templateUrl: 'home.html',
+        templateUrl: 'Home/home.html',
         controller: 'homeController'
     })
     .when('/desktopteste',{
         templateUrl: 'desktop.html',
         controller: 'desktopController'
     })
+
+    .when('/mobileplay',{
+        templateUrl: 'TelaJogoMobile/tela.jogo.html',
+        controller: 'mobilePlayController'
+    })
+
     .when('/mobile',{
         templateUrl: 'mobile.html',
         controller: 'mobileController'
     })
-<<<<<<< HEAD
-    .when('/token',{
-=======
+
     .when('/nick',{
->>>>>>> 587424041ef0733f13a3f104b6f58f28e8b5d6c7
+        templateUrl: 'TelaDeNome/informa.nome.html',
+        controller: 'mobileController'
+    })
+
+    .when('/token',{
         templateUrl: 'TelaDeToken/informa.token.html',
         controller: 'mobileController'
     })
@@ -25,15 +33,12 @@ angular.module('duckHunt').config(function ($routeProvider){
         controller: 'jogoController'
     })
 
-<<<<<<< HEAD
     .when('/nick',{
         templateUrl: '/TelaDeNome/informa.nome.html',
         controller: 'jogoController'
     })
 
     .otherwise('/home')
-=======
     .otherwise('/desktopteste')
 
->>>>>>> 587424041ef0733f13a3f104b6f58f28e8b5d6c7
 });
