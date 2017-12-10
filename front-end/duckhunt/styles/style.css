@@ -15,9 +15,9 @@ body {
 .paragraph {
   color: #fff;
   font-weight: bold;
-  margin-left: 155px;
+  margin-left: 130px;
   letter-spacing: 2px;
-  font-family: 'Arvo', serif;
+  font-family: oitobit;
 }
 
 .rotated {
@@ -56,8 +56,8 @@ body {
   width: 230px;
   height: 200px;
   position: relative;
-  left: -38px;
-  bottom: -20px;
+  left: 10px;
+  bottom: 0px;
 }
 
 .image-token:before {
@@ -112,7 +112,7 @@ body {
 
 .number {
   color: #fff;
-  font-family: 'Arvo', serif;
+  font-family: oitobit;
   font-size: 20px;
 }
 
@@ -304,10 +304,10 @@ background-size: cover;
   position: absolute;
   height: 66px;
   width: 83px;
-  
-  background: url("../Sprites/sprites.png") no-repeat -1404px -3px; 
+
+  background: url("../Sprites/sprites.png") no-repeat -1404px -3px;
   animation: pato-voando 0.5s steps(3) infinite;
-  
+
   transform: translateX(-50%);
   transform: translateY(-50%);
   border: 2px solid white;
@@ -361,8 +361,8 @@ background-size: cover;
 }
 
 @keyframes pato-morrendo{
-  from { background-position: -1655px -7px; } 
-  to { background-position: -1735px -7px; } 
+  from { background-position: -1655px -7px; }
+  to { background-position: -1735px -7px; }
 }
 
 /* Animações de Background */
@@ -402,4 +402,3 @@ background-size: cover;
   50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
   100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
 }
-

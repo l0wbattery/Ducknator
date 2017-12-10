@@ -12,5 +12,9 @@ angular.module('duckHunt').config(function ($routeProvider){
         templateUrl: 'TelaTutorial/telaTutorial.html',
         controller: 'tutorialController'
     })
+    .when('/ducknator'), {
+      templateUrl: 'Home/home.html',
+      controller: 'homeController'
+    }
     .otherwise('/home')
 });

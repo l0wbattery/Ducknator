@@ -17,7 +17,7 @@ body {
   background-image: url('../Sprites/tv.png');
   background-repeat: no-repeat;
   background-size: cover;
-
+  display: inline-block;
 }
 
 .tela-de-jogo{
@@ -189,18 +189,18 @@ p {
     background-position:-652px -22px;
     width: 106px;
 	  height: 100px;
-    } /* Find */
+    }
 	93% {
     background-position:-791px -7px;
     width: 70px;
 	  height: 190px;
-    } /* Jump */
+    } /* Pula */
 	96% {
     background-position:-920px -30px;
     width: 66px;
 	  height: 150px;
   }
-	100% { background-position: 1000px 1000px }/*Hide*/
+	100% { background-position: 1000px 1000px }/*Se esconde*/
 }
 
 .cachorroRindo {
@@ -228,4 +228,22 @@ p {
   0% {top: 500px}
   50% {top: 350px}
   100% {top: 500px}
+}
+
+.leaderborder {
+  font-family: '8bit';
+  width: 19vw;
+  height: 70vh;
+  border: 1px solid #fff;
+  display: inline-block;
+  float: right;
+  position: fixed;
+  top: 5px;
+  color: #fff;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.leaderborder > div {
+  text-align: center;
 }
