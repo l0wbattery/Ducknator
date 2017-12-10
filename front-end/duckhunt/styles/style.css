@@ -301,12 +301,16 @@ background-size: cover;
 }
 
 .tela-tutorial-pato{
-  position: relative; 
-  top: -30%; 
+  position: absolute;
   height: 66px;
   width: 83px;
+  
   background: url("../Sprites/sprites.png") no-repeat -1404px -3px; 
   animation: pato-voando 0.5s steps(3) infinite;
+  
+  transform: translateX(-50%);
+  transform: translateY(-50%);
+  border: 2px solid white;
 }
 
 .tela-tutorial-aviso{ 
@@ -352,5 +356,10 @@ background-size: cover;
 @keyframes pato-voando {
   from { background-position: -1404px -3px; } 
   to { background-position: -1652px -3px; } 
+}
+
+@keyframes pato-morrendo{
+  from { background-position: -1655px -7px; } 
+  to { background-position: -1735px -7px; } 
 }
 
