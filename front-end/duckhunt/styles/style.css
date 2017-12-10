@@ -5,6 +5,7 @@
 body {
   margin: 0;
   padding: 0;
+  background-color: black;
 }
 
 *:active, *:focus {
@@ -83,8 +84,8 @@ body {
 
 /* Usada na tela de tutorial */
 @font-face{
-  font-family: '8bit'; 
-  src: url('../Styles/8-bit-operator-8-bold.ttf'); 
+  font-family: '8bit';
+  src: url('../Styles/8-bit-operator-8-bold.ttf');
 }
 
 .token-text {
@@ -292,57 +293,99 @@ background-size: cover;
 /* Usada na tela de jogo e tutorial */
 .mira{
   position: absolute;
-  background-image: url("../Sprites/misra.png");
+  background-image: url("../Sprites/mira.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 50px;
   width:50px;
 }
 
-.tela-tutorial{
-  width: 100vw;
-  height: 100vh;
-}
-
-.tela-tutorial-fundo{
-  
-  width: 100%;
-  height: 100%;
-  background-color: gray;
-  overflow: hidden;
-}
-
-.tela-tutorial-borda{
-  margin: 5%;
-  border-style: solid;
-  border-color: white;
-  border-width: 2px;
-  height: 90%;
-  width: 90%;
-}
-
 .tela-tutorial-pato{
+  position: relative;
+  top: -30%;
   height: 66px;
-  width: 68px;
-  background: url("../Sprites/sprites.png") no-repeat -1412px -3px;
-  animation: pato-voando 1s steps(3) infinite;
+  width: 83px;
+  background: url("../Sprites/sprites.png") no-repeat -1404px -3px;
+  animation: pato-voando 0.5s steps(3) infinite;
 }
 
-.tela-tutorial-aviso-instrucoes{
+.tela-tutorial-aviso{
+  display:inline-block;
   word-wrap: normal;
+  font-family: '8bit';
+  font-size: 20px;
+  color:  white;
+  min-width: 100px;
+  max-width: 350px;
+
 }
 
-.tela-tutorial-aviso-giroscopio{
-  word-wrap: normal;
+.aviso-instrucoes{
+    position: absolute;
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    display: inline-block;
+    word-wrap: normal;
+    font-family: '8bit';
+    color: yellow;
+    font-size: 25px;
+    min-width: 200px;
+    max-width: 350px;
 }
 
-.tela-tutorial-aviso-som{
-  word-wrap: normal;
+.aviso-giroscopio{
+  position: absolute;
+  right: 7%;
+  bottom: 7%;
+  text-align: right;
+}
+
+.aviso-som{
+  position: absolute;
+  left: 7%;
+  bottom: 7%;
+  text-align: left;
 }
 
 @keyframes pato-voando {
-  0%  { background-position: -1412px -3px; }
-  50%   { background-position: -1495px -3px; }
-  100%    { background-position:  -1575px -3px; }
+  from { background-position: -1404px -3px; }
+  to { background-position: -1652px -3px; }
 }
 
+#snow{
+	background: none;
+	font-family: Androgyne;
+	background-image: url('https://www.idbox-monaco.com/index/IMG/light-point.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index:1;
+	-webkit-animation: snow 10s linear infinite;
+	-moz-animation: snow 15s linear infinite;
+	-ms-animation: snow 10s linear infinite;
+	animation: snow 15s linear infinite;
+}
+@keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}
+@-moz-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 400px 1000px, 200px 400px, 100px 300px;}
+}
+@-webkit-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 300px 1000px, 100px 400px, -100px 300px;}
+}
+@-ms-keyframes snow {
+  0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
+  50% {background-position: 500px 500px, 100px 200px, -100px 150px;}
+  100% {background-position: 500px 1000px, 200px 400px, -100px 300px;}
+}
