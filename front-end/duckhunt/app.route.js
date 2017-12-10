@@ -7,5 +7,10 @@ angular.module('duckHunt').config(function ($routeProvider){
         templateUrl: 'mobile.html',
         controller: 'mobileController'
     })
+
+    .when('/tutorial',{
+        templateUrl: 'TelaTutorial/telaTutorial.html',
+        controller: 'tutorialController'
+    })
     .otherwise('/home')
 });
