@@ -41,27 +41,27 @@ namespace SignalRSelfHost
         {
             aTimer = new Timer();
             aTimer.Elapsed += new ElapsedEventHandler(TrocaPosicaoPatos);
-            aTimer.Interval = 5000;
+            aTimer.Interval = 1000;
             aTimer.Enabled = true;
-            
-            while (miniRoundAtual.getPosicoes() < 4) ;
-            
-             
+         
+              
         }
 
         // Specify what you want to happen when the Elapsed event is raised.
         private void TrocaPosicaoPatos(object source, ElapsedEventArgs e)
         {
-            if (miniRoundAtual.getPosicoes() < 4)
+            if (aux > 3)
             {
-                var t = Task.Run(() => TrocaPosicaoPato1());
-                t.Wait();
-                var u = Task.Run(() => TrocaPosicaoPato2());
-                u.Wait();
-                var v = Task.Run(() => miniRoundAtual.GetNextPosition());
-                v.Wait();
-                this.aux++;
+                aTimer.AutoReset = false;
             }
+            var t = Task.Run(() => TrocaPosicaoPato1());
+            t.Wait();
+            var u = Task.Run(() => TrocaPosicaoPato2());
+            u.Wait();
+            var v = Task.Run(() => miniRoundAtual.GetNextPosition());
+            v.Wait();
+            this.aux++;
+            
             
         }
 

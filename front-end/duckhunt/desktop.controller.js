@@ -26,6 +26,7 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
         $scope.$apply();
     });
     $scope.$on('pato2', function (event, pato2) {
+        $scope.stylewtf3 = "top:" + (pato2.PosicaoY) + "px; left:" + (pato2.PosicaoX) + "px;";
         console.log(pato2);
     });
 
