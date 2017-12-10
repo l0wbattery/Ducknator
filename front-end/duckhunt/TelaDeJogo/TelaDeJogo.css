@@ -1,7 +1,23 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-image: url('../Styles/images/stars-wallpaper.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 @font-face{
-    font-family: '8bit'; 
+    font-family: '8bit';
     src: url('../Styles/8-bit-operator-8-bold.ttf');
-    
+
+}
+
+.televisao {
+  width: 80vw;
+  height: 100vh;
+  background-image: url('../Sprites/tv.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+
 }
 
 .tela-de-jogo{
@@ -9,6 +25,10 @@
     height: 600px;
     border-radius: 10px;
     overflow: hidden;
+    position: relative;
+    top: 40px;
+    left: 55px;
+    z-index: -1;
 }
 
 .mira{
@@ -18,6 +38,7 @@
     background-size: cover;
     height: 50px;
     width:50px;
+    z-index: 1;
 }
 
 .console-informacoes{
@@ -36,12 +57,12 @@
     background-repeat: no-repeat;
     background-size: cover;
     width: 800px;
-    height: 600px;   
+    height: 600px;
 }
 
 .box-numero-round{
     position: absolute;
-    top: 155px;
+    top: 90px;
     left: 80px;
 
     font-family: '8bit';
@@ -50,12 +71,13 @@
     background-color: black;
     width: 100px;
     height: 24px;
-
+    border-radius: 10px;
+    z-index: 1;
 }
 
 .box-municao{
     position: absolute;
-    top: 190px;
+    top: 130px;
     left: 74px;
 
     font-family: '8bit';
@@ -66,8 +88,9 @@
     border-width: 3px;
     border-color: greenyellow;
     border-radius: 10px;
-    width: 150px;
+    width: 140px;
     height: 50px;
+    z-index: 1;
 }
 
 p {
@@ -77,7 +100,7 @@ p {
 
 .box-patos{
     position: absolute;
-    top: 190px;
+    top: 130px;
     left: 247px;
 
     font-family: '8bit';
@@ -91,16 +114,17 @@ p {
 
     width: 300px;
     height: 50px;
+    z-index: 1;
 }
 
 .box-score{
     position: absolute;
-    top: 190px;
+    top: 130px;
     left: 570px;
 
     font-family: '8bit';
     color: white;
-    
+
     background-color: black;
     border-style: solid;
     border-width: 3px;
@@ -108,4 +132,100 @@ p {
     border-radius: 10px;
     width: 150px;
     height: 50px;
+    z-index: 1;
+}
+
+.cachorro {
+	position:absolute;
+	bottom: 85px;
+	z-index:1;
+	background: url('../Sprites/sprites.png') no-repeat;
+	width: 120px;
+	height: 100px;
+}
+
+.cachorro {
+	animation: move 2.8s linear forwards, walk 4s step-start 1 forwards;
+}
+
+
+@keyframes move {
+  from {left:0px;}
+	to {left:250px;}
+}
+
+@keyframes walk {
+	0% { background-position:0px 0px; }
+	3% { background-position:-5px -38px; }
+	6% { background-position:-136px -32px; }
+	9% { background-position:-267px -32px; }
+	/*12% { background-position:0px 0px; }*/
+	15% { background-position:-5px -38px; }
+	18% { background-position:-136px -32px; }
+	21% { background-position:-267px -32px; }
+	/*24% { background-position:0px 0px; }*/
+	27% { background-position:-5px -38px; }
+	30% { background-position:-136px -32px; }
+	33% { background-position:-267px -32px; }
+	/*36% { background-position:0px 0px; }*/
+	39% { background-position:-5px -38px; }
+	42% { background-position:-136px -32px; }
+	45% { background-position:-267px -32px; }
+	/*48% { background-position:0px 0px; }*/
+	51% { background-position:-5px -38px; }
+	54% { background-position:-136px -32px; }
+	57% { background-position:-267px -32px; }
+	/*60% { background-position:0px 0px; }*/
+	63% { background-position:-5px -38px; }
+	66% { background-position:-136px -32px; }
+	69% { background-position:-267px -32px;  } /* Walk */
+
+	72% { background-position:-387px -38px; }  /* Snif  */
+	75% { background-position:-518px -38px;  }
+	78% { background-position:-387px -38px;  }
+	81% { background-position:-518px -38px;  }
+
+	90% {
+    background-position:-652px -22px;
+    width: 106px;
+	  height: 100px;
+    } /* Find */
+	93% {
+    background-position:-791px -7px;
+    width: 70px;
+	  height: 190px;
+    } /* Jump */
+	96% {
+    background-position:-920px -30px;
+    width: 66px;
+	  height: 150px;
+  }
+	100% { background-position: 1000px 1000px }/*Hide*/
+}
+
+.cachorroRindo {
+  position: absolute;
+  width: 58px;
+	height: 78px;
+  top: 500px;
+  left: 200px;
+  background: url('../Sprites/spriteDog.png') no-repeat 1000px 1000px;
+}
+.cachorroRindo{
+  animation: rir .3s steps(1) infinite,
+            aparecer 4s forwards;
+  animation-fill-mode: both;
+  animation-delay: 0s, 5s;
+  transition: opacity 0.00001s ease-in-out;
+}
+@keyframes rir {
+  0% {background-position: -394px -126px}
+  50% {background-position: -514px -126px}
+  100% {background-position: -394px -126px}
+}
+
+@keyframes aparecer {
+  0% {top: 500px}
+  50% {top: 350px}
+  100% {top: 500px}
 }
