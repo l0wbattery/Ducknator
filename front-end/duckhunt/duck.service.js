@@ -6,7 +6,7 @@ function ($, $rootScope) {
         connect: function () {
             var self = this;
 
-            connection = $.hubConnection('http://192.168.0.13:8080/signalr');
+            connection = $.hubConnection('http://192.168.0.100:8080/signalr');
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
                 console.log("Conectado")
@@ -16,6 +16,12 @@ function ($, $rootScope) {
             });
             proxy.on('atirou', function (atirou) {
                 $rootScope.$broadcast('atirou', atirou);
+            });
+            proxy.on('pato1', function (pato1) {
+                $rootScope.$broadcast('pato1', pato1);
+            });
+            proxy.on('pato2', function (pato2) {
+                $rootScope.$broadcast('pato2', pato2);
             });
         },
         isConnecting: function () {
@@ -29,12 +35,17 @@ function ($, $rootScope) {
         },
         sendMessage: function (bolaGamma, bolaAlpha) {
             if(this.isConnected()) {
-                proxy.invoke('SendMessage', bolaGamma, bolaAlpha);
+                proxy.invoke('SendMessage', bolaGamma, bolaAlpha).Result;
             }
         },
         atirar: function (posicaoPatoY,posicaoPatoX){
             if(this.isConnected()){
                 proxy.invoke('Atirar',posicaoPatoY,posicaoPatoX);
+            }
+        },
+        rodaPatosMiniRound: function (){
+            if(this.isConnected()){
+                proxy.invoke('RodaPatosMiniRound').Result;
             }
         },
     }

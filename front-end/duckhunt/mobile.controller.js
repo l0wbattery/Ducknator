@@ -2,6 +2,8 @@ angular.module('duckHunt').controller('mobileController', function ($scope, duck
     var bolaGamma;
     var bolaAlpha;
     let contador = 0;
+    var patoY;
+    var patoX;
     $scope.contador = contador;
     function handleMotionEvent(event) {
         
@@ -14,15 +16,17 @@ angular.module('duckHunt').controller('mobileController', function ($scope, duck
 
     window.addEventListener("devicemotion", handleMotionEvent, true);
 
-    $scope.atirar = function(){
-        scope.contador = contador+1;
-        alert('teste');
-        duckService.atirar(bolaGamma, bolaAlpha);
-    }
+    
+    $scope.$on('pato1', function (event, pato1) {
+        patoY = pato1.PosicaoY;
+        patoX = pato1.PosicaoX;
+        $scope.stylewtf2 = "top:" + (pato1.PosicaoY) + "px; left:" + (pato1.PosicaoX) + "px;";
+        $scope.$apply();
+    });
 
     $scope.conta = function(){
         console.log('clicou');
-        duckService.atirar(300,300);
+        duckService.atirar(patoY,patoX);
     }
 });
 

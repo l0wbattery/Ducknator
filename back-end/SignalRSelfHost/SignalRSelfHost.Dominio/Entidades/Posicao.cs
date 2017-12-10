@@ -19,5 +19,11 @@ namespace SignalRSelfHost.Dominio.Entidades
 
         }
 
+        public Posicao(int x, int y)
+        {
+            PosicaoX = x;
+            PosicaoY = y;
+        }
+
     }
 }
