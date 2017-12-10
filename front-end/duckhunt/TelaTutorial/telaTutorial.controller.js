@@ -28,9 +28,6 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, du
             patoMorto.style.animationTimingFunction = "steps(1)";
             patoMorto.style.animationDuration = "1s";
             patoMorto.style.animationPlayState = "running";
-            //patoMorto.style.backgroundPosition = "-1655px -3px";
-            
-            //patoMorto.style.animationPlayState = "running";
         }
     });
 

@@ -8,26 +8,28 @@ namespace SignalRSelfHost.Dominio.Entidades
 {
     public class Pato
     {
-        public List<Posicao> Posicoes { get; private set; }
+        public List<Posicao> Posicoes = new List<Posicao>();
         public Tipos Tipo { get; private set; }
         public bool Vivo { get; private set; }
-
         public Pato()
         {
-
+            var t = Task.Run(() => geraPosicoesAleatorias());
+            t.Wait();
+            Vivo = true;
         }
 
-        public List<Posicao> GeraLista()
+        private void geraPosicoesAleatorias()
         {
-            List<Posicao> retorno = new List<Posicao>();
-            for (int i = 0; i< 5; i++)
-            {
-                Posicao posicao = new Posicao();
-                retorno.Add(posicao);
-            }
+            Random r = new Random();
+            Random t = new Random();
+            int contador = 0;
 
-            return retorno;
-        } 
+            while (contador <= 5)
+            {
+                Posicoes.Add(new Posicao(r.Next(0, 801), t.Next(0,601)));
+                contador++;
+            }
+        }
 
     }
 }
