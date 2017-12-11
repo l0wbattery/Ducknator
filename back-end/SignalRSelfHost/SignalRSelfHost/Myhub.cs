@@ -106,7 +106,7 @@ namespace SignalRSelfHost
         }
 
         //Método que retorna um token aleatório entre 0 e 8999
-        //public Object GenerateToken()
+        //public Sala GenerateToken()
         //{
         //    Random rand = new Random();
         //    var result = "";

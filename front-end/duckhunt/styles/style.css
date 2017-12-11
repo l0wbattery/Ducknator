@@ -359,12 +359,12 @@ background-size: cover;
 }
 
 @keyframes pato-morrendo{
-  0% { background-position: -1655px -7px; } 
-  100% { background-position: -1735px -7px; } 
+  0% { background-position: -1655px -7px; }
+  100% { background-position: -1735px -7px; }
 }
 
 @keyframes pato-sumindo{
-  0% { opacity: 1; background-position: -1735px -7px;} 
+  0% { opacity: 1; background-position: -1735px -7px;}
   100% { opacity: 0; background-position: -1735px -7px; top: 600px;}
 }
 
@@ -380,10 +380,12 @@ background-size: cover;
 	top: 0;
 	width: 100%;
 	z-index:1;
-	-webkit-animation: snow 10s linear infinite;
-	-moz-animation: snow 15s linear infinite;
-	-ms-animation: snow 10s linear infinite;
-	animation: snow 15s linear infinite;
+  background-repeat: repeat;
+  background-size: 200px 200px;
+	-webkit-animation: snow 30s linear infinite;
+	-moz-animation: snow 55s linear infinite;
+	-ms-animation: snow 30s linear infinite;
+	animation: snow 55s linear infinite;
 }
 @keyframes snow {
   0% {background-position: 0px 0px, 0px 0px, 0px 0px;}

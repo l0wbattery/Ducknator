@@ -91,6 +91,8 @@ body {
     width: 140px;
     height: 50px;
     z-index: 1;
+    padding-left: 5px;
+    padding-top: 10px;
 }
 
 p {
@@ -133,6 +135,10 @@ p {
     width: 150px;
     height: 50px;
     z-index: 1;
+}
+
+.score {
+  text-align: right;
 }
 
 .cachorro {
@@ -246,4 +252,35 @@ p {
 
 .leaderborder > div {
   text-align: center;
+}
+
+.cachorroPato {
+  height: 78px;
+  position: absolute;
+  top: 500px;
+  left: 200px;
+  background: url('../Sprites/sprites.png') no-repeat;
+}
+
+.cachorroMaisUmPato {
+  width: 86px;
+  background-position: -1188px -21px;
+  animation: aparecer 4s forwards;
+}
+
+.cachorroMaisDoisPatos {
+  width: 112px;
+  background-position: -1285px -21px;
+  animation: aparecer 4s forwards;
+  animation-delay: 9s;
+}
+
+.bala {
+  display: inline-block;
+  background: url('../Sprites/sprites.png');
+  background-repeat: repeat-y;
+  background-position: -1415px -89px;
+  width: 20px;
+	height: 20px;
+  margin: -3px;
 }
