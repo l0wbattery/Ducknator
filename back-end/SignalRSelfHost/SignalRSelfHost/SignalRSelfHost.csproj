@@ -108,7 +108,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\SalaController.cs" />
     <Compile Include="Myhub.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,6 +131,10 @@
     <ProjectReference Include="..\SignalRSelfHost.Dominio\SignalRSelfHost.Dominio.csproj">
       <Project>{74E1C93D-17F0-4C42-B376-D3455DE53AEB}</Project>
       <Name>SignalRSelfHost.Dominio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SignalRSelfHost.infra\SignalRSelfHost.infra.csproj">
+      <Project>{44c16be3-9da0-44d3-850d-f2627043c591}</Project>
+      <Name>SignalRSelfHost.infra</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
