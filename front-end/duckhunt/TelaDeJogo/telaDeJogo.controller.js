@@ -1,9 +1,13 @@
 angular.module('duckHunt').controller('jogoController', function ($scope, duckService) {
-    var pontuacao = 1000;
+    var pontuacao = 0;
     var rodada = 1;
     var disparo = 3;
 
-    console.log("TESTSE");
+    function pad(pontuacao) {
+        return (pontuacao < 10) ? ("0" + pontuacao) : pontuacao;
+    }
+
+    console.log("TESTE");
 
     $scope.data = {
         score: pontuacao,

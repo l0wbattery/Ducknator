@@ -1,3 +1,26 @@
+/* ESTILOS DA TELA DE TESTE */
+.quadrado{
+  position: absolute;
+  top: 400px;
+  left: 600px;
+  width: 60px;
+  height: 60px;
+}
+
+.quadrado1{
+  background: cyan;
+}
+
+.quadrado2{
+  background: pink;
+}
+
+.teste{
+  background: red;
+}
+
+
+
 * {
   box-sizing: border-box;
 }

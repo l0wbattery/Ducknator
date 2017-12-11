@@ -27,24 +27,27 @@ namespace SignalRSelfHost
         {
             bool acertou = false;
             tiros++;
-            //variaveis de posicao
-            var yPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
-            var xPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
 
-            var yPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
-            var xPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
-
-            if (Between(yBola, yPato1 - 20, yPato1 + 20) && Between(xBola, xPato1 - 20, xPato1 + 20) && miniRoundAtual.Pato1.Vivo)
+            if (miniRoundAtual != null)
             {
-                miniRoundAtual.Pato1.Vivo = false;
-                acertou = true;
-            }
-            if (Between(yBola, yPato2 - 20, yPato2 + 20) && Between(xBola, xPato2 - 20, xPato2 + 20) && miniRoundAtual.Pato2.Vivo)
-            {
-                miniRoundAtual.Pato2.Vivo = false;
-                acertou = true;
-            }
+                //variaveis de posicao
+                var yPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
+                var xPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
 
+                var yPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
+                var xPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
+
+                if (Between(yBola, yPato1 - 20, yPato1 + 20) && Between(xBola, xPato1 - 20, xPato1 + 20) && miniRoundAtual.Pato1.Vivo)
+                {
+                    miniRoundAtual.Pato1.Vivo = false;
+                    acertou = true;
+                }
+                if (Between(yBola, yPato2 - 20, yPato2 + 20) && Between(xBola, xPato2 - 20, xPato2 + 20) && miniRoundAtual.Pato2.Vivo)
+                {
+                    miniRoundAtual.Pato2.Vivo = false;
+                    acertou = true;
+                }
+            }
 
             Clients.All.atirou(acertou);
         }
@@ -57,8 +60,8 @@ namespace SignalRSelfHost
             aTimer.Elapsed += new ElapsedEventHandler(TrocaPosicaoPatos);
             aTimer.Interval = 5000;
             aTimer.Enabled = true;
-         
-              
+
+
         }
 
         // Specify what you want to happen when the Elapsed event is raised.
@@ -75,8 +78,8 @@ namespace SignalRSelfHost
             var v = Task.Run(() => miniRoundAtual.GetNextPosition());
             v.Wait();
             this.aux++;
-            
-            
+
+
         }
 
         public async void TrocaPosicaoPato1()
@@ -85,7 +88,7 @@ namespace SignalRSelfHost
         }
         public async void TrocaPosicaoPato2()
         {
-             await Clients.All.pato2(miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes()]);
+            await Clients.All.pato2(miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes()]);
         }
 
         //faz validção se um numero se encontra dentro dos limites passados

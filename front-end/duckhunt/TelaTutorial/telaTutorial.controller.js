@@ -1,4 +1,4 @@
-angular.module('duckHunt').controller('tutorialController', function ($scope, duckService) {
+angular.module('duckHunt').controller('tutorialController', function ($scope, $location, duckService) {
 
     $scope.miraX = -400;
     $scope.miraY = -300;
@@ -34,6 +34,7 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, du
     //Realiza a nimação do pato sendo atingido e chama a função para faze-lo "cair";
     function eliminarPato() {
         patoMorto.style.animationName = "pato-morrendo";
+        patoMorto.style.animationPlayState = "running";
         patoMorto.style.animationFillMode = "forwards";
         patoMorto.style.animationIterationCount = "1";
         patoMorto.style.animationTimingFunction = "steps(1)";
@@ -44,27 +45,23 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, du
     //Faz o pato "cair" após ser atingido e inicia função de remoção;
     function tirarPatoDaTela() {
         patoMorto.style.animationName = "pato-sumindo";
+        patoMorto.style.animationPlayState = "running";
         patoMorto.style.animationFillMode = "forwards";
         patoMorto.style.animationIterationCount = "1";
         patoMorto.style.animationTimingFunction = "linear";
         patoMorto.style.animationDuration = "1s";
+        
         patoMorto.addEventListener("animationend", removerDiv);
     }
 
-    //Remove DIV do pato tutorial e inicia o jogo ao fim da animação;
+    //Redireciona para a tela de jogo e chama o inicio da partida;
     function removerDiv() {
-        patoMorto.style.display = "none";
-        patoMorto.addEventListener("animationend", iniciarJogo)
-    }
-
-    //Emvia para o backend o comando para iniciar o jogo;
-    function iniciarJogo() {
-        console.log("iniciando");
+        duckService.rodaPatosMiniRound();
+        $location.path('/jogo');
     }
 
     //Inicia verificação de acerto do pato tutorial ao receber o sinal de tiro vindo do backend;
     $scope.$on('atirou', function (event, acertou) {
-        //console.log(acertou);
         verificaSeAcertouPatoTutorial();
     });
 });

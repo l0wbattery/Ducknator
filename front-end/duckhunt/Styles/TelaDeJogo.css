@@ -47,6 +47,7 @@
 }
 
 .fundo{
+  position: absolute;
     background-image: url("../Sprites/scene.png");
     background-repeat: no-repeat;
     background-size: cover;
@@ -254,6 +255,7 @@ p {
   top: 500px;
   left: 200px;
   background: url('../Sprites/sprites.png') no-repeat;
+  
 }
 
 .cachorroMaisUmPato {
@@ -276,5 +278,5 @@ p {
   background-position: -1415px -89px;
   width: 20px;
 	height: 20px;
-  margin: -3px;
+  margin: -4px;
 }
