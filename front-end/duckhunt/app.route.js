@@ -1,10 +1,11 @@
 angular.module('duckHunt').config(function ($routeProvider){
     $routeProvider.when('/home',{
-        controller: 'desktopController',
-        templateUrl: 'desktop.html'
+        templateUrl: 'Teste/desktop.html',
+        controller: 'desktopController'
+
     })
     .when('/mobile',{
-        templateUrl: 'mobile.html',
+        templateUrl: 'TelaJogoMobile/mobile.html',
         controller: 'mobileController'
     })
 
@@ -16,5 +17,18 @@ angular.module('duckHunt').config(function ($routeProvider){
       templateUrl: 'Home/home.html',
       controller: 'homeController'
     })
+    .when('/jogo', {
+      templateUrl: 'TelaDeJogo/telaDeJogo.html',
+      controller: 'jogoController'
+    })
+    .when('/nick', {
+      templateUrl: 'TelaDeNome/informa.nome.html',
+      controller: 'nickController'
+    })
+    .when('/token', {
+      templateUrl: 'TelaDeToken/informa.token.html',
+      controller: 'tokenController'
+    })
+
     .otherwise('/home')
 });
