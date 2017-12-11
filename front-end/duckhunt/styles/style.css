@@ -7,19 +7,19 @@
   height: 60px;
 }
 
-.quadrado1{
+.quad1{
   background: cyan;
+  transition: 1s;
 }
 
-.quadrado2{
+.quad2{
   background: pink;
+  transition: 1s;
 }
 
 .teste{
   background: red;
 }
-
-
 
 * {
   box-sizing: border-box;
@@ -398,7 +398,7 @@ background-size: cover;
 }
 
 @keyframes pato-sumindo{
-  0% { opacity: 1; background-position: -1735px -7px;}
+  0% { opacity: 1; background-position: -1735px -7px; }
   100% { opacity: 0; background-position: -1735px -7px; top: 600px;}
 }
 

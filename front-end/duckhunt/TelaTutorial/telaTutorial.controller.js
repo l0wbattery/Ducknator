@@ -34,7 +34,6 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
     //Realiza a nimação do pato sendo atingido e chama a função para faze-lo "cair";
     function eliminarPato() {
         patoMorto.style.animationName = "pato-morrendo";
-        patoMorto.style.animationPlayState = "running";
         patoMorto.style.animationFillMode = "forwards";
         patoMorto.style.animationIterationCount = "1";
         patoMorto.style.animationTimingFunction = "steps(1)";
@@ -45,9 +44,9 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
     //Faz o pato "cair" após ser atingido e inicia função de remoção;
     function tirarPatoDaTela() {
         patoMorto.style.animationName = "pato-sumindo";
-        patoMorto.style.animationPlayState = "running";
         patoMorto.style.animationFillMode = "forwards";
-        patoMorto.style.animationIterationCount = "1";
+        //patoMorto.style.animationIterationCount = "1";
+        patoMorto.style.transitionDuration = "1s";
         patoMorto.style.animationTimingFunction = "linear";
         patoMorto.style.animationDuration = "1s";
         
