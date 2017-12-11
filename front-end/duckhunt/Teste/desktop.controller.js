@@ -2,6 +2,8 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
                 
     $scope.bolaGamma = -300;
     $scope.bolaAlpha = -300;
+    $scope.isPato1Vivo = true;
+    $scope.isPato2Vivo = true;
 
     $scope.quadradoGamma = 300;
     $scope.quadradoAlpha = 300;
@@ -33,16 +35,28 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
         $scope.$apply();
     });
     $scope.$on('pato2', function (event, pato2) {
-        $scope.estiloQuadrado2 = "top:" + (pato2.PosicaoY) + "px; left:" + (pato2.PosicaoX) + "px;";
-        //console.log(pato2);
+        $scope.stylewtf3 = "top:" + (pato2.PosicaoY) + "px; left:" + (pato2.PosicaoX) + "px;";
+        console.log(pato2);
+        $scope.$apply();
     });
 
     $scope.rodaRound = function(){
         duckService.rodaPatosMiniRound();
     }
 
+    $scope.$on('pato1vivo',function(event,morto1){
+        $scope.isPato1Vivo = morto1;
+        $scope.$apply();
+    });
 
+    $scope.$on('pato2vivo',function(event,morto2){
+        $scope.isPato2Vivo = morto2;
+        $scope.$apply();
+    });
 
+    $scope.$on('pontuacao',function(event,pontuacao){
+        console.log(pontuacao);
+    });
     
 });
 

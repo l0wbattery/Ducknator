@@ -17,13 +17,13 @@ namespace SignalRSelfHost.Dominio.Entidades
             var t = Task.Run(() => geraPosicoesAleatorias());
             t.Wait();
             Vivo = true;
+            Tipo = Tipos.COMUM;
         }
 
         private void geraPosicoesAleatorias()
         {
             
             int contador = 0;
-
             while (contador <= 5)
             {
                 Posicoes.Add(new Posicao(r.Next(0, 801), r.Next(0,601)));
