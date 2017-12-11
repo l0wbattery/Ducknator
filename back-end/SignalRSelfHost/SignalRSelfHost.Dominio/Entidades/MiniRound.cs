@@ -14,7 +14,11 @@ namespace SignalRSelfHost.Dominio.Entidades
 
         public void GetNextPosition()
         {
-            Posicoes++;
+            if (Posicoes < Pato1.Posicoes.Count)
+            {
+                Posicoes++;
+            }
+            
         }
         public int getPosicoes()
         {

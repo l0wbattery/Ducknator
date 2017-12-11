@@ -10,11 +10,12 @@ namespace SignalRSelfHost
     [HubName("HubMessage")]
     public class MyHub : Hub
     {
-        private int aux = 0;
         private static int tiros = 0;
         private static int yBola = 300;
         private static int xBola = 300;
+        public static Round RoundAtual { get; private set; }
         public static MiniRound miniRoundAtual { get; private set; }
+        public static int PontuacaoTotal = 0;
         public static Timer aTimer { get; private set; }
         public async void SendMessage(double bolaGamma, double bolaAlpha)
         {
@@ -28,64 +29,89 @@ namespace SignalRSelfHost
             bool acertou = false;
             tiros++;
             //variaveis de posicao
-            var yPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
-            var xPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
+            var yPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes()].PosicaoY;
+            var xPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes()].PosicaoX;
 
-            var yPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
-            var xPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
-
+            var yPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes()].PosicaoY;
+            var xPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes()].PosicaoX;
+            //arrumar duplicação de codigo, usar metodo para atualizar.....
+            //se der tempo, é claro
             if (Between(yBola, yPato1 - 20, yPato1 + 20) && Between(xBola, xPato1 - 20, xPato1 + 20) && miniRoundAtual.Pato1.Vivo)
             {
                 miniRoundAtual.Pato1.Vivo = false;
                 acertou = true;
+                Clients.All.pato1vivo(false);
+                RoundAtual.Pontuacao += 1500;
+                
             }
             if (Between(yBola, yPato2 - 20, yPato2 + 20) && Between(xBola, xPato2 - 20, xPato2 + 20) && miniRoundAtual.Pato2.Vivo)
             {
                 miniRoundAtual.Pato2.Vivo = false;
                 acertou = true;
+                Clients.All.pato2vivo(false);
+                RoundAtual.Pontuacao += 1500;
+                RoundAtual.QntdPatosMortos += 1;
             }
 
 
             Clients.All.atirou(acertou);
         }
 
-
-        public void RodaPatosMiniRound()
+        public void RodaRound()
         {
-            miniRoundAtual = new MiniRound();
+            RoundAtual = new Round();
+
+            for(int i = 0; i < RoundAtual.MiniRounds.Count; i++)
+            {
+                RodaPatosMiniRound(i);
+            }
+            PontuacaoTotal = RoundAtual.Pontuacao;
+            Clients.All.pontuacao(PontuacaoTotal);
+        }
+
+        public void RodaPatosMiniRound(int i)
+        {
+            miniRoundAtual = RoundAtual.MiniRounds[i];
             aTimer = new Timer();
             aTimer.Elapsed += new ElapsedEventHandler(TrocaPosicaoPatos);
-            aTimer.Interval = 5000;
+            aTimer.Interval = 1000;
             aTimer.Enabled = true;
-         
-              
+            while (miniRoundAtual.getPosicoes() < 5) ;
+            aTimer.Close();
+            
         }
 
         // Specify what you want to happen when the Elapsed event is raised.
         private void TrocaPosicaoPatos(object source, ElapsedEventArgs e)
         {
-            if (aux > 3)
-            {
-                aTimer.AutoReset = false;
-            }
+            var v = Task.Run(() => miniRoundAtual.GetNextPosition());
+            v.Wait();
             var t = Task.Run(() => TrocaPosicaoPato1());
             t.Wait();
             var u = Task.Run(() => TrocaPosicaoPato2());
             u.Wait();
-            var v = Task.Run(() => miniRoundAtual.GetNextPosition());
-            v.Wait();
-            this.aux++;
-            
-            
         }
 
         public async void TrocaPosicaoPato1()
         {
-            await Clients.All.pato1(miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes()]);
+            if (miniRoundAtual.Pato1.Vivo)
+            {
+                await Clients.All.pato1(miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes()]);
+                await Clients.All.pato1vivo(true);
+            }
+            else
+                await Clients.All.pato1vivo(false);
+            
         }
         public async void TrocaPosicaoPato2()
         {
-             await Clients.All.pato2(miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes()]);
+            if (miniRoundAtual.Pato2.Vivo)
+            {
+                await Clients.All.pato2(miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes()]);
+                await Clients.All.pato2vivo(true);
+            }
+            else
+                await Clients.All.pato2vivo(false);
         }
 
         //faz validção se um numero se encontra dentro dos limites passados
