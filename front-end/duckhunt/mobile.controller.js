@@ -26,7 +26,7 @@ angular.module('duckHunt').controller('mobileController', function ($scope, duck
 
     $scope.conta = function(){
         console.log('clicou');
-        duckService.atirar(patoY,patoX);
+        duckService.atirar();
     }
 });
 

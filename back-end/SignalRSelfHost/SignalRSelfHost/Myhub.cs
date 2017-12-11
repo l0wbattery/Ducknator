@@ -14,7 +14,7 @@ namespace SignalRSelfHost
         private static int tiros = 0;
         private static int yBola = 300;
         private static int xBola = 300;
-        public MiniRound miniRoundAtual = new MiniRound();
+        public static MiniRound miniRoundAtual { get; private set; }
         public static Timer aTimer { get; private set; }
         public async void SendMessage(double bolaGamma, double bolaAlpha)
         {
@@ -23,25 +23,39 @@ namespace SignalRSelfHost
             LimitaMovimentoDaMira();
             await Clients.All.messageAdded(xBola, yBola, tiros);
         }
-        public async void Atirar(int posicaoPatoY, int posicaoPatoX)
+        public void Atirar()
         {
             bool acertou = false;
             tiros++;
-            if (Between(yBola, posicaoPatoY - 20,
-                posicaoPatoY + 20) &&
-                Between(xBola, posicaoPatoX - 20,
-                posicaoPatoX + 20))
-                acertou = true;
+            //variaveis de posicao
+            var yPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
+            var xPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
 
-            await Clients.All.atirou(acertou);
+            var yPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
+            var xPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
+
+            if (Between(yBola, yPato1 - 20, yPato1 + 20) && Between(xBola, xPato1 - 20, xPato1 + 20) && miniRoundAtual.Pato1.Vivo)
+            {
+                miniRoundAtual.Pato1.Vivo = false;
+                acertou = true;
+            }
+            if (Between(yBola, yPato2 - 20, yPato2 + 20) && Between(xBola, xPato2 - 20, xPato2 + 20) && miniRoundAtual.Pato2.Vivo)
+            {
+                miniRoundAtual.Pato2.Vivo = false;
+                acertou = true;
+            }
+
+
+            Clients.All.atirou(acertou);
         }
 
 
         public void RodaPatosMiniRound()
         {
+            miniRoundAtual = new MiniRound();
             aTimer = new Timer();
             aTimer.Elapsed += new ElapsedEventHandler(TrocaPosicaoPatos);
-            aTimer.Interval = 1000;
+            aTimer.Interval = 5000;
             aTimer.Enabled = true;
          
               

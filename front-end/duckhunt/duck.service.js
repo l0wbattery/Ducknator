@@ -39,9 +39,9 @@ function ($, $rootScope) {
                 proxy.invoke('SendMessage', bolaGamma, bolaAlpha).Result;
             }
         },
-        atirar: function (posicaoPatoY,posicaoPatoX){
+        atirar: function (){
             if(this.isConnected()){
-                proxy.invoke('Atirar',posicaoPatoY,posicaoPatoX);
+                proxy.invoke('Atirar');
             }
         },
         rodaPatosMiniRound: function (){
