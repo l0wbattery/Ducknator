@@ -5,7 +5,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: black;
+  background-color: #000;
 }
 
 *:active, *:focus {
@@ -307,10 +307,8 @@ background-size: cover;
 
   background: url("../Sprites/sprites.png") no-repeat -1404px -3px;
   animation: pato-voando 0.5s steps(3) infinite;
-
   transform: translateX(-50%);
   transform: translateY(-50%);
-  border: 2px solid white;
 }
 
 .tela-tutorial-aviso{
@@ -361,8 +359,13 @@ background-size: cover;
 }
 
 @keyframes pato-morrendo{
-  from { background-position: -1655px -7px; }
-  to { background-position: -1735px -7px; }
+  0% { background-position: -1655px -7px; } 
+  100% { background-position: -1735px -7px; } 
+}
+
+@keyframes pato-sumindo{
+  0% { opacity: 1; background-position: -1735px -7px;} 
+  100% { opacity: 0; background-position: -1735px -7px; top: 600px;}
 }
 
 /* Animações de Background */
