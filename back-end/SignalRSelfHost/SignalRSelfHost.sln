@@ -1,13 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRSelfHost", "SignalRSelfHost\SignalRSelfHost.csproj", "{F53A9A09-F7FA-4240-ACD6-5A906A94D962}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRSelfHost.Dominio", "SignalRSelfHost.Dominio\SignalRSelfHost.Dominio.csproj", "{74E1C93D-17F0-4C42-B376-D3455DE53AEB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{1302C9E5-DC2D-46F3-88C7-A6089B03C74B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRSelfHost.infra", "SignalRSelfHost.infra\SignalRSelfHost.infra.csproj", "{44C16BE3-9DA0-44D3-850D-F2627043C591}"
 EndProject
@@ -15,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		SignalRSelfHost\UnityConfig.cs = SignalRSelfHost\UnityConfig.cs
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SignalRSelfHost.Dominio", "SignalRSelfHost.Dominio\SignalRSelfHost.Dominio.csproj", "{DB2D56D7-A1D8-4A86-9D1B-C11586B65A6D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,18 +24,14 @@ Global
 		{F53A9A09-F7FA-4240-ACD6-5A906A94D962}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F53A9A09-F7FA-4240-ACD6-5A906A94D962}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F53A9A09-F7FA-4240-ACD6-5A906A94D962}.Release|Any CPU.Build.0 = Release|Any CPU
-		{74E1C93D-17F0-4C42-B376-D3455DE53AEB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{74E1C93D-17F0-4C42-B376-D3455DE53AEB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{74E1C93D-17F0-4C42-B376-D3455DE53AEB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{74E1C93D-17F0-4C42-B376-D3455DE53AEB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1302C9E5-DC2D-46F3-88C7-A6089B03C74B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1302C9E5-DC2D-46F3-88C7-A6089B03C74B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1302C9E5-DC2D-46F3-88C7-A6089B03C74B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1302C9E5-DC2D-46F3-88C7-A6089B03C74B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{44C16BE3-9DA0-44D3-850D-F2627043C591}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{44C16BE3-9DA0-44D3-850D-F2627043C591}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44C16BE3-9DA0-44D3-850D-F2627043C591}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44C16BE3-9DA0-44D3-850D-F2627043C591}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB2D56D7-A1D8-4A86-9D1B-C11586B65A6D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB2D56D7-A1D8-4A86-9D1B-C11586B65A6D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB2D56D7-A1D8-4A86-9D1B-C11586B65A6D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB2D56D7-A1D8-4A86-9D1B-C11586B65A6D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

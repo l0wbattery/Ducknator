@@ -129,7 +129,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SignalRSelfHost.Dominio\SignalRSelfHost.Dominio.csproj">
-      <Project>{74E1C93D-17F0-4C42-B376-D3455DE53AEB}</Project>
+      <Project>{db2d56d7-a1d8-4a86-9d1b-c11586b65a6d}</Project>
       <Name>SignalRSelfHost.Dominio</Name>
     </ProjectReference>
     <ProjectReference Include="..\SignalRSelfHost.infra\SignalRSelfHost.infra.csproj">
