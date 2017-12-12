@@ -10,8 +10,7 @@ angular.module('duckHunt').controller('mobileController', function ($scope, duck
         bolaGamma = event.rotationRate.gamma;
         bolaAlpha = event.rotationRate.alpha;
 
-        duckService.sendMessage(bolaGamma, bolaAlpha);
-        
+        duckService.sendMessage(bolaGamma, bolaAlpha,duckService.token);
     }
 
     window.addEventListener("devicemotion", handleMotionEvent, true);
@@ -26,7 +25,7 @@ angular.module('duckHunt').controller('mobileController', function ($scope, duck
 
     $scope.conta = function(){
         console.log('clicou');
-        duckService.atirar();
+        duckService.atirar(duckService.token);
     }
 });
 

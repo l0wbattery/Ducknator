@@ -19,6 +19,7 @@ namespace SignalRSelfHost
         public static Round RoundAtual { get; private set; }
         public static MiniRound miniRoundAtual { get; private set; }
         public static int PontuacaoTotal = 0;
+        public static List<Sala> Salas = new List<Sala>();
         public static Timer aTimer { get; private set; }
 
         private IDuckhunterContext context = new DuckhunterContext();
@@ -29,23 +30,21 @@ namespace SignalRSelfHost
             return base.OnConnected();
         }
 
-        public void AfterConnected()
+        public void SendMessage(double bolaGamma, double bolaAlpha, string token)
         {
-            // if(stuff) -- whatever if/else first user/last user logic
-            // {
-            Clients.Caller.hello("message");
-             // }
-        }
+            if (token == null)
+                return;
 
-        public async void SendMessage(double bolaGamma, double bolaAlpha)
-        {
-            xBola = xBola + ((int)Math.Round(bolaGamma * 10) * -1);
-            yBola = yBola + ((int)Math.Round(bolaAlpha * 10) * -1);
+            xBola = xBola + ((int)Math.Round(bolaGamma * 30) * -1);
+            yBola = yBola + ((int)Math.Round(bolaAlpha * 30) * -1);
             LimitaMovimentoDaMira();
-            await Clients.All.messageAdded(xBola, yBola, tiros);
+            Clients.Group(token).messageAdded(xBola, yBola, tiros);
+            
         }
-        public void Atirar()
+        public void Atirar(string token)
         {
+            if (token == null)
+                return;
             bool acertou = false;
             tiros++;
 
@@ -70,14 +69,14 @@ namespace SignalRSelfHost
                 }
             }
 
-            Clients.All.atirou(acertou);
+            Clients.Group(token).atirou(acertou);
         }
 
         public void RodaRound()
         {
             RoundAtual = new Round();
 
-            for(int i = 0; i < RoundAtual.MiniRounds.Count; i++)
+            for (int i = 0; i < RoundAtual.MiniRounds.Count; i++)
             {
                 RodaPatosMiniRound(i);
             }
@@ -94,7 +93,7 @@ namespace SignalRSelfHost
             aTimer.Enabled = true;
             while (miniRoundAtual.getPosicoes() < 5) ;
             aTimer.Close();
-            
+
         }
 
         // Specify what you want to happen when the Elapsed event is raised.
@@ -117,7 +116,7 @@ namespace SignalRSelfHost
             }
             else
                 await Clients.All.pato1vivo(false);
-            
+
         }
         public async void TrocaPosicaoPato2()
         {
@@ -146,48 +145,28 @@ namespace SignalRSelfHost
             if (xBola < 0) xBola = 0;
             if (yBola < 0) yBola = 0;
         }
+        public Task EnviaToken(String token)
+        {
+            
+            if (Salas.Where(x => x.Token == token).FirstOrDefault() != null )
+            {
+                //editar lista q já existe. seila como
+                Clients.Caller.redirectMobile(true);
+                return Groups.Add(Context.ConnectionId, token.ToString());
+            }
+            return null;
+        }
 
         //Método que retorna um token aleatório entre 0 e 8999
-        public Sala GenerateToken()
+        public Task GenerateToken()
         {
             Random rand = new Random();
             var result = "";
-            List<Sala> salas = context.Salas.Where(x => x.NumeroUsuarios == 1 || x.NumeroUsuarios == 2).ToList();
-            while (salas.Any(x => x.Token == Int32.Parse(result)))                
-            {
-                result = rand.Next(8999).ToString().PadLeft(4, '0');
-            }
-
-            //Cria uma sala para a pessoa
-            Sala sala = new Sala(Int32.Parse(result));
-
-            context.Salas.Add(sala);
-            context.SaveChanges();
-            Clients.All.token(Int32.Parse(result));
-            return sala;
+            result = rand.Next(8999).ToString().PadLeft(4, '0');
+            Clients.All.token(result);
+            Salas.Add(new Sala(result, Context.ConnectionId));
+            return Groups.Add(Context.ConnectionId, result);
         }
-
-        //Método que recebe o token da pessoa e conecta ela em uma sala
-        public Sala ReceberTokenENome(int token, String nome)
-        {
-            //faz um get nas salas livres(com 1 conexao)
-            List<Sala> salasLivres = context.Salas.Where(x => x.NumeroUsuarios == 1).ToList();
-            //verificar se o token recebido é igual ao token de alguma
-
-            var sala = salasLivres.FirstOrDefault(x => x.Token.Equals(token));
-
-            if (sala == null)
-            {
-                return null;
-            }
-
-            sala.Update(nome);
-            context.SaveChanges();
-
-            return sala;
-        }
-
-       
 
     }
 }

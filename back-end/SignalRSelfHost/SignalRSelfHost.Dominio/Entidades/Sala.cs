@@ -8,50 +8,33 @@ namespace SignalRSelfHost.Dominio.Entidades
 {
     public class Sala
     {
-        public int Id { get; private set; }
-        public int Token { get; private set; }
+        public String Token { get; private set; }
         public String NomeUsuario { get; private set; }
-        public DateTime Data { get; private set; }
+        public List<String> IdsUsuarios { get; private set; }
         public int Pontos { get; private set; }
         public int Nivel { get; private set; }
-        public int NumeroUsuarios { get; private set; }
-        public bool isAtiva { get; private set; }
+        public MiniRound MiniRoundAtual { get; private set; }
+        public Round RoundAtual { get; private set; }
 
-        public Sala()
+        public void NextRound()
         {
-
+            RoundAtual = new Round();
+        }
+        public void NextMiniRound()
+        {
+            RoundAtual.NextMiniRound();
+            MiniRoundAtual = RoundAtual.MiniRounds[RoundAtual.MiniRoundIterator-1];
         }
 
-        public Sala(int token)
+        public Sala(String token, String id)
         {
-            this.Nivel = 1;
-            this.Pontos = 0;
-            this.Data = DateTime.Now;
-            this.NomeUsuario = "Nickname";
-            this.Token = Token;
-            this.NumeroUsuarios = 1;
-            this.isAtiva = true;
+            Token = token;
+            IdsUsuarios = new List<String>();
+            IdsUsuarios.Add(id);
+            Pontos = 0;
+            Nivel = 0;
+            RoundAtual = new Round();
         }
-
-        public void Update(String nome)
-        {
-            this.NomeUsuario = nome;
-            this.NumeroUsuarios += 1;
-        }
-
-        public void LevelUp()
-        {
-            this.Nivel += 1;
-        }
-
-        public void Matei(int pontos)
-        {
-            this.Pontos += pontos;
-        }
-
-        public void ConexaoEncerrada()
-        {
-            this.isAtiva = false;
-        }
+        
     }
 }

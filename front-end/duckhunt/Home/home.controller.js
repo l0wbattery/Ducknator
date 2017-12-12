@@ -1,13 +1,16 @@
 angular.module('duckHunt').controller('homeController', function ($scope,duckService) {
 
-  
-
   $scope.$on('token',function(event,token){
-    console.log('teste on');
+    console.log(token);
+    duckService.token = token;
     $scope.token = token;
     $scope.$apply();
   });
 
-  duckService.generateToken();
+  $scope.$on('isConnect',function(event,isConnect){
+    if(isConnect){
+      duckService.generateToken();
+    }
+  }); 
 
 });

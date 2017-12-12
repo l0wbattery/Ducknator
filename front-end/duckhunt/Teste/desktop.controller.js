@@ -7,20 +7,14 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
 
     $scope.quadradoGamma = 300;
     $scope.quadradoAlpha = 300;
-
-    var posX = 100;
-    var posY = 100;
-
-    $scope.estiloQuadrado1 = "top:" + ($scope.quadradoGamma) + "px; left:" + ($scope.quadradoAlpha) + "px;";
+    $scope.stylewtf2 = "top:" + ($scope.quadradoGamma) + "px; left:" + ($scope.quadradoAlpha) + "px;";
     //Recebe mensagens do servidor
     $scope.$on('messageAdded', function (event, gamma, alpha, tiros) {
         $scope.tiros = tiros;
         $scope.bolaGamma = gamma;
         $scope.bolaAlpha = alpha;
-
         
-        
-        $scope.mira = "top:" + ($scope.bolaAlpha) + "px; left:" + ($scope.bolaGamma) + "px;";
+        $scope.stylewtf = "top:" + ($scope.bolaAlpha) + "px; left:" + ($scope.bolaGamma) + "px;";
         $scope.$apply();
     });
 
@@ -29,9 +23,8 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
     });
 
     $scope.$on('pato1', function (event, pato1) {
-        //console.log(pato1);
-        $scope.estiloQuadrado1 = "top:" + (pato1.PosicaoY) + "px; left:" + (pato1.PosicaoX) + "px;";
-
+        console.log(pato1);
+        $scope.stylewtf2 = "top:" + (pato1.PosicaoY) + "px; left:" + (pato1.PosicaoX) + "px;";
         $scope.$apply();
     });
     $scope.$on('pato2', function (event, pato2) {

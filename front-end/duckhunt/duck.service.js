@@ -1,5 +1,6 @@
 angular.module('duckHunt').factory('duckService', ['$', '$rootScope',
 function ($, $rootScope) {
+    var token;
     var proxy;
     var connection;
     return {
@@ -39,6 +40,9 @@ function ($, $rootScope) {
             proxy.on('isConnect', function (isConnect) {
                 $rootScope.$broadcast('isConnect', isConnect);
             });
+            proxy.on('redirectMobile', function (redirectMobile) {
+                $rootScope.$broadcast('redirectMobile', redirectMobile);
+            });
         },
         isConnecting: function () {
             return connection.state === 0;
@@ -49,14 +53,14 @@ function ($, $rootScope) {
         connectionState: function () {
             return connection.state;
         },
-        sendMessage: function (bolaGamma, bolaAlpha) {
+        sendMessage: function (bolaGamma, bolaAlpha,token) {
             if(this.isConnected()) {
-                proxy.invoke('SendMessage', bolaGamma, bolaAlpha).Result;
+                proxy.invoke('SendMessage', bolaGamma, bolaAlpha,token).Result;
             }
         },
-        atirar: function (){
+        atirar: function (token){
             if(this.isConnected()){
-                proxy.invoke('Atirar');
+                proxy.invoke('Atirar',token);
             }
         },
         rodaPatosMiniRound: function (){
@@ -67,6 +71,11 @@ function ($, $rootScope) {
         generateToken: function (){
             if(this.isConnected()){
                 proxy.invoke('GenerateToken');
+            }
+        },
+        enviaToken: function (token){
+            if(this.isConnected()){
+                proxy.invoke('EnviaToken',token);
             }
         },
     }
