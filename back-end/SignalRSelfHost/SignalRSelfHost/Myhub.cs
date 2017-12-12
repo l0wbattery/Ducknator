@@ -22,7 +22,17 @@ namespace SignalRSelfHost
         public static List<Sala> Salas = new List<Sala>();
         public static Timer aTimer { get; private set; }
 
-        private IDuckhunterContext context = new DuckhunterContext();
+        private IDuckhunterContext context;
+
+        public MyHub(IDuckhunterContext context) : base()
+        {
+            this.context = context;
+        }
+
+        public MyHub() : base()
+        {
+
+        }
 
         public override Task OnConnected()
         {
@@ -103,8 +113,6 @@ namespace SignalRSelfHost
             v.Wait();
             var t = Task.Run(() => TrocaPosicaoPato1());
             t.Wait();
-            var u = Task.Run(() => TrocaPosicaoPato2());
-            u.Wait();
         }
 
         public async void TrocaPosicaoPato1()
@@ -115,27 +123,16 @@ namespace SignalRSelfHost
                 await Clients.All.pato1vivo(true);
             }
             //ideia para diminuir o codigo
-            //if(miniRoundAtual.Pato2.Vivo)
-            //{
-            //    await Clients.All.pato2(miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes()]);
-            //    await Clients.All.pato2vivo(true);
-            //}
-            else
-                await Clients.All.pato1vivo(false);
-
-        }
-        public async void TrocaPosicaoPato2()
-        {
             if (miniRoundAtual.Pato2.Vivo)
             {
                 await Clients.All.pato2(miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes()]);
                 await Clients.All.pato2vivo(true);
             }
             else
-                await Clients.All.pato2vivo(false);
-        }
+                await Clients.All.pato1vivo(false);
 
-        
+        }
+  
 
         //faz validção se um numero se encontra dentro dos limites passados
         public bool Between(int num, int lower, int upper, bool inclusive = false)
@@ -155,14 +152,19 @@ namespace SignalRSelfHost
         }
         public Task EnviaToken(String token)
         {
-            
-            if (Salas.Where(x => x.Token == token).FirstOrDefault() != null )
-            {
-                //editar lista q já existe
-                Clients.Caller.redirectMobile(true);
-                return Groups.Add(Context.ConnectionId, token.ToString());
-            }
-            return null;
+            var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
+            if (sala == null)
+                return null;
+            var index = Salas.IndexOf(sala);
+
+            Salas[index].IdsUsuarios.Add(Context.ConnectionId);
+            //editar lista q já existe
+            var v = Task.Run(() => Clients.Caller.redirectMobile(true));
+            v.Wait();
+            var t = Task.Run(() => Clients.OthersInGroup(token).redirectNome(true));
+            t.Wait();
+
+            return Groups.Add(Context.ConnectionId, token.ToString());
         }
 
         //Método que retorna um token aleatório entre 0 e 8999
@@ -174,6 +176,20 @@ namespace SignalRSelfHost
             Clients.All.token(result);
             Salas.Add(new Sala(result, Context.ConnectionId));
             return Groups.Add(Context.ConnectionId, result);
+        }
+
+        public void EnviaNick(String nick, String token)
+        {
+            var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
+            if (sala == null)
+                return;
+            if (nick == null)
+                nick = "";
+
+            var index = Salas.IndexOf(sala);
+            Salas[index].NomeUsuario = nick;
+            Clients.Caller.redirectGame(true);
+
         }
 
         public void SalvaPartida(String nome, int pontos, int nivel)

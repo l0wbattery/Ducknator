@@ -1,4 +1,4 @@
-angular.module('duckHunt').controller('homeController', function ($scope,duckService) {
+angular.module('duckHunt').controller('homeController', function ($scope,duckService,$location) {
 
   $scope.$on('token',function(event,token){
     console.log(token);
@@ -11,6 +11,13 @@ angular.module('duckHunt').controller('homeController', function ($scope,duckSer
     if(isConnect){
       duckService.generateToken();
     }
+  }); 
+  $scope.$on('redirectNome',function(event,redirectNome){
+    if(redirectNome){
+      $location.path('/nick');
+      $scope.$apply();
+    }
+    
   }); 
 
 });
