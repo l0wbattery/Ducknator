@@ -67,12 +67,16 @@ namespace SignalRSelfHost
                 {
                     var yPato = pato.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
                     var xPato = pato.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
-                    if (Between(yBola, yPato - 20, yPato + 20) && Between(xBola, xPato - 20, xPato + 20) && miniRoundAtual.Pato1.Vivo)
+                    
+                    foreach(Pato patoAlvo in miniRoundAtual.Patos)
                     {
-                        miniRoundAtual.Patos[count].Vivo = false;
-                        acertou = true;
+                        if (Between(yBola, yPato - 20, yPato + 20) && Between(xBola, xPato - 20, xPato + 20) && patoAlvo.Vivo)
+                        {
+                            miniRoundAtual.Patos[count].Vivo = false;
+                            acertou = true;
+                        }
+                        count++;
                     }
-                    count++;
                 }
                 //variaveis de posicao
             }

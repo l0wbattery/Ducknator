@@ -8,14 +8,16 @@
                     <span class="cachorroMaisUmPato cachorroPato"></span>
                     <span class="cachorroMaisDoisPatos cachorroPato"></span>
 
-
-                    <div class="pato" id="pato1"></div>
-
-                    <div class="pato" id="pato2"></div>
+                    <div class="pato" 
+                        ng-class="{'pato-voando':pato1.vivo == true, 'pato-morrendo': pato1.vivo == false}" 
+                        id="pato1">
+                    </div>
+                    <div class="pato" 
+                        ng-class="{'pato-voando':pato2.vivo == true, 'pato-morrendo': pato2.vivo == false}" 
+                        id="pato2">
+                    </div>
 
                     <div class="mira" style="{{mira}}" id="mira"></div>
-
-
 
                     <div class="console-informacoes">
                         <div class="box-numero-round">
@@ -23,6 +25,7 @@
                                 <span>{{data.round}}</span>
                             </p>
                         </div>
+                        <!-- TODO transformar num NG-REPEAT -->
                         <div class="box-municao">
                             <div class="bala"></div>
                             <div class="bala"></div>

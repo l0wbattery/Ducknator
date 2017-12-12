@@ -1,12 +1,17 @@
-.pato{
+  .pato{
     position: absolute;
     height: 66px;
     width: 83px;
-    transition: 2s;
     background: url("../Sprites/sprites.png") no-repeat -1404px -3px;
-    animation: pato-voando 0.5s steps(3) infinite;
     transform: translateX(-50%);
     transform: translateY(-50%);
   }
 
-  
+.pato-voando{
+  animation: pato-voando 0.5s steps(3) infinite;
+}
+
+.pato-morrendo{
+  animation: pato-morrendo 2s linear forwards;
+}
+
