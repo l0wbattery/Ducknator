@@ -10,7 +10,7 @@ function ($, $rootScope) {
 
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
-                console.log('Conectado');
+                console.log(proxy);
             });
             proxy.on('messageAdded', function (bolaGamma, bolaAlpha,tiros) {
                 $rootScope.$broadcast('messageAdded', bolaGamma, bolaAlpha,tiros);
@@ -66,7 +66,7 @@ function ($, $rootScope) {
         },
         generateToken: function (){
             if(this.isConnected()){
-                proxy.invoke('GenerateToken').WaitForSignalRToBeConnected();
+                proxy.invoke('GenerateToken');
             }
         },
     }

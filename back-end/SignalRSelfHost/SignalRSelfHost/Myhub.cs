@@ -21,12 +21,7 @@ namespace SignalRSelfHost
         public static int PontuacaoTotal = 0;
         public static Timer aTimer { get; private set; }
 
-        private IDuckhunterContext context;
-
-        public MyHub(IDuckhunterContext context)
-        {
-            this.context = context;
-        }
+        private IDuckhunterContext context = new DuckhunterContext();
 
         public override Task OnConnected()
         {
