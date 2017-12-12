@@ -1,0 +1,42 @@
+.tela-tutorial-aviso{
+  position: absolute;
+  display:inline-block;
+  word-wrap: normal;
+  font-family: '8bit';
+  font-size: 20px;
+  color:  white;
+  min-width: 100px;
+  max-width: 350px;
+}
+
+.aviso-instrucoes{
+    top: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: yellow;
+    font-size: 25px;
+    min-width: 200px;
+}
+
+.aviso-giroscopio{
+  right: 7%;
+  bottom: 7%;
+  text-align: right;
+}
+
+.aviso-som{
+  left: 7%;
+  bottom: 7%;
+  text-align: left;
+}
+
+.aviso-mobile {
+  position: absolute;
+  top: 200px;
+  left: 20px;
+  font-size: 70px;
+  animation: hide linear 1s forwards;
+  animation-delay: 3s;
+  font-family: '8bit';
+}

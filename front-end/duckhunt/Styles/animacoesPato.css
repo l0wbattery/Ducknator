@@ -1,0 +1,14 @@
+@keyframes pato-voando {
+  from { background-position: -1404px -3px; }
+  to { background-position: -1652px -3px; }
+}
+
+@keyframes pato-atingido{
+  0% { background-position: -1655px -7px; }
+  100% { background-position: -1735px -7px; }
+}
+
+@keyframes pato-morrendo{
+  0% { opacity: 1; background-position: -1735px -7px;}
+  100% { opacity: 0; background-position: -1735px -7px; transform: translateY(300px);}
+}

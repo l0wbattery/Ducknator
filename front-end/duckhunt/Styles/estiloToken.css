@@ -1,0 +1,66 @@
+.token-text {
+  background-color: #000;
+  color: #f05805;
+  font-size: 50px;
+  letter-spacing: 2px;
+  position: relative;
+  top: -80px;
+  left: -10px;
+  font-weight: lighter;
+  width: auto;
+}
+
+.text {
+  font-family: porticooblique;
+  font-weight: lighter;
+}
+
+.i {
+  margin: 10px;
+  width: auto;
+}
+
+.token {
+  width: 320px;
+  display: block;
+  background: #000;
+}
+
+.image-token {
+  width: 100%;
+  height: 250px;
+  background: #4e9ae8;
+  position: relative;
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+.img {
+  width: 230px;
+  height: 200px;
+  position: relative;
+  left: 10px;
+  bottom: 0px;
+}
+
+.image-token:before {
+    content: "";
+    position: absolute;
+    bottom: -39px;
+    left: -10px;
+    width: 410px;
+    background: rgb(0, 0, 0);
+    height: 90px;
+    -webkit-transform: rotate(-15deg);
+    transform: rotate(-15deg);
+}
+
+.content-token {
+  height: 1200px;
+  font-size: 80px;
+}
+
+.content-token > input {
+  width: 800px;
+  font-size: 80px;
+}

@@ -1,0 +1,9 @@
+.mira{
+    position: absolute;
+    background-image: url("../Sprites/mira.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50px;
+    width:50px;
+    z-index: 1;
+}

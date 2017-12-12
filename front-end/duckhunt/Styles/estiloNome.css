@@ -1,0 +1,11 @@
+.content-nome {
+  height: 95vh;
+  width: 90vw;
+  font-size: 60px;
+}
+
+.content-nome > input {
+  font-size: 50px;
+  width: 600px;
+  caret-color: yellow;
+}

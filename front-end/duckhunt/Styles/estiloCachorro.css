@@ -1,0 +1,44 @@
+.cachorro {
+	position:absolute;
+	bottom: 85px;
+	z-index:1;
+	background: url('../Sprites/sprites.png') no-repeat;
+	width: 120px;
+	height: 100px;
+  animation: moveCachorro 2.8s linear forwards, walkCachorro 4s step-start 1 forwards;
+}
+
+.cachorroPato {
+  height: 78px;
+  position: absolute;
+  top: 500px;
+  left: 200px;
+  background: url('../Sprites/sprites.png') no-repeat;
+}
+
+.cachorroMaisUmPato {
+  width: 86px;
+  background-position: -1188px -21px;
+  animation: aparecer 4s forwards;
+}
+
+.cachorroMaisDoisPatos {
+  width: 112px;
+  background-position: -1285px -21px;
+  animation: aparecer 4s forwards;
+  animation-delay: 9s;
+}
+
+.cachorroRindo {
+  position: absolute;
+  width: 58px;
+	height: 78px;
+  top: 500px;
+  left: 200px;
+  background: url('../Sprites/spriteDog.png') no-repeat 1000px 1000px;
+  animation: rir .3s steps(1) infinite,
+            aparecer 4s forwards;
+  animation-fill-mode: both;
+  animation-delay: 0s, 5s;
+  transition: opacity 0.00001s ease-in-out;
+}

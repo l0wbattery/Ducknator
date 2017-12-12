@@ -1,0 +1,15 @@
+@keyframes hide {
+  0% {
+    top: 200px;
+    left: 20px;
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+  100% {
+    top: -200px;
+    left: 0;
+    opacity: 0;
+  }
+}

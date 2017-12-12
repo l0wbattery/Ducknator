@@ -1,0 +1,65 @@
+@keyframes moveCachorro {
+  from {left:0px;}
+	to {left:250px;}
+}
+
+@keyframes walkCachorro {
+	0% { background-position:0px 0px; }
+	3% { background-position:-5px -38px; }
+	6% { background-position:-136px -32px; }
+	9% { background-position:-267px -32px; }
+	/*12% { background-position:0px 0px; }*/
+	15% { background-position:-5px -38px; }
+	18% { background-position:-136px -32px; }
+	21% { background-position:-267px -32px; }
+	/*24% { background-position:0px 0px; }*/
+	27% { background-position:-5px -38px; }
+	30% { background-position:-136px -32px; }
+	33% { background-position:-267px -32px; }
+	/*36% { background-position:0px 0px; }*/
+	39% { background-position:-5px -38px; }
+	42% { background-position:-136px -32px; }
+	45% { background-position:-267px -32px; }
+	/*48% { background-position:0px 0px; }*/
+	51% { background-position:-5px -38px; }
+	54% { background-position:-136px -32px; }
+	57% { background-position:-267px -32px; }
+	/*60% { background-position:0px 0px; }*/
+	63% { background-position:-5px -38px; }
+	66% { background-position:-136px -32px; }
+	69% { background-position:-267px -32px;  } /* Walk */
+
+	72% { background-position:-387px -38px; }  /* Snif  */
+	75% { background-position:-518px -38px;  }
+	78% { background-position:-387px -38px;  }
+	81% { background-position:-518px -38px;  }
+
+	90% {
+    background-position:-652px -22px;
+    width: 106px;
+	  height: 100px;
+    }
+	93% {
+    background-position:-791px -7px;
+    width: 70px;
+	  height: 190px;
+    } /* Pula */
+	96% {
+    background-position:-920px -30px;
+    width: 66px;
+	  height: 150px;
+  }
+	100% { background-position: 1000px 1000px }/*Se esconde*/
+}
+
+@keyframes rir {
+  0% {background-position: -394px -126px}
+  50% {background-position: -514px -126px}
+  100% {background-position: -394px -126px}
+}
+
+@keyframes aparecer {
+  0% {top: 500px}
+  50% {top: 350px}
+  100% {top: 500px}
+}

@@ -1,0 +1,19 @@
+
+.leaderborder {
+  font-family: '8bit';
+  width: 19vw;
+  height: 70vh;
+  margin-left: 5px;
+  border: 1px solid #fff;
+  display: inline-block;
+  float: right;
+  position: fixed;
+  top: 5px;
+  color: #fff;
+  padding: 5px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.leaderborder > div {
+  text-align: center;
+}

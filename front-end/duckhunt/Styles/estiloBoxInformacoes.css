@@ -1,0 +1,101 @@
+.console-informacoes{
+    background-image: url("../Sprites/grass.png");
+    background-repeat: no-repeat;
+    background-size: 800px, 600px;
+    position: relative;
+    top: 350px;
+    height: 250px;
+    width: 800px;
+    font-family: '8bit';
+}
+
+.box-numero-round{
+    position: absolute;
+    top: 90px;
+    left: 80px;
+
+    font-family: '8bit';
+    color: greenyellow;
+
+    background-color: black;
+    width: 100px;
+    height: 24px;
+    border-radius: 10px;
+    z-index: 1;
+}
+
+.box-municao{
+    position: absolute;
+    top: 130px;
+    left: 74px;
+
+    font-family: '8bit';
+    color: aqua;
+
+    background-color: black;
+    border-style: solid;
+    border-width: 3px;
+    border-color: greenyellow;
+    border-radius: 10px;
+    width: 140px;
+    height: 50px;
+    z-index: 1;
+    padding-left: 5px;
+    padding-top: 10px;
+}
+
+.box-patos{
+    position: absolute;
+    top: 130px;
+    left: 247px;
+
+    font-family: '8bit';
+    color: greenyellow;
+
+    background-color: black;
+    border-style: solid;
+    border-width: 3px;
+    border-color: greenyellow;
+    border-radius: 10px;
+
+    width: 300px;
+    height: 50px;
+    z-index: 1;
+}
+
+.box-score{
+    position: absolute;
+    top: 130px;
+    left: 570px;
+
+    font-family: '8bit';
+    color: white;
+
+    background-color: black;
+    border-style: solid;
+    border-width: 3px;
+    border-color: greenyellow;
+    border-radius: 10px;
+    width: 150px;
+    height: 50px;
+    z-index: 1;
+}
+
+.score {
+  text-align: right;
+}
+
+p {
+    margin:3px;
+    margin-left: 5px;
+}
+
+.bala {
+  display: inline-block;
+  background: url('../Sprites/sprites.png');
+  background-repeat: repeat-y;
+  background-position: -1415px -89px;
+  width: 20px;
+	height: 20px;
+  margin: -4px;
+}

@@ -1,0 +1,21 @@
+.ak{
+  position: absolute;
+  width: 20em;
+  height: 20em;
+  background: url(http://www.igorcamargo.com.br/img/ak47.png);
+  background-size: cover;
+}
+
+.gun {
+  width: 100vw;
+  height: 100vh;
+  border: 0;
+  background-color: #fff;
+  text-align: center;
+  padding-left: 35%;
+
+}
+
+.gun:active {
+  background-color: rgba(0, 0, 0, 0.5);
+}

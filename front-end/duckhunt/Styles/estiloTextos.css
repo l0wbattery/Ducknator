@@ -1,0 +1,31 @@
+.ip {
+  font-weight: bold;
+  margin-left: 130px;
+}
+
+.rotated {
+  -webkit-transform: rotate(-12.5deg);
+  transform: rotate(-12.5deg);
+}
+
+h2 {
+  width: 70%;
+  color: yellow;
+  transition-duration: .5s;
+  opacity: 1;
+  text-align: right;
+  margin-top: -115px;
+  font-size: 130%;
+  margin-left: 90px;
+}
+
+h2:hover {
+  transition-duration: .5s;
+  opacity: 1;
+}
+
+.ip, .number {
+  color: #fff;
+  letter-spacing: 2px;
+  font-family: '8bit';
+}
