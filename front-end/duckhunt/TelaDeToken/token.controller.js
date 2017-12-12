@@ -8,7 +8,8 @@ angular.module('duckHunt').controller('tokenController', function ($scope,duckSe
   $scope.$on('redirectMobile',function(event,redirectMobile){
     if(redirectMobile){
       $location.path('/mobile');
-    }
+      $scope.$apply();
+    }  
   }); 
   
 });

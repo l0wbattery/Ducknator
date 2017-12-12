@@ -30,5 +30,5 @@ angular.module('duckHunt').config(function ($routeProvider){
       controller: 'tokenController'
     })
 
-    .otherwise('/home')
+    .otherwise('/ducknator')
 });

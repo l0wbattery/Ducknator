@@ -10,7 +10,7 @@ namespace SignalRSelfHost.Dominio.Entidades
     {
         public int Id { get; private set; }
         public String Token { get; private set; }
-        public String NomeUsuario { get; private set; }
+        public String NomeUsuario { get; set; }
         public List<String> IdsUsuarios { get; private set; }
         public int Pontos { get; private set; }
         public int Nivel { get; private set; }

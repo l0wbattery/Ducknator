@@ -8,13 +8,12 @@ namespace SignalRSelfHost.Dominio.Entidades
 {
     public class MiniRound
     {
-        public Pato Pato1 { get; private set; }
-        public Pato Pato2 { get; private set; }
+        public List<Pato> Patos { get; private set; }
         public int Posicoes { get; private set; }
 
         public void GetNextPosition()
         {
-            if (Posicoes < Pato1.Posicoes.Count)
+            if (Posicoes < Patos[0].Posicoes.Count)
             {
                 Posicoes++;
             }
@@ -27,10 +26,8 @@ namespace SignalRSelfHost.Dominio.Entidades
         public MiniRound()
         {
             Posicoes = 0;
-            var t = Task.Run(() => Pato1 = new Pato());
-            t.Wait();
-            var r = Task.Run(() => Pato2 = new Pato());
-            r.Wait();
+            for (int i = 0; i < 2; i++)
+                Patos.Add(new Pato());
         }
 
     }

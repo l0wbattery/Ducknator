@@ -7,7 +7,7 @@ function ($, $rootScope) {
         connect: function () {
             var self = this;
 
-            connection = $.hubConnection('http://192.168.0.100:8080/signalr');
+            connection = $.hubConnection('http://10.99.150.50:8080/signalr');
 
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
@@ -43,6 +43,12 @@ function ($, $rootScope) {
             proxy.on('redirectMobile', function (redirectMobile) {
                 $rootScope.$broadcast('redirectMobile', redirectMobile);
             });
+            proxy.on('redirectNome', function (redirectNome) {
+                $rootScope.$broadcast('redirectNome', redirectNome);
+            });
+            proxy.on('redirectGame', function (redirectGame) {
+                $rootScope.$broadcast('redirectGame', redirectGame);
+            });
         },
         isConnecting: function () {
             return connection.state === 0;
@@ -76,6 +82,11 @@ function ($, $rootScope) {
         enviaToken: function (token){
             if(this.isConnected()){
                 proxy.invoke('EnviaToken',token);
+            }
+        },
+        enviaNick: function (nick,token){
+            if(this.isConnected()){
+                proxy.invoke('EnviaNick',nick,token);
             }
         },
     }
