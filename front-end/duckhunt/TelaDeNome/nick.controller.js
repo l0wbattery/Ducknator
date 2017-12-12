@@ -6,7 +6,7 @@ angular.module('duckHunt').controller('nickController', function ($scope,duckSer
 
   $scope.$on('redirectGame',function(event,redirectGame){
     if(redirectGame){
-      $location.path('/jogo');
+      $location.path('/tutorial');
       $scope.$apply();
     }
     

@@ -2,6 +2,7 @@
 using Microsoft.AspNet.SignalR.Hubs;
 using SignalRSelfHost.Dominio.Entidades;
 using SignalRSelfHost.infra;
+using SignalRSelfHost.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +22,7 @@ namespace SignalRSelfHost
         public static int PontuacaoTotal = 0;
         public static List<Sala> Salas = new List<Sala>();
         public static Timer aTimer { get; private set; }
+        public String Token { get; set; }
 
         private IDuckhunterContext context;
 
@@ -60,47 +62,45 @@ namespace SignalRSelfHost
 
             if (miniRoundAtual != null)
             {
+                var count = 0;
+                foreach (Pato pato in miniRoundAtual.Patos)
+                {
+                    var yPato = pato.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
+                    var xPato = pato.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
+                    if (Between(yBola, yPato - 20, yPato + 20) && Between(xBola, xPato - 20, xPato + 20) && miniRoundAtual.Pato1.Vivo)
+                    {
+                        miniRoundAtual.Patos[count].Vivo = false;
+                        acertou = true;
+                    }
+                    count++;
+                }
                 //variaveis de posicao
-                var yPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
-                var xPato1 = miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
-
-                var yPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
-                var xPato2 = miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
-
-                if (Between(yBola, yPato1 - 20, yPato1 + 20) && Between(xBola, xPato1 - 20, xPato1 + 20) && miniRoundAtual.Pato1.Vivo)
-                {
-                    miniRoundAtual.Pato1.Vivo = false;
-                    acertou = true;
-                }
-                if (Between(yBola, yPato2 - 20, yPato2 + 20) && Between(xBola, xPato2 - 20, xPato2 + 20) && miniRoundAtual.Pato2.Vivo)
-                {
-                    miniRoundAtual.Pato2.Vivo = false;
-                    acertou = true;
-                }
             }
 
             Clients.Group(token).atirou(acertou);
         }
 
-        public void RodaRound()
+        public void RodaRound(String token)
         {
             RoundAtual = new Round();
 
             for (int i = 0; i < RoundAtual.MiniRounds.Count; i++)
             {
-                RodaPatosMiniRound(i);
+                RodaPatosMiniRound(i,token);
             }
             PontuacaoTotal = RoundAtual.Pontuacao;
             Clients.All.pontuacao(PontuacaoTotal);
         }
 
-        public void RodaPatosMiniRound(int i)
-        {
+        public void RodaPatosMiniRound(int i,String token)
+        {//(sender, args) => ElapsedEventHandler(sender, Index);
+
+            Token = token;
             miniRoundAtual = RoundAtual.MiniRounds[i];
             aTimer = new Timer();
             aTimer.Elapsed += new ElapsedEventHandler(TrocaPosicaoPatos);
             aTimer.Interval = 1000;
-            aTimer.Enabled = true;
+            aTimer.Enabled = true;  
             while (miniRoundAtual.getPosicoes() < 5) ;
             aTimer.Close();
 
@@ -111,26 +111,23 @@ namespace SignalRSelfHost
         {
             var v = Task.Run(() => miniRoundAtual.GetNextPosition());
             v.Wait();
-            var t = Task.Run(() => TrocaPosicaoPato1());
+            var t = Task.Run(() => TrocaPosicaoPato(Token));
             t.Wait();
         }
 
-        public async void TrocaPosicaoPato1()
+        public void TrocaPosicaoPato(String token)
         {
-            if (miniRoundAtual.Pato1.Vivo)
-            {
-                await Clients.All.pato1(miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes()]);
-                await Clients.All.pato1vivo(true);
-            }
-            //ideia para diminuir o codigo
-            if (miniRoundAtual.Pato2.Vivo)
-            {
-                await Clients.All.pato2(miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes()]);
-                await Clients.All.pato2vivo(true);
-            }
-            else
-                await Clients.All.pato1vivo(false);
-
+           var count = 0;
+           List<PatoModel> patos = new List<PatoModel>();
+           foreach(Pato pato in miniRoundAtual.Patos)
+           {
+                if (pato.Vivo)
+                {
+                    patos.Add(new PatoModel(count,pato.Posicoes[miniRoundAtual.getPosicoes()]));
+                }
+                count++;
+           }
+            Clients.Group(token).patos(patos);
         }
   
 
