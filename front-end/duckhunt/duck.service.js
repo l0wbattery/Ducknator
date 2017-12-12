@@ -6,11 +6,11 @@ function ($, $rootScope) {
         connect: function () {
             var self = this;
 
-            connection = $.hubConnection('http://10.99.150.50:8080/signalr');
+            connection = $.hubConnection('http://192.168.0.100:8080/signalr');
 
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
-                console.log("Conectado")
+                console.log('Conectado');
             });
             proxy.on('messageAdded', function (bolaGamma, bolaAlpha,tiros) {
                 $rootScope.$broadcast('messageAdded', bolaGamma, bolaAlpha,tiros);
@@ -32,6 +32,12 @@ function ($, $rootScope) {
             });
             proxy.on('pontuacao', function (pontuacao) {
                 $rootScope.$broadcast('pontuacao', pontuacao);
+            });
+            proxy.on('token', function (token) {
+                $rootScope.$broadcast('token', token);
+            });
+            proxy.on('isConnect', function (isConnect) {
+                $rootScope.$broadcast('isConnect', isConnect);
             });
         },
         isConnecting: function () {
@@ -56,6 +62,11 @@ function ($, $rootScope) {
         rodaPatosMiniRound: function (){
             if(this.isConnected()){
                 proxy.invoke('RodaRound').Result;
+            }
+        },
+        generateToken: function (){
+            if(this.isConnected()){
+                proxy.invoke('GenerateToken').WaitForSignalRToBeConnected();
             }
         },
     }

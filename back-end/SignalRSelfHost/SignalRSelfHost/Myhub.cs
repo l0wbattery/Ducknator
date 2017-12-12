@@ -28,6 +28,20 @@ namespace SignalRSelfHost
             this.context = context;
         }
 
+        public override Task OnConnected()
+        {
+            Clients.Caller.isConnect(true);
+            return base.OnConnected();
+        }
+
+        public void AfterConnected()
+        {
+            // if(stuff) -- whatever if/else first user/last user logic
+            // {
+            Clients.Caller.hello("message");
+             // }
+        }
+
         public async void SendMessage(double bolaGamma, double bolaAlpha)
         {
             xBola = xBola + ((int)Math.Round(bolaGamma * 10) * -1);
@@ -154,7 +168,7 @@ namespace SignalRSelfHost
 
             context.Salas.Add(sala);
             context.SaveChanges();
-
+            Clients.All.token(Int32.Parse(result));
             return sala;
         }
 
