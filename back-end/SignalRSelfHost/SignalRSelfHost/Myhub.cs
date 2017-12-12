@@ -22,7 +22,14 @@ namespace SignalRSelfHost
         public static List<Sala> Salas = new List<Sala>();
         public static Timer aTimer { get; private set; }
 
-        private IDuckhunterContext context = new DuckhunterContext();
+        public static IDuckhunterContext context = new DuckhunterContext();
+
+        
+
+        public MyHub() : base ()
+        {
+
+        }
 
         public override Task OnConnected()
         {
@@ -178,7 +185,11 @@ namespace SignalRSelfHost
 
         public void SalvaPartida(String nome, int pontos, int nivel)
         {
-            Partida partida = new Partida(nome, pontos, nivel);
+            var partida = new Partida(nome, pontos, nivel);
+
+            if (partida == null)
+                context.Partidas.Add(new Partida(nome, pontos, nivel));
+
             context.Partidas.Add(partida);
             context.SaveChanges();
         }
