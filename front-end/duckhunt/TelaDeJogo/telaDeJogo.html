@@ -1,44 +1,56 @@
+<button type="button" name="button" ng-click="rodaRound()">Iniciar round</button>
 <div class="star">
     <div class="container-jogo">
-      <div class="televisao">
-          <div class="tela-de-jogo">
-              <div class="fundo">
-                <span class="cachorro"></span>
-                <span class="cachorroRindo"></span>
-                <span class="cachorroMaisUmPato cachorroPato"></span>
-                <span class="cachorroMaisDoisPatos cachorroPato"></span>
-                  <div class="mira" id="mira"></div>
-                  <div class="console-informacoes">
-                      <div class="box-numero-round">
-                          <p>R = <span>{{data.round}}</span></p>
-                      </div>
-                      <div class="box-municao">
-                          <div class="bala"></div>
-                          <div class="bala"></div>
-                          <div class="bala"></div>
-                          <div class="bala"></div>
-                          <div class="bala"></div>
-                          <div class="bala"></div>
-                          <div class="bala"></div>
-                          <p>SHOT</p>
-                      </div>
-                      <div class="box-patos">
-                          <p>HIT</p>
-                          <p></p>
-                      </div>
-                      <div class="box-score">
-                          <p>{{data.score}}</p>
-                          <p class="score">SCORE</p>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="leaderborder">
-        <div>PESSOAS ONLINE</div>
-        <!-- <ul>
+        <div class="televisao">
+            <div class="tela-de-jogo">
+                <div class="fundo">
+                    <span class="cachorro"></span>
+                    <span class="cachorroRindo"></span>
+                    <span class="cachorroMaisUmPato cachorroPato"></span>
+                    <span class="cachorroMaisDoisPatos cachorroPato"></span>
+
+
+                    <div class="pato" id="pato1"></div>
+
+                    <div class="pato" id="pato2"></div>
+
+                    <div class="mira" style="{{mira}}" id="mira"></div>
+
+
+
+                    <div class="console-informacoes">
+                        <div class="box-numero-round">
+                            <p>R =
+                                <span>{{data.round}}</span>
+                            </p>
+                        </div>
+                        <div class="box-municao">
+                            <div class="bala"></div>
+                            <div class="bala"></div>
+                            <div class="bala"></div>
+                            <div class="bala"></div>
+                            <div class="bala"></div>
+                            <div class="bala"></div>
+                            <div class="bala"></div>
+                            <p>SHOT</p>
+                        </div>
+                        <div class="box-patos">
+                            <p>HIT</p>
+                            <p></p>
+                        </div>
+                        <div class="box-score">
+                            <p>{{data.score}}</p>
+                            <p class="score">SCORE</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="leaderborder">
+            <div>PESSOAS ONLINE</div>
+            <!-- <ul>
           inserir pessoas online aqui
         </ul> -->
-      </div>
+        </div>
     </div>
 </div>

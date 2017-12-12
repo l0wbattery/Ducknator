@@ -15,24 +15,17 @@ namespace DuckHunterControllerUnitTest.cs
     [TestClass]
     public class UnitTestMyHub
     {
-        private IDuckhunterContext testContextInstance;
+        private IDuckhunterContext testContextInstance = new DuckhunterContext();
         private MyHub myHub = new MyHub();
 
-        public UnitTestMyHub(IDuckhunterContext testContextInstance)
-        {
-            this.testContextInstance = testContextInstance;
-        }
-
         
 
-        
         [TestMethod]
         public void Deve_SalvarPartida_Corretamente()
         {
             var firstResult = testContextInstance.Partidas.ToList().Count();
-            Partida partida = new Partida("Bel", 10, 2);
-            testContextInstance.Partidas.Add(partida);
-            testContextInstance.SaveChanges();
+
+            myHub.SalvaPartida("Bel", 5, 2);
 
             var finalResult = testContextInstance.Partidas.ToList().Count();
 

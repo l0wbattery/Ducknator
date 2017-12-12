@@ -13,7 +13,7 @@ namespace SignalRSelfHost.infra.Mappings
     {
         public PartidaMapping()
         {
-            ToTable("hanking", "dh");
+            ToTable("Partida", "dh");
 
             HasKey(x => x.Id);
 

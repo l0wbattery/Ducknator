@@ -29,7 +29,7 @@ namespace SignalRSelfHost
             this.context = context;
         }
 
-        public MyHub() : base()
+        public MyHub() : base ()
         {
 
         }
@@ -194,7 +194,11 @@ namespace SignalRSelfHost
 
         public void SalvaPartida(String nome, int pontos, int nivel)
         {
-            Partida partida = new Partida(nome, pontos, nivel);
+            var partida = new Partida(nome, pontos, nivel);
+
+            if (partida == null)
+                context.Partidas.Add(new Partida(nome, pontos, nivel));
+
             context.Partidas.Add(partida);
             context.SaveChanges();
         }

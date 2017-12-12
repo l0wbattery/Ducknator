@@ -379,6 +379,7 @@ background-size: cover;
 }
 
 @keyframes pato-morrendo{
+@keyframes pato-atingido{
   0% { background-position: -1655px -7px; }
   100% { background-position: -1735px -7px; }
 }
@@ -386,6 +387,9 @@ background-size: cover;
 @keyframes pato-sumindo{
   0% { opacity: 1; background-position: -1735px -7px; }
   100% { opacity: 0; background-position: -1735px -7px; top: 600px;}
+@keyframes pato-morrendo{
+  0% { opacity: 1; background-position: -1735px -7px;}
+  100% { opacity: 0; background-position: -1735px -7px; transform: translateY(300px);}
 }
 
 /* Animações de Background */
