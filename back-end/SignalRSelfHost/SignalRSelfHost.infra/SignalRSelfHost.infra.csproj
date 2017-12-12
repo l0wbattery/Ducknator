@@ -54,6 +54,15 @@
     <Compile Include="DuckhunterContext.cs" />
     <Compile Include="IDuckhunterContext.cs" />
     <Compile Include="Mappings\SalaMapping.cs" />
+    <Compile Include="Migrations\201712112341472_InitialMigration.cs" />
+    <Compile Include="Migrations\201712112341472_InitialMigration.Designer.cs">
+      <DependentUpon>201712112341472_InitialMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712120050293_SecondaryMigration.cs" />
+    <Compile Include="Migrations\201712120050293_SecondaryMigration.Designer.cs">
+      <DependentUpon>201712120050293_SecondaryMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -67,6 +76,14 @@
       <Project>{db2d56d7-a1d8-4a86-9d1b-c11586b65a6d}</Project>
       <Name>SignalRSelfHost.Dominio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712112341472_InitialMigration.resx">
+      <DependentUpon>201712112341472_InitialMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712120050293_SecondaryMigration.resx">
+      <DependentUpon>201712120050293_SecondaryMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
