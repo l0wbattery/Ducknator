@@ -8,21 +8,21 @@ using System.Threading.Tasks;
 
 namespace SignalRSelfHost.infra.Mappings
 {
-    public class SalaMapping : EntityTypeConfiguration<Sala>
-    {
-        public SalaMapping()
-        {
-            ToTable("hanking", "dh");
+//    public class SalaMapping : EntityTypeConfiguration<Sala>
+//    {
+//        public SalaMapping()
+//        {
+//            ToTable("hanking", "dh");
 
-            HasKey(x => x.Id);
+//            HasKey(x => x.Id);
 
-            Property(x => x.NomeUsuario).HasMaxLength(128).IsRequired();
+//            Property(x => x.NomeUsuario).HasMaxLength(128).IsRequired();
 
-            Property(x => x.Token).IsRequired();
+//            Property(x => x.Token).IsRequired();
 
-            Property(x => x.Pontos).IsRequired();
+//            Property(x => x.Pontos).IsRequired();
 
-            Property(x => x.Nivel).IsRequired();
-        }
-    }
+//            Property(x => x.Nivel).IsRequired();
+//        }
+//    }
 }

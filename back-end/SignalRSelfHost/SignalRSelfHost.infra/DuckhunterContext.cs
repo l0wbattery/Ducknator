@@ -11,5 +11,7 @@ namespace SignalRSelfHost.infra
     public class DuckhunterContext : DbContext, IDuckhunterContext
     {
         public DbSet<Sala> Salas { get ; set ; }
+
+        public DbSet<Partida> Partidas { get; set; }
     }
 }

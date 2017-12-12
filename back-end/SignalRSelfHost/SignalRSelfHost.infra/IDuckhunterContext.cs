@@ -13,5 +13,7 @@ namespace SignalRSelfHost.infra
         int SaveChanges();
 
         DbSet<Sala> Salas { get; set; }
+
+        DbSet<Partida> Partidas { get; set; }
     }
 }

@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidades\MiniRound.cs" />
+    <Compile Include="Entidades\Partida.cs" />
     <Compile Include="Entidades\Pato.cs" />
     <Compile Include="Entidades\Posicao.cs" />
     <Compile Include="Entidades\Round.cs" />

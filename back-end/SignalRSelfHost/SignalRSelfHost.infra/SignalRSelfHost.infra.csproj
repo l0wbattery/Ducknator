@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="DuckhunterContext.cs" />
     <Compile Include="IDuckhunterContext.cs" />
+    <Compile Include="Mappings\PartidaMapping.cs" />
     <Compile Include="Mappings\SalaMapping.cs" />
     <Compile Include="Migrations\201712112341472_InitialMigration.cs" />
     <Compile Include="Migrations\201712112341472_InitialMigration.Designer.cs">

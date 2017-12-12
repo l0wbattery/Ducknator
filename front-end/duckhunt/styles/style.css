@@ -29,20 +29,6 @@ body {
   margin: 0;
   padding: 0;
   background-color: #000;
-	font-family: Androgyne;
-	background-image: url('https://www.idbox-monaco.com/index/IMG/light-point.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
-	height: 100%;
-	left: 0;
-	position: absolute;
-	top: 0;
-	width: 100%;
-	z-index:1;
-  background-repeat: repeat;
-  background-size: 200px 200px;
-	-webkit-animation: snow 30s linear infinite;
-	-moz-animation: snow 55s linear infinite;
-	-ms-animation: snow 30s linear infinite;
-	animation: snow 55s linear infinite;
 }
 
 *:active, *:focus {
@@ -405,7 +391,21 @@ background-size: cover;
 /* Animações de Background */
 
 #snow{
-	
+  background-color: #000;
+	font-family: Androgyne;
+	background-image: url('https://www.idbox-monaco.com/index/IMG/light-point.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+	z-index:1;
+  background-repeat: repeat;
+  background-size: 200px 200px;
+	-webkit-animation: snow 30s linear infinite;
+	-moz-animation: snow 55s linear infinite;
+	-ms-animation: snow 30s linear infinite;
+	animation: snow 55s linear infinite;
 }
 @keyframes snow {
   0% {background-position: 0px 0px, 0px 0px, 0px 0px;}
