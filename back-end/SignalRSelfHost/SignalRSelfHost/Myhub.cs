@@ -22,7 +22,14 @@ namespace SignalRSelfHost
         public static List<Sala> Salas = new List<Sala>();
         public static Timer aTimer { get; private set; }
 
-        private IDuckhunterContext context = new DuckhunterContext();
+        public static IDuckhunterContext context = new DuckhunterContext();
+
+        
+
+        public MyHub() : base ()
+        {
+
+        }
 
         public override Task OnConnected()
         {
@@ -96,7 +103,7 @@ namespace SignalRSelfHost
 
         }
 
-        // Specify what you want to happen when the Elapsed event is raised.
+        //Troca as posicoes dos patos
         private void TrocaPosicaoPatos(object source, ElapsedEventArgs e)
         {
             var v = Task.Run(() => miniRoundAtual.GetNextPosition());
@@ -114,6 +121,12 @@ namespace SignalRSelfHost
                 await Clients.All.pato1(miniRoundAtual.Pato1.Posicoes[miniRoundAtual.getPosicoes()]);
                 await Clients.All.pato1vivo(true);
             }
+            //ideia para diminuir o codigo
+            //if(miniRoundAtual.Pato2.Vivo)
+            //{
+            //    await Clients.All.pato2(miniRoundAtual.Pato2.Posicoes[miniRoundAtual.getPosicoes()]);
+            //    await Clients.All.pato2vivo(true);
+            //}
             else
                 await Clients.All.pato1vivo(false);
 
@@ -128,6 +141,8 @@ namespace SignalRSelfHost
             else
                 await Clients.All.pato2vivo(false);
         }
+
+        
 
         //faz validção se um numero se encontra dentro dos limites passados
         public bool Between(int num, int lower, int upper, bool inclusive = false)
@@ -150,7 +165,7 @@ namespace SignalRSelfHost
             
             if (Salas.Where(x => x.Token == token).FirstOrDefault() != null )
             {
-                //editar lista q já existe. seila como
+                //editar lista q já existe
                 Clients.Caller.redirectMobile(true);
                 return Groups.Add(Context.ConnectionId, token.ToString());
             }
@@ -166,6 +181,17 @@ namespace SignalRSelfHost
             Clients.All.token(result);
             Salas.Add(new Sala(result, Context.ConnectionId));
             return Groups.Add(Context.ConnectionId, result);
+        }
+
+        public void SalvaPartida(String nome, int pontos, int nivel)
+        {
+            var partida = new Partida(nome, pontos, nivel);
+
+            if (partida == null)
+                context.Partidas.Add(new Partida(nome, pontos, nivel));
+
+            context.Partidas.Add(partida);
+            context.SaveChanges();
         }
 
     }

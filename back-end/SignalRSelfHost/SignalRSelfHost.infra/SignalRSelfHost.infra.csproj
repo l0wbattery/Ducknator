@@ -53,14 +53,10 @@
   <ItemGroup>
     <Compile Include="DuckhunterContext.cs" />
     <Compile Include="IDuckhunterContext.cs" />
-    <Compile Include="Mappings\SalaMapping.cs" />
-    <Compile Include="Migrations\201712112341472_InitialMigration.cs" />
-    <Compile Include="Migrations\201712112341472_InitialMigration.Designer.cs">
-      <DependentUpon>201712112341472_InitialMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712120050293_SecondaryMigration.cs" />
-    <Compile Include="Migrations\201712120050293_SecondaryMigration.Designer.cs">
-      <DependentUpon>201712120050293_SecondaryMigration.cs</DependentUpon>
+    <Compile Include="Mappings\PartidaMapping.cs" />
+    <Compile Include="Migrations\201712121645545_MigrationDeTeste.cs" />
+    <Compile Include="Migrations\201712121645545_MigrationDeTeste.Designer.cs">
+      <DependentUpon>201712121645545_MigrationDeTeste.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -78,11 +74,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712112341472_InitialMigration.resx">
-      <DependentUpon>201712112341472_InitialMigration.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712120050293_SecondaryMigration.resx">
-      <DependentUpon>201712120050293_SecondaryMigration.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712121645545_MigrationDeTeste.resx">
+      <DependentUpon>201712121645545_MigrationDeTeste.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

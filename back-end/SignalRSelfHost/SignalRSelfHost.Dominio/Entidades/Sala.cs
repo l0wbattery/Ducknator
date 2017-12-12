@@ -8,6 +8,7 @@ namespace SignalRSelfHost.Dominio.Entidades
 {
     public class Sala
     {
+        public int Id { get; private set; }
         public String Token { get; private set; }
         public String NomeUsuario { get; private set; }
         public List<String> IdsUsuarios { get; private set; }
