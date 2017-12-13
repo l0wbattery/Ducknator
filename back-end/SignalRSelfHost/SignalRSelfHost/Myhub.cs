@@ -88,7 +88,12 @@ namespace SignalRSelfHost
 
         public void FimDeJogo(String token)
         {
-            //implementar
+            var salaAtual = Salas.Where(x => x.Token == token).FirstOrDefault();
+            if (salaAtual == null)
+                return;
+            SalvaPartida(salaAtual.NomeUsuario, salaAtual.Pontos,salaAtual.Nivel);
+            Clients.Group(token).redirectEndGame(true);
+            Salas.Remove(salaAtual);
         }
 
         public void RodaRound(String token)
@@ -102,8 +107,8 @@ namespace SignalRSelfHost
             for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
                 RodaPatosMiniRound(i, token, index);
 
-            /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
-                FimDeJogo(token);*/
+            if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+                FimDeJogo(token);
 
             Clients.Group(token).pontuacao(PontuacaoTotal);
         }
@@ -115,11 +120,35 @@ namespace SignalRSelfHost
             aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
             aTimer.Interval = 2000;
             aTimer.Enabled = true;
-            while (Salas[index].MiniRoundAtual.getPosicoes() < 5) ;
+            while (Salas[index].MiniRoundAtual.getPosicoes() < 5 && PatosVivos(index,token)) ;
+            SobeCachorro(token,index);
             aTimer.Close();
-
         }
-
+        
+        //metodo para subir o cachorro de acordo com a quantidade de patos
+        private void SobeCachorro(String token, int index)
+        {
+            if (!PatosVivos(index,token))
+                Clients.Group(token).sobeCachorro(2);
+            else
+            {
+                if(Salas[index].MiniRoundAtual.Patos.Where(x => x.Vivo == true).Count() > 0)
+                    Clients.Group(token).sobeCachorro(1);
+                else
+                    Clients.Group(token).sobeCachorro(0);
+            }
+                        
+        }
+        
+        //verifica se ainda ha patos vivos no round
+        private bool PatosVivos(int index, String token)
+        {
+            foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+                if (pato.Vivo)
+                    return true;
+            
+            return false;
+        }
         //Troca as posicoes dos patos
         private void TrocaPosicaoPatos(object source, ElapsedEventArgs e, String token, int index)
         {
