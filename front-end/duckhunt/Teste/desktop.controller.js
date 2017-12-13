@@ -2,8 +2,6 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
                 
     $scope.bolaGamma = -300;
     $scope.bolaAlpha = -300;
-    $scope.isPato1Vivo = true;
-    $scope.isPato2Vivo = true;
 
     $scope.quadradoGamma = 300;
     $scope.quadradoAlpha = 300;
@@ -29,7 +27,7 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
     });
     
     $scope.rodaRound = function(){
-        duckService.rodaPatosMiniRound(duckService.token);
+        duckService.rodaRound(duckService.token);
     }
 
     $scope.$on('pato1vivo',function(event,morto1){

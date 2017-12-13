@@ -18,7 +18,6 @@ namespace SignalRSelfHost
 
         public static int PontuacaoTotal = 0;
         public static List<Sala> Salas = new List<Sala>();
-        //public static Timer aTimer { get; private set; }
 
         private IDuckhunterContext context;
 
@@ -52,7 +51,7 @@ namespace SignalRSelfHost
             Clients.Group(token).messageAdded(Salas[index].xBola, Salas[index].yBola, tiros);
 
         }
-        //tem q arrumar
+
         public void Atirar(String token)
         {
             if (token == null)
@@ -69,14 +68,13 @@ namespace SignalRSelfHost
                 var count = 0;
                 foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
                 {
-
                     var yPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoY;
                     var xPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoX;
-
 
                     if (Between(Salas[index].yBola, yPato - 20, yPato + 20) && Between(Salas[index].xBola, xPato - 20, xPato + 20) && pato.Vivo)
                     {
                         Salas[index].MiniRoundAtual.Patos[count].Vivo = false;
+                        Salas[index].RoundAtual.QntdPatosMortos++;
                         acertou = true;
                     }
                     count++;

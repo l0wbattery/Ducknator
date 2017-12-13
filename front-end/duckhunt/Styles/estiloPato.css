@@ -5,6 +5,7 @@
     background: url("../Sprites/sprites.png") no-repeat -1404px -3px;
     transform: translateX(-50%);
     transform: translateY(-50%);
+    transition: 1s;
   }
 
 .pato-voando{
