@@ -9,6 +9,7 @@ function ($, $rootScope) {
 
             connection = $.hubConnection('http://192.168.0.100:8080/signalr');
 
+
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
                 console.log(proxy);

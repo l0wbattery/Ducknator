@@ -15,7 +15,7 @@ namespace SignalRSelfHost
     public class MyHub : Hub
     {
         private static int tiros = 0;
-        
+
         public static int PontuacaoTotal = 0;
         public static List<Sala> Salas = new List<Sala>();
         //public static Timer aTimer { get; private set; }
@@ -27,7 +27,7 @@ namespace SignalRSelfHost
             this.context = context;
         }
 
-        public MyHub() : base ()
+        public MyHub() : base()
         {
 
         }
@@ -50,7 +50,7 @@ namespace SignalRSelfHost
             Salas[index].yBola = Salas[index].yBola + ((int)Math.Round(bolaAlpha * 30) * -1);
             Salas[index].LimitaMovimentoDaMira();
             Clients.Group(token).messageAdded(Salas[index].xBola, Salas[index].yBola, tiros);
-            
+
         }
         //tem q arrumar
         public void Atirar(String token)
@@ -63,24 +63,24 @@ namespace SignalRSelfHost
             var index = Salas.IndexOf(sala);
             bool acertou = false;
             tiros++;
-            
+
             if (Salas[index].MiniRoundAtual != null)
             {
                 var count = 0;
                 foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
                 {
-                    
+
                     var yPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoY;
                     var xPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoX;
-                    
-                  
+
+
                     if (Between(Salas[index].yBola, yPato - 20, yPato + 20) && Between(Salas[index].xBola, xPato - 20, xPato + 20) && pato.Vivo)
                     {
                         Salas[index].MiniRoundAtual.Patos[count].Vivo = false;
                         acertou = true;
                     }
                     count++;
-                    
+
                 }
                 //variaveis de posicao
             }
@@ -102,7 +102,7 @@ namespace SignalRSelfHost
             Salas[index].NextRound();
 
             for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
-                RodaPatosMiniRound(i,token,index);
+                RodaPatosMiniRound(i, token, index);
 
             /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
                 FimDeJogo(token);*/
@@ -110,41 +110,41 @@ namespace SignalRSelfHost
             Clients.Group(token).pontuacao(PontuacaoTotal);
         }
 
-        public void RodaPatosMiniRound(int i,String token,int index)
+        public void RodaPatosMiniRound(int i, String token, int index)
         {
             Salas[index].MiniRoundAtual = Salas[index].RoundAtual.MiniRounds[i];
             Timer aTimer = new Timer();
-            aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token,index);
+            aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
             aTimer.Interval = 2000;
-            aTimer.Enabled = true;  
+            aTimer.Enabled = true;
             while (Salas[index].MiniRoundAtual.getPosicoes() < 5) ;
             aTimer.Close();
 
         }
 
         //Troca as posicoes dos patos
-        private void TrocaPosicaoPatos(object source, ElapsedEventArgs e, String token,int index)
+        private void TrocaPosicaoPatos(object source, ElapsedEventArgs e, String token, int index)
         {
             Salas[index].MiniRoundAtual.GetNextPosition();
 
             TrocaPosicaoPato(token, index);
         }
 
-        public void TrocaPosicaoPato(String token,int index)
+        public void TrocaPosicaoPato(String token, int index)
         {
-           var count = 0;
-           List<PatoModel> patos = new List<PatoModel>();
-           foreach(Pato pato in Salas[index].MiniRoundAtual.Patos)
-           {
+            var count = 0;
+            List<PatoModel> patos = new List<PatoModel>();
+            foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+            {
                 if (pato.Vivo)
                 {
-                    patos.Add(new PatoModel(count,pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()]));
+                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()]));
                 }
                 count++;
-           }
+            }
             Clients.Group(token).patos(patos);
         }
-  
+
 
         //faz validção se um numero se encontra dentro dos limites passados
         public bool Between(int num, int lower, int upper, bool inclusive = false)
@@ -206,6 +206,24 @@ namespace SignalRSelfHost
             context.Partidas.Add(partida);
             context.SaveChanges();
         }
+
+        //public void IniciarTutorial()
+        //{
+        //    token
+        //    Clients.Group(token).messageAdded(xBola, yBola, tiros);
+        //    tutorial = true;
+        //    Clients.All.CriaPatoTutorial(PosicaoPatoTutorialEmX, PosicaoPatoTutorialEmY);
+        //}
+
+        //public void AtiraTutorial()
+        //{
+        //    if (Between(yBola, PosicaoPatoTutorialEmY - 20, PosicaoPatoTutorialEmY + 20) &&
+        //        Between(xBola, PosicaoPatoTutorialEmX - 20, PosicaoPatoTutorialEmX + 20)
+        //        && tutorial == true)
+        //    {
+
+        //    }
+        //}
 
     }
 }

@@ -1,6 +1,8 @@
 angular.module('duckHunt').controller('tokenController', function ($scope,duckService,$location) {
+  $scope.enviaToken = enviaToken;
 
-  $scope.enviarToken = function(){
+
+  function enviaToken(){
     duckService.token = $scope.token;
     console.log('teste');
     duckService.enviaToken($scope.token);
@@ -9,7 +11,7 @@ angular.module('duckHunt').controller('tokenController', function ($scope,duckSe
     if(redirectMobile){
       $location.path('/mobile');
       $scope.$apply();
-    }  
-  }); 
-  
+    }
+  });
+
 });

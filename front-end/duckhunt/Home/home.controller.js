@@ -11,13 +11,13 @@ angular.module('duckHunt').controller('homeController', function ($scope,duckSer
     if(isConnect){
       duckService.generateToken();
     }
-  }); 
+  });
   $scope.$on('redirectNome',function(event,redirectNome){
     if(redirectNome){
       $location.path('/nick');
       $scope.$apply();
     }
-    
-  }); 
+
+  });
 
 });
