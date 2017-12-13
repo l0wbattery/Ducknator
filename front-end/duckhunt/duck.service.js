@@ -7,7 +7,7 @@ function ($, $rootScope) {
         connect: function () {
             var self = this;
 
-            connection = $.hubConnection('http://10.99.30.61:8080/signalr');
+            connection = $.hubConnection('http://10.99.150.49:8080/signalr');
 
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
@@ -31,12 +31,18 @@ function ($, $rootScope) {
             proxy.on('isConnect', function (isConnect) {
                 $rootScope.$broadcast('isConnect', isConnect);
             });
+            proxy.on('criarPatoTutorial', function (patoTutorial){
+                $rootScope.$broadcast('criarPatoTutorial', patoTutorial);
+            });
             proxy.on('redirectMobile', function (redirectMobile) {
                 $rootScope.$broadcast('redirectMobile', redirectMobile);
             });
             proxy.on('redirectNome', function (redirectNome) {
                 $rootScope.$broadcast('redirectNome', redirectNome);
             });
+            proxy.on('redirectTutorial', function (redirectTutorial){
+                $rootScope.$broadcast('redirectTutorial', redirectTutorial);
+            })
             proxy.on('redirectGame', function (redirectGame) {
                 $rootScope.$broadcast('redirectGame', redirectGame);
             });

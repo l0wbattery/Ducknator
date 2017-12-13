@@ -20,14 +20,14 @@
 }
 
 .aviso-giroscopio{
-  right: 7%;
-  bottom: 7%;
+  right: 10%;
+  bottom: 9%;
   text-align: right;
 }
 
 .aviso-som{
-  left: 7%;
-  bottom: 7%;
+  left: 5%;
+  bottom: 9%;
   text-align: left;
 }
 

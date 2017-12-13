@@ -36,19 +36,22 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     // VERIFICA DISPARO // -----------------------------------------------
     $scope.$on('atirou', function (event, acertou) {
         console.log(acertou);
-        if(acertou )eliminarPato();
-        pontuacao += 100;
+        if (acertou) eliminarPato(); //TODO +pontuacao por tipo de pato
     });
 
     // MOVIMENTA PATOS //-------------------------------------------------
-    $scope.$on('patos', function (event, posicoes) {
-        foreach(pato in posicoes) {
-        mudaAnguloDeVoo(pato.style.left, pato.style.top, pato.Posicoes.PosicaoX, pato.Posicoes.posicaoY, "pato");
-        pato.style.top = pato.Posicoes.PosicaoY + "px";
-        pato.style.left = pato.Posicoes.PosicaoX + "px";
-        $scope.$apply();
-        }
-    });
+    // $scope.$on('patos', function (event, posicoes) {
+    //     foreach(pato in posicoes) {
+    //         mudaAnguloDeVoo(pato.style.left, pato.style.top, pato.Posicoes.PosicaoX, pato.Posicoes.posicaoY, "pato");
+    //         pato.style.top = pato.Posicoes.PosicaoY + "px";
+    //         pato.style.left = pato.Posicoes.PosicaoX + "px";
+    //         $scope.$apply();
+    //     }
+    // });
+
+
+
+
     // $scope.$on('pato2', function (event, posicaoPato2) {
     //
     //     mudaAnguloDeVoo(pato2.style.left, pato2.style.top, posicaoPato2.PosicaoX, posicaoPato2.posicaoY, "pato2");
@@ -62,7 +65,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         let patoVoando = document.getElementById(idPato);
         patoVoando.style.transition = "all .0s";
 
-        if ((Number(posicaoXAnterior.slice(0,posicaoXAnterior.length-2))) < novaPosicaoX) {
+        if ((Number(posicaoXAnterior.slice(0, posicaoXAnterior.length - 2))) < novaPosicaoX) {
             patoVoando.style.transform = "scaleX(1)";
         } else {
             patoVoando.style.transform = "scaleX(-1)";
@@ -88,5 +91,5 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     $scope.$on('inicioRound', function(status){
       $scope.inicioRound = status;
-    ;
+    });
 });
