@@ -43,6 +43,9 @@ function ($, $rootScope) {
             proxy.on('sobeCachorro', function(index) {
               $rootScope.$broadcast('sobeCachorro', index);
             });
+            proxy.on('inicioRound', function(status) {
+              $rootScope.$broadcast('inicioRound', status);
+            });
         },
         isConnecting: function () {
             return connection.state === 0;

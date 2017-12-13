@@ -98,6 +98,7 @@ namespace SignalRSelfHost
 
         public void RodaRound(String token)
         {
+            Clients.Group(token).inicioRound(true);
             var salaAtual = Salas.Where(x => x.Token == token).FirstOrDefault();
             if (salaAtual == null)
                 return;
