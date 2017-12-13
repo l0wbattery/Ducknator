@@ -83,14 +83,13 @@ namespace SignalRSelfHost
                     {
                         Salas[index].MiniRoundAtual.Patos[count].Vivo = false;
                         Salas[index].RoundAtual.QntdPatosMortos++;
+                        Salas[index].Pontos = 1500 * (int)pato.Tipo;
+                        AtualizaLeaderBoard();
                         acertou = true;
                     }
                     count++;
-
                 }
-                //variaveis de posicao
             }
-
             Clients.Group(token).atirou(acertou);
         }
 
@@ -128,7 +127,8 @@ namespace SignalRSelfHost
             aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
             aTimer.Interval = 2000;
             aTimer.Enabled = true;
-            while (Salas[index].MiniRoundAtual.getPosicoes() < 5 && PatosVivos(index,token)) ;
+            while (Salas[index].MiniRoundAtual.getPosicoes() < 5 && PatosVivos(index,token));
+            AtualizaLeaderBoard();
             SobeCachorro(token,index);
             aTimer.Close();
         }
@@ -210,11 +210,21 @@ namespace SignalRSelfHost
         public Task GenerateToken()
         {
             Random rand = new Random();
-            var result = "";
-            result = rand.Next(8999).ToString().PadLeft(4, '0');
+            var result = GeraToken(rand);
+
+            while (Salas.Where(x => x.Token == result).FirstOrDefault() != null)
+            {
+                result = GeraToken(rand);
+            }
+
             Clients.Caller.token(result);
             Salas.Add(new Sala(result, Context.ConnectionId));
             return Groups.Add(Context.ConnectionId, result);
+        }
+
+        public String GeraToken(Random rand)
+        {
+            return rand.Next(8999).ToString().PadLeft(4, '0');
         }
 
         public void EnviaNick(String nick, String token)
@@ -228,7 +238,6 @@ namespace SignalRSelfHost
             var index = Salas.IndexOf(sala);
             Salas[index].NomeUsuario = nick;
             Clients.Caller.redirectGame(true);
-
         }
 
         public void SalvaPartida(String nome, int pontos, int nivel)
@@ -243,6 +252,14 @@ namespace SignalRSelfHost
             return context.Partidas
                 .OrderByDescending(partida => partida.Pontos)
                 .ToList();
+        }
+
+        public void AtualizaLeaderBoard()
+        {
+            List<LeaderBoardModel> leader = Salas.OrderByDescending(x => x.Pontos)
+                                                 .Select(x => new LeaderBoardModel(x.NomeUsuario, x.Pontos))
+                                                 .ToList();
+            Clients.All.leaderBoard(leader);
         }
 
         //retorna o ranking mensal ou diario
