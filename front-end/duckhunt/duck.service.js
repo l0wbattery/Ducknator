@@ -87,5 +87,8 @@ function ($, $rootScope) {
                 proxy.invoke('EnviaNick',nick,token);
             }
         },
+        salvaPartida: function (sala) {
+            proxy.invoke('SalvaPartida', sala);
+        }
     }
 }]);
