@@ -198,15 +198,11 @@ namespace SignalRSelfHost
 
         public void SalvaPartida(String nome, int pontos, int nivel)
         {
-            var partida = new Partida(nome, pontos, nivel);
-
-            if (partida == null)
-                context.Partidas.Add(new Partida(nome, pontos, nivel));
-
-            context.Partidas.Add(partida);
+            context.Partidas.Add(new Partida(nome, pontos, nivel));
             context.SaveChanges();
         }
         
+        //retorna o ranking geral
         public List<Partida> GetRankingTotal()
         {
             return context.Partidas
@@ -214,6 +210,7 @@ namespace SignalRSelfHost
                 .ToList();
         }
 
+        //retorna o ranking mensal ou diario
         public List<Partida> GetRankingCOmFiltro(int parametro)
         {
             string formato;
