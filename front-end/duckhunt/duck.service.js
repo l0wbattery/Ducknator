@@ -70,7 +70,7 @@ function ($, $rootScope) {
                 proxy.invoke('Atirar',token);
             }
         },
-        rodaPatosMiniRound: function (token){
+        rodaRound: function (token){
             if(this.isConnected()){
                 proxy.invoke('RodaRound',token).Result;
             }
@@ -90,5 +90,8 @@ function ($, $rootScope) {
                 proxy.invoke('EnviaNick',nick,token);
             }
         },
+        salvaPartida: function (sala) {
+            proxy.invoke('SalvaPartida', sala);
+        }
     }
 }]);
