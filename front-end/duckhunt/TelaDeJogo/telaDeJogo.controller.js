@@ -33,20 +33,6 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         $scope.$apply();
     });
 
-    //Realiza a nimação do pato sendo atingido e chama a função para faze-lo "cair";
-    // function eliminarPato() {
-    //     pato1.style.animation = "pato-atingido steps(1) forwards 0,5s";
-    //
-    //     pato1.addEventListener("animationend", tirarPatoDaTela);
-    // }
-    //
-    // //Faz o pato "cair" após ser atingido e inicia função de remoção;
-    // function tirarPatoDaTela() {
-    //
-    //     pato1.style.animation = "pato-morrendo 1s forwards linear";
-    //
-    // }
-
     // VERIFICA DISPARO // -----------------------------------------------
     $scope.$on('atirou', function (event, acertou) {
         console.log(acertou);
