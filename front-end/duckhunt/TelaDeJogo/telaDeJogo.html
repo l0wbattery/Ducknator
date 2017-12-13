@@ -4,15 +4,12 @@
             <div class="tela-de-jogo">
                 <div class="fundo">
                     <span class="cachorro"></span>
-                    <span class="cachorroRindo"></span>
-                    <span class="cachorroMaisUmPato cachorroPato"></span>
-                    <span class="cachorroMaisDoisPatos cachorroPato"></span>
-                    
+                    <span ng-class="{'cachorroRindo': index == 0, 'cachorroMaisUmPato cachorroPato' : index == 1, 'cachorroMaisDoisPatos cachorroPato' : index == 2}"></span>
                     <div ng-repeat="pato in patos">
                         <div class="pato pato-voando" style="left:{{pato.Posicoes.PosicaoX}}px; top:{{pato.Posicoes.PosicaoY}}px;" id="{{pato.Id}}">
                         </div>
                     </div>
-                    
+
 
                     <div class="mira" style="{{mira}}" id="mira"></div>
 

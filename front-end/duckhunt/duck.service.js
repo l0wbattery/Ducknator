@@ -40,6 +40,9 @@ function ($, $rootScope) {
             proxy.on('redirectGame', function (redirectGame) {
                 $rootScope.$broadcast('redirectGame', redirectGame);
             });
+            proxy.on('sobeCachorro', function(index) {
+              $rootScope.$broadcast('sobeCachorro', index);
+            });
         },
         isConnecting: function () {
             return connection.state === 0;

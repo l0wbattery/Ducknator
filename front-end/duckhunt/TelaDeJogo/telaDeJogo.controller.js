@@ -82,5 +82,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         shot: disparo
     };
 
-
+    $scope.$on('sobeCachorro', function(index) {
+      $scope.index = index;
+    })
 });
