@@ -45,23 +45,23 @@ namespace SignalRSelfHost
             return base.OnConnected();
         }
 
-        public void IniciarTutorial()
-        {
-            //token
-            //Clients.Group(token).messageAdded(xBola, yBola, tiros);
-            tutorial = true;
-            Clients.All.CriaPatoTutorial(PosicaoPatoTutorialEmX, PosicaoPatoTutorialEmY);
-        }
+        //public void IniciarTutorial()
+        //{
+        //    token
+        //    Clients.Group(token).messageAdded(xBola, yBola, tiros);
+        //    tutorial = true;
+        //    Clients.All.CriaPatoTutorial(PosicaoPatoTutorialEmX, PosicaoPatoTutorialEmY);
+        //}
 
-        public void AtiraTutorial()
-        {
-            if (Between(yBola, PosicaoPatoTutorialEmY - 20, PosicaoPatoTutorialEmY + 20) &&
-                Between(xBola, PosicaoPatoTutorialEmX - 20, PosicaoPatoTutorialEmX + 20)
-                && tutorial == true)
-            {
+        //public void AtiraTutorial()
+        //{
+        //    if (Between(yBola, PosicaoPatoTutorialEmY - 20, PosicaoPatoTutorialEmY + 20) &&
+        //        Between(xBola, PosicaoPatoTutorialEmX - 20, PosicaoPatoTutorialEmX + 20)
+        //        && tutorial == true)
+        //    {
 
-            }
-        }
+        //    }
+        //}
 
 
         public void SendMessage(double bolaGamma, double bolaAlpha, string token)
