@@ -15,14 +15,10 @@ namespace SignalRSelfHost
     public class MyHub : Hub
     {
         private static int tiros = 0;
-        private static int yBola = 300;
-        private static int xBola = 300;
-        public static Round RoundAtual { get; private set; }
-        public static MiniRound miniRoundAtual { get; private set; }
+        
         public static int PontuacaoTotal = 0;
         public static List<Sala> Salas = new List<Sala>();
-        public static Timer aTimer { get; private set; }
-        public String Token { get; set; }
+        //public static Timer aTimer { get; private set; }
 
         private IDuckhunterContext context;
 
@@ -42,41 +38,49 @@ namespace SignalRSelfHost
             return base.OnConnected();
         }
 
-        public void SendMessage(double bolaGamma, double bolaAlpha, string token)
+        public void SendMessage(double bolaGamma, double bolaAlpha, String token)
         {
             if (token == null)
                 return;
-
-            xBola = xBola + ((int)Math.Round(bolaGamma * 30) * -1);
-            yBola = yBola + ((int)Math.Round(bolaAlpha * 30) * -1);
-            LimitaMovimentoDaMira();
-            Clients.Group(token).messageAdded(xBola, yBola, tiros);
+            var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
+            if (sala == null)
+                return;
+            var index = Salas.IndexOf(sala);
+            Salas[index].xBola = Salas[index].xBola + ((int)Math.Round(bolaGamma * 30) * -1);
+            Salas[index].yBola = Salas[index].yBola + ((int)Math.Round(bolaAlpha * 30) * -1);
+            Salas[index].LimitaMovimentoDaMira();
+            Clients.Group(token).messageAdded(Salas[index].xBola, Salas[index].yBola, tiros);
             
         }
-        public void Atirar(string token)
+        //tem q arrumar
+        public void Atirar(String token)
         {
             if (token == null)
                 return;
+            var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
+            if (sala == null)
+                return;
+            var index = Salas.IndexOf(sala);
             bool acertou = false;
             tiros++;
-
-            if (miniRoundAtual != null)
+            
+            if (Salas[index].MiniRoundAtual != null)
             {
                 var count = 0;
-                foreach (Pato pato in miniRoundAtual.Patos)
+                foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
                 {
-                    var yPato = pato.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoY;
-                    var xPato = pato.Posicoes[miniRoundAtual.getPosicoes() - 1].PosicaoX;
                     
-                    foreach(Pato patoAlvo in miniRoundAtual.Patos)
+                    var yPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoY;
+                    var xPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoX;
+                    
+                  
+                    if (Between(Salas[index].yBola, yPato - 20, yPato + 20) && Between(Salas[index].xBola, xPato - 20, xPato + 20) && pato.Vivo)
                     {
-                        if (Between(yBola, yPato - 20, yPato + 20) && Between(xBola, xPato - 20, xPato + 20) && patoAlvo.Vivo)
-                        {
-                            miniRoundAtual.Patos[count].Vivo = false;
-                            acertou = true;
-                        }
-                        count++;
+                        Salas[index].MiniRoundAtual.Patos[count].Vivo = false;
+                        acertou = true;
                     }
+                    count++;
+                    
                 }
                 //variaveis de posicao
             }
@@ -84,50 +88,57 @@ namespace SignalRSelfHost
             Clients.Group(token).atirou(acertou);
         }
 
-        public void RodaRound(String token)
+        public void FimDeJogo(String token)
         {
-            RoundAtual = new Round();
-
-            for (int i = 0; i < RoundAtual.MiniRounds.Count; i++)
-            {
-                RodaPatosMiniRound(i,token);
-            }
-            PontuacaoTotal = RoundAtual.Pontuacao;
-            Clients.All.pontuacao(PontuacaoTotal);
+            //implementar
         }
 
-        public void RodaPatosMiniRound(int i,String token)
-        {//(sender, args) => ElapsedEventHandler(sender, Index);
+        public void RodaRound(String token)
+        {
+            var salaAtual = Salas.Where(x => x.Token == token).FirstOrDefault();
+            if (salaAtual == null)
+                return;
+            var index = Salas.IndexOf(salaAtual);
+            Salas[index].NextRound();
 
-            Token = token;
-            miniRoundAtual = RoundAtual.MiniRounds[i];
-            aTimer = new Timer();
-            aTimer.Elapsed += new ElapsedEventHandler(TrocaPosicaoPatos);
-            aTimer.Interval = 1000;
+            for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
+                RodaPatosMiniRound(i,token,index);
+
+            /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+                FimDeJogo(token);*/
+
+            Clients.Group(token).pontuacao(PontuacaoTotal);
+        }
+
+        public void RodaPatosMiniRound(int i,String token,int index)
+        {
+            Salas[index].MiniRoundAtual = Salas[index].RoundAtual.MiniRounds[i];
+            Timer aTimer = new Timer();
+            aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token,index);
+            aTimer.Interval = 2000;
             aTimer.Enabled = true;  
-            while (miniRoundAtual.getPosicoes() < 5) ;
+            while (Salas[index].MiniRoundAtual.getPosicoes() < 5) ;
             aTimer.Close();
 
         }
 
         //Troca as posicoes dos patos
-        private void TrocaPosicaoPatos(object source, ElapsedEventArgs e)
+        private void TrocaPosicaoPatos(object source, ElapsedEventArgs e, String token,int index)
         {
-            var v = Task.Run(() => miniRoundAtual.GetNextPosition());
-            v.Wait();
-            var t = Task.Run(() => TrocaPosicaoPato(Token));
-            t.Wait();
+            Salas[index].MiniRoundAtual.GetNextPosition();
+
+            TrocaPosicaoPato(token, index);
         }
 
-        public void TrocaPosicaoPato(String token)
+        public void TrocaPosicaoPato(String token,int index)
         {
            var count = 0;
            List<PatoModel> patos = new List<PatoModel>();
-           foreach(Pato pato in miniRoundAtual.Patos)
+           foreach(Pato pato in Salas[index].MiniRoundAtual.Patos)
            {
                 if (pato.Vivo)
                 {
-                    patos.Add(new PatoModel(count,pato.Posicoes[miniRoundAtual.getPosicoes()]));
+                    patos.Add(new PatoModel(count,pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()]));
                 }
                 count++;
            }
@@ -143,14 +154,6 @@ namespace SignalRSelfHost
                 : lower < num && num < upper;
         }
 
-        //Cria limites de movimento da mira;
-        private void LimitaMovimentoDaMira()
-        {
-            if (xBola > 800) xBola = 800;
-            if (yBola > 600) yBola = 600;
-            if (xBola < 0) xBola = 0;
-            if (yBola < 0) yBola = 0;
-        }
         public Task EnviaToken(String token)
         {
             var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
@@ -174,7 +177,7 @@ namespace SignalRSelfHost
             Random rand = new Random();
             var result = "";
             result = rand.Next(8999).ToString().PadLeft(4, '0');
-            Clients.All.token(result);
+            Clients.Caller.token(result);
             Salas.Add(new Sala(result, Context.ConnectionId));
             return Groups.Add(Context.ConnectionId, result);
         }

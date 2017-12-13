@@ -22,19 +22,14 @@ angular.module('duckHunt').controller('desktopController', function ($scope, duc
         console.log(acertou);
     });
 
-    $scope.$on('pato1', function (event, pato1) {
-        console.log(pato1);
-        $scope.stylewtf2 = "top:" + (pato1.PosicaoY) + "px; left:" + (pato1.PosicaoX) + "px;";
+    $scope.$on('patos', function (event, patos) {
+        console.log(patos);
+        $scope.patos = patos;
         $scope.$apply();
     });
-    $scope.$on('pato2', function (event, pato2) {
-        $scope.stylewtf3 = "top:" + (pato2.PosicaoY) + "px; left:" + (pato2.PosicaoX) + "px;";
-        console.log(pato2);
-        $scope.$apply();
-    });
-
+    
     $scope.rodaRound = function(){
-        duckService.rodaPatosMiniRound();
+        duckService.rodaPatosMiniRound(duckService.token);
     }
 
     $scope.$on('pato1vivo',function(event,morto1){

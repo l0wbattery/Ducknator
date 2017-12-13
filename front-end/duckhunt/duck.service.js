@@ -19,11 +19,8 @@ function ($, $rootScope) {
             proxy.on('atirou', function (atirou) {
                 $rootScope.$broadcast('atirou', atirou);
             });
-            proxy.on('pato1', function (pato1) {
-                $rootScope.$broadcast('pato1', pato1);
-            });
-            proxy.on('pato2', function (pato2) {
-                $rootScope.$broadcast('pato2', pato2);
+            proxy.on('patos', function (patos) {
+                $rootScope.$broadcast('patos', patos);
             });
             proxy.on('pato1vivo', function (morto1) {
                 $rootScope.$broadcast('pato1vivo', morto1);
@@ -69,9 +66,9 @@ function ($, $rootScope) {
                 proxy.invoke('Atirar',token);
             }
         },
-        rodaPatosMiniRound: function (){
+        rodaPatosMiniRound: function (token){
             if(this.isConnected()){
-                proxy.invoke('RodaRound').Result;
+                proxy.invoke('RodaRound',token).Result;
             }
         },
         generateToken: function (){

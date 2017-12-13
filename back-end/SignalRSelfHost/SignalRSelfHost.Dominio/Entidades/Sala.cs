@@ -14,12 +14,15 @@ namespace SignalRSelfHost.Dominio.Entidades
         public List<String> IdsUsuarios { get; private set; }
         public int Pontos { get; private set; }
         public int Nivel { get; private set; }
-        public MiniRound MiniRoundAtual { get; private set; }
+        public MiniRound MiniRoundAtual { get; set; }
         public Round RoundAtual { get; private set; }
+        public int yBola = 300;
+        public int xBola = 300;
 
         public void NextRound()
         {
             RoundAtual = new Round();
+            Nivel++;
         }
         public void NextMiniRound()
         {
@@ -36,6 +39,15 @@ namespace SignalRSelfHost.Dominio.Entidades
             Nivel = 0;
             RoundAtual = new Round();
         }
-        
+
+        //Cria limites de movimento da mira;
+        public void LimitaMovimentoDaMira()
+        {
+            if (xBola > 800) xBola = 800;
+            if (yBola > 600) yBola = 600;
+            if (xBola < 0) xBola = 0;
+            if (yBola < 0) yBola = 0;
+        }
+
     }
 }
