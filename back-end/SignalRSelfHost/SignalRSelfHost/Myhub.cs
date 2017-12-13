@@ -37,6 +37,15 @@ namespace SignalRSelfHost
             return base.OnConnected();
         }
 
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            var sala = Salas.Where(x => x.IdsUsuarios.Contains(Context.ConnectionId)).FirstOrDefault();
+            if (sala == null)
+                return base.OnDisconnected(stopCalled);
+            FimDeJogo(sala.Token);
+            return base.OnDisconnected(stopCalled);
+        }
+
         public void SendMessage(double bolaGamma, double bolaAlpha, String token)
         {
             if (token == null)
@@ -49,7 +58,6 @@ namespace SignalRSelfHost
             Salas[index].yBola = Salas[index].yBola + ((int)Math.Round(bolaAlpha * 30) * -1);
             Salas[index].LimitaMovimentoDaMira();
             Clients.Group(token).messageAdded(Salas[index].xBola, Salas[index].yBola, tiros);
-
         }
 
         public void Atirar(String token)
@@ -238,7 +246,7 @@ namespace SignalRSelfHost
         }
 
         //retorna o ranking mensal ou diario
-        public List<Partida> GetRankingCOmFiltro(int parametro)
+        public List<Partida> GetRankingComFiltro(int parametro)
         {
             string formato;
 
