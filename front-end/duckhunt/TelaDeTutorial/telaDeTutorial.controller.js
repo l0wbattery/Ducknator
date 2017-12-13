@@ -1,10 +1,15 @@
 angular.module('duckHunt').controller('tutorialController', function ($scope, $location, duckService) {
 
-    $scope.patoTutorial = {
-        vivo: true,
-        pontos: 100,
-        tipo: 1
-    };
+    $scope.$on('redirectGame', function (event, redirectGame) {
+        if (redirectGame) {
+            $location.path('/jogo');
+            $scope.$apply();
+        }
+    });
+
+    $scope.$on('criarPatoTutorial', function (event, patoTutorial) {
+        $scope.patoTutorial.Vivo = patoTutorial.Vivo;
+    });
 
     //Recebe mensagens do servidor
     $scope.$on('messageAdded', function (event, gamma, alpha, tiros) {
@@ -16,19 +21,9 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
         $scope.$apply();
     });
 
-    //Verifica se a mira está dentro do hitbox do pato;
-    
-
-
-    //Redireciona para a tela de jogo e chama o inicio da partida;
-    function removerDiv() {
-        duckService.rodaPatosMiniRound();
-        $location.path('/jogo');
-    }
-
     //Inicia verificação de acerto do pato tutorial ao receber o sinal de tiro vindo do backend;
     $scope.$on('atirou', function (event, acertou) {
-        if(acertou === true){
+        if (acertou === true) {
             $scope.patoTutorial.vivo = false;
         }
     });

@@ -44,6 +44,9 @@ function ($, $rootScope) {
             proxy.on('redirectNome', function (redirectNome) {
                 $rootScope.$broadcast('redirectNome', redirectNome);
             });
+            proxy.on('redirectGame', function (redirectTutorial){
+                $rootScope.$broadcast('redirectTutorial', redirectTutorial);
+            })
             proxy.on('redirectGame', function (redirectGame) {
                 $rootScope.$broadcast('redirectGame', redirectGame);
             });
