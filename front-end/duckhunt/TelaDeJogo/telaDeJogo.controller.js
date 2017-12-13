@@ -33,20 +33,6 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         $scope.$apply();
     });
 
-    //Realiza a nimação do pato sendo atingido e chama a função para faze-lo "cair";
-    function eliminarPato() {
-        pato1.style.animation = "pato-atingido steps(1) forwards 0,5s";
-
-        pato1.addEventListener("animationend", tirarPatoDaTela);
-    }
-
-    //Faz o pato "cair" após ser atingido e inicia função de remoção;
-    function tirarPatoDaTela() {
-
-        pato1.style.animation = "pato-morrendo 1s forwards linear";
-
-    }
-
     // VERIFICA DISPARO // -----------------------------------------------
     $scope.$on('atirou', function (event, acertou) {
         console.log(acertou);
@@ -54,22 +40,21 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     });
 
     // MOVIMENTA PATOS //-------------------------------------------------
-    $scope.$on('pato1', function (event, posicaoPato1) {
-
-        mudaAnguloDeVoo(pato1.style.left, pato1.style.top, posicaoPato1.PosicaoX, posicaoPato1.posicaoY, "pato1");
-
-        pato1.style.top = posicaoPato1.PosicaoY + "px";
-        pato1.style.left = posicaoPato1.PosicaoX + "px";
-
+    $scope.$on('patos', function (event, posicoes) {
+        foreach(pato in posicoes) {
+        mudaAnguloDeVoo(pato.style.left, pato.style.top, pato.Posicoes.PosicaoX, pato.Posicoes.posicaoY, "pato");
+        pato.style.top = pato.Posicoes.PosicaoY + "px";
+        pato.style.left = pato.Posicoes.PosicaoX + "px";
         $scope.$apply();
+        }
     });
-    $scope.$on('pato2', function (event, posicaoPato2) {
-
-        mudaAnguloDeVoo(pato2.style.left, pato2.style.top, posicaoPato2.PosicaoX, posicaoPato2.posicaoY, "pato2");
-
-        pato2.style.top = posicaoPato2.PosicaoY + "px";
-        pato2.style.left = posicaoPato2.PosicaoX + "px";
-    });
+    // $scope.$on('pato2', function (event, posicaoPato2) {
+    //
+    //     mudaAnguloDeVoo(pato2.style.left, pato2.style.top, posicaoPato2.PosicaoX, posicaoPato2.posicaoY, "pato2");
+    //
+    //     pato2.style.top = posicaoPato2.PosicaoY + "px";
+    //     pato2.style.left = posicaoPato2.PosicaoX + "px";
+    // });
 
 
     function mudaAnguloDeVoo(posicaoXAnterior, posicaoYAnterior, novaPosicaoX, novaposicaoY, idPato) {
@@ -96,5 +81,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         shot: disparo
     };
 
-
+    $scope.$on('sobeCachorro', function(index) {
+      $scope.index = index;
+    })
 });

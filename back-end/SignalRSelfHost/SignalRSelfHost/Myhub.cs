@@ -137,6 +137,8 @@ namespace SignalRSelfHost
             else
             {
 
+            if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+                FimDeJogo(token);
 
                 Salas[index].NextRound();
 
