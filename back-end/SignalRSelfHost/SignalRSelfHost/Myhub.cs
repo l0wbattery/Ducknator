@@ -204,24 +204,32 @@ namespace SignalRSelfHost
             context.Partidas.Add(partida);
             context.SaveChanges();
         }
+        
+        public List<Partida> GetRankingTotal()
+        {
+            return context.Partidas
+                .OrderByDescending(partida => partida.Pontos)
+                .ToList();
+        }
 
-        //public void IniciarTutorial()
-        //{
-        //    token
-        //    Clients.Group(token).messageAdded(xBola, yBola, tiros);
-        //    tutorial = true;
-        //    Clients.All.CriaPatoTutorial(PosicaoPatoTutorialEmX, PosicaoPatoTutorialEmY);
-        //}
+        public List<Partida> GetRankingCOmFiltro(int parametro)
+        {
+            string formato;
 
-        //public void AtiraTutorial()
-        //{
-        //    if (Between(yBola, PosicaoPatoTutorialEmY - 20, PosicaoPatoTutorialEmY + 20) &&
-        //        Between(xBola, PosicaoPatoTutorialEmX - 20, PosicaoPatoTutorialEmX + 20)
-        //        && tutorial == true)
-        //    {
+            if (parametro == 1)
+                //filtra por mes
+                formato = "MM/yyyy";
+            else
+                //filtra por dia
+                formato = "dd/MM/yyyy";
 
-        //    }
-        //}
+            string dataAtual = DateTime.Now.Date.ToString(formato);
+
+            return context.Partidas
+                .Where(partida => partida.Data.Date.ToString(formato).Equals(dataAtual))
+                .OrderByDescending(partida => partida.Pontos)
+                .ToList();
+        }
 
     }
 }
