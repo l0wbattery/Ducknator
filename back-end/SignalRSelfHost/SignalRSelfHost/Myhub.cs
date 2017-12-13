@@ -18,7 +18,6 @@ namespace SignalRSelfHost
 
         public static int PontuacaoTotal = 0;
         public static List<Sala> Salas = new List<Sala>();
-        //public static Timer aTimer { get; private set; }
 
         private IDuckhunterContext context;
 
@@ -38,6 +37,15 @@ namespace SignalRSelfHost
             return base.OnConnected();
         }
 
+        public override Task OnDisconnected(bool stopCalled)
+        {
+            var sala = Salas.Where(x => x.IdsUsuarios.Contains(Context.ConnectionId)).FirstOrDefault();
+            if (sala == null)
+                return base.OnDisconnected(stopCalled);
+            FimDeJogo(sala.Token);
+            return base.OnDisconnected(stopCalled);
+        }
+
         public void SendMessage(double bolaGamma, double bolaAlpha, String token)
         {
             if (token == null)
@@ -50,9 +58,8 @@ namespace SignalRSelfHost
             Salas[index].yBola = Salas[index].yBola + ((int)Math.Round(bolaAlpha * 30) * -1);
             Salas[index].LimitaMovimentoDaMira();
             Clients.Group(token).messageAdded(Salas[index].xBola, Salas[index].yBola, tiros);
-
         }
-        //!(tem q arrumar)
+
         public void Atirar(String token)
         {
             if (token == null)
@@ -64,33 +71,56 @@ namespace SignalRSelfHost
             bool acertou = false;
             tiros++;
 
-            if (Salas[index].MiniRoundAtual != null)
+            if (Salas[index].MiniRoundAtual != null || Salas[index].getEstadoTutorial())
             {
-                var count = 0;
-                foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+                if (Salas[index].getEstadoTutorial())
                 {
+                    var yPatoTutorial = 250;
+                    var xPatoTutorial = 350;
 
-                    var yPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoY;
-                    var xPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoX;
-
-
-                    if (Between(Salas[index].yBola, yPato - 20, yPato + 20) && Between(Salas[index].xBola, xPato - 20, xPato + 20) && pato.Vivo)
+                    if (Between(Salas[index].yBola, yPatoTutorial - 31, yPatoTutorial + 31) &&
+                        Between(Salas[index].xBola, xPatoTutorial - 43, xPatoTutorial + 43) &&
+                        Salas[index].patoTutorial.Vivo)
                     {
-                        Salas[index].MiniRoundAtual.Patos[count].Vivo = false;
                         acertou = true;
+                        Salas[index].finalizaTutorial();
+
+                        Clients.Group(token).redirectGame(true);
+
                     }
-                    count++;
-
                 }
-                //variaveis de posicao
-            }
+                else
+                {
+                    var count = 0;
+                    foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+                    {
+                        var yPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoY;
+                        var xPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoX;
 
-            Clients.Group(token).atirou(acertou);
+                        if (Between(Salas[index].yBola, yPato - 20, yPato + 20) && Between(Salas[index].xBola, xPato - 20, xPato + 20) && pato.Vivo)
+                        {
+                            Salas[index].MiniRoundAtual.Patos[count].Vivo = false;
+                            Salas[index].RoundAtual.QntdPatosMortos++;
+                            acertou = true;
+                        }
+                        count++;
+
+                    }
+                    //variaveis de posicao
+                }
+
+                Clients.Group(token).atirou(acertou);
+            }
         }
 
         public void FimDeJogo(String token)
         {
-            //implementar
+            var salaAtual = Salas.Where(x => x.Token == token).FirstOrDefault();
+            if (salaAtual == null)
+                return;
+            SalvaPartida(salaAtual.NomeUsuario, salaAtual.Pontos, salaAtual.Nivel);
+            Clients.Group(token).redirectEndGame(true);
+            Salas.Remove(salaAtual);
         }
 
         public void RodaRound(String token)
@@ -99,15 +129,25 @@ namespace SignalRSelfHost
             if (salaAtual == null)
                 return;
             var index = Salas.IndexOf(salaAtual);
-            Salas[index].NextRound();
 
-            for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
-                RodaPatosMiniRound(i, token, index);
+            if (Salas[index].getEstadoTutorial())
+            {
+                IniciaTutorial(token, index);
+            }
+            else
+            {
 
-            /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
-                FimDeJogo(token);*/
 
-            Clients.Group(token).pontuacao(PontuacaoTotal);
+                Salas[index].NextRound();
+
+                for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
+                    RodaPatosMiniRound(i, token, index);
+
+                if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+                    FimDeJogo(token);
+
+                Clients.Group(token).pontuacao(PontuacaoTotal);
+            }
         }
 
         public void RodaPatosMiniRound(int i, String token, int index)
@@ -117,11 +157,40 @@ namespace SignalRSelfHost
             aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
             aTimer.Interval = 2000;
             aTimer.Enabled = true;
-            while (Salas[index].MiniRoundAtual.getPosicoes() < 5) ;
+            while (Salas[index].MiniRoundAtual.getPosicoes() < 5 && PatosVivos(index, token)) ;
+            SobeCachorro(token, index);
             aTimer.Close();
+        }
+
+        public void IniciaTutorial(String token, int index)
+        {
+            Clients.Group(token).criarPatoTutorial(new Pato(new Posicao(350, 250)));
+        }
+
+        //metodo para subir o cachorro de acordo com a quantidade de patos
+        private void SobeCachorro(String token, int index)
+        {
+            if (!PatosVivos(index, token))
+                Clients.Group(token).sobeCachorro(2);
+            else
+            {
+                if (Salas[index].MiniRoundAtual.Patos.Where(x => x.Vivo == true).Count() > 0)
+                    Clients.Group(token).sobeCachorro(1);
+                else
+                    Clients.Group(token).sobeCachorro(0);
+            }
 
         }
 
+        //verifica se ainda ha patos vivos no round
+        private bool PatosVivos(int index, String token)
+        {
+            foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+                if (pato.Vivo)
+                    return true;
+
+            return false;
+        }
         //Troca as posicoes dos patos
         private void TrocaPosicaoPatos(object source, ElapsedEventArgs e, String token, int index)
         {
@@ -198,15 +267,11 @@ namespace SignalRSelfHost
 
         public void SalvaPartida(String nome, int pontos, int nivel)
         {
-            var partida = new Partida(nome, pontos, nivel);
-
-            if (partida == null)
-                context.Partidas.Add(new Partida(nome, pontos, nivel));
-
-            context.Partidas.Add(partida);
+            context.Partidas.Add(new Partida(nome, pontos, nivel));
             context.SaveChanges();
         }
-        
+
+        //retorna o ranking geral
         public List<Partida> GetRankingTotal()
         {
             return context.Partidas
@@ -214,7 +279,8 @@ namespace SignalRSelfHost
                 .ToList();
         }
 
-        public List<Partida> GetRankingCOmFiltro(int parametro)
+        //retorna o ranking mensal ou diario
+        public List<Partida> GetRankingComFiltro(int parametro)
         {
             string formato;
 

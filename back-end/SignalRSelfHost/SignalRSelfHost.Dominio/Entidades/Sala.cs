@@ -44,7 +44,6 @@ namespace SignalRSelfHost.Dominio.Entidades
             EmTutorial = true;
             patoTutorial = new Pato();
             patoTutorial.Tipo = Tipos.TUTORIAL;
-
         }
 
         //Cria limites de movimento da mira;

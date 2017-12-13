@@ -9,6 +9,5 @@ angular.module('duckHunt').controller('nickController', function ($scope,duckSer
       $location.path('/tutorial');
       $scope.$apply();
     }
-    
   }); 
 });

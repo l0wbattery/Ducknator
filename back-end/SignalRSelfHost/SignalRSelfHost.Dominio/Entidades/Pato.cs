@@ -20,6 +20,14 @@ namespace SignalRSelfHost.Dominio.Entidades
             Tipo = Tipos.COMUM;
         }
 
+        //Cria pato tutorial
+        public Pato(Posicao posicao)
+        {
+            Vivo = true;
+            Tipo = Tipos.TUTORIAL;
+            Posicoes.Add(posicao);
+        }
+
         private void geraPosicoesAleatorias()
         {
             
