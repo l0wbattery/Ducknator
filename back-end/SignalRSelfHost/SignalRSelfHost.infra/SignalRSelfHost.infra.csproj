@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201712121645545_MigrationDeTeste.Designer.cs">
       <DependentUpon>201712121645545_MigrationDeTeste.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712131617185_InitialTestMigration.cs" />
+    <Compile Include="Migrations\201712131617185_InitialTestMigration.Designer.cs">
+      <DependentUpon>201712131617185_InitialTestMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -76,6 +80,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201712121645545_MigrationDeTeste.resx">
       <DependentUpon>201712121645545_MigrationDeTeste.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712131617185_InitialTestMigration.resx">
+      <DependentUpon>201712131617185_InitialTestMigration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
