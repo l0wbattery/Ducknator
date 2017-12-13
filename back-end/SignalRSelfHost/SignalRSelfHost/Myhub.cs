@@ -193,12 +193,13 @@ namespace SignalRSelfHost
 
         }
 
-        public void SalvaPartida(String nome, int pontos, int nivel)
+        public void SalvaPartida(Sala sala)
         {
-            var partida = new Partida(nome, pontos, nivel);
 
-            if (partida == null)
-                context.Partidas.Add(new Partida(nome, pontos, nivel));
+            if (sala == null)
+                throw new Exception("sala inválida");
+
+            var partida = new Partida(sala.NomeUsuario, sala.Pontos, sala.Nivel);
 
             context.Partidas.Add(partida);
             context.SaveChanges();

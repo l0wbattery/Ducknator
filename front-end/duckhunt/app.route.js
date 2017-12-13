@@ -10,7 +10,7 @@ angular.module('duckHunt').config(function ($routeProvider){
     })
 
     .when('/tutorial',{
-        templateUrl: 'TelaTutorial/telaTutorial.html',
+        templateUrl: 'TelaDeTutorial/telaDeTutorial.html',
         controller: 'tutorialController'
     })
     .when('/ducknator', {
