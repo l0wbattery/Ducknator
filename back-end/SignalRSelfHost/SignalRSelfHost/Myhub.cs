@@ -14,9 +14,12 @@ namespace SignalRSelfHost
     [HubName("HubMessage")]
     public class MyHub : Hub
     {
+        private static int PosicaoPatoTutorialEmX = 400;
+        private static int PosicaoPatoTutorialEmY = 300;
         private static int tiros = 0;
         private static int yBola = 300;
         private static int xBola = 300;
+        private Boolean tutorial = false;
         public static Round RoundAtual { get; private set; }
         public static MiniRound miniRoundAtual { get; private set; }
         public static int PontuacaoTotal = 0;
@@ -42,19 +45,42 @@ namespace SignalRSelfHost
             return base.OnConnected();
         }
 
+        public void IniciarTutorial()
+        {
+            //token
+            //Clients.Group(token).messageAdded(xBola, yBola, tiros);
+            tutorial = true;
+            Clients.All.CriaPatoTutorial(PosicaoPatoTutorialEmX, PosicaoPatoTutorialEmY);
+        }
+
+        public void AtiraTutorial()
+        {
+            if (Between(yBola, PosicaoPatoTutorialEmY - 20, PosicaoPatoTutorialEmY + 20) &&
+                Between(xBola, PosicaoPatoTutorialEmX - 20, PosicaoPatoTutorialEmX + 20)
+                && tutorial == true)
+            {
+
+            }
+        }
+
+
         public void SendMessage(double bolaGamma, double bolaAlpha, string token)
         {
+            token = "10";
             if (token == null)
                 return;
 
             xBola = xBola + ((int)Math.Round(bolaGamma * 30) * -1);
             yBola = yBola + ((int)Math.Round(bolaAlpha * 30) * -1);
             LimitaMovimentoDaMira();
-            Clients.Group(token).messageAdded(xBola, yBola, tiros);
+            //
+            Clients.All.messageAdded(xBola, yBola, tiros);
+            //Clients.Group(token).messageAdded(xBola, yBola, tiros);
             
         }
         public void Atirar(string token)
         {
+            token = "10";
             if (token == null)
                 return;
             bool acertou = false;
@@ -72,7 +98,7 @@ namespace SignalRSelfHost
                     {
                         if (Between(yBola, yPato - 20, yPato + 20) && Between(xBola, xPato - 20, xPato + 20) && patoAlvo.Vivo)
                         {
-                            miniRoundAtual.Patos[count].Vivo = false;
+                            patoAlvo.Vivo = false;
                             acertou = true;
                         }
                         count++;
@@ -80,8 +106,8 @@ namespace SignalRSelfHost
                 }
                 //variaveis de posicao
             }
-
-            Clients.Group(token).atirou(acertou);
+            Clients.All.atirou(acertou);
+            //Clients.Group(token).atirou(acertou);
         }
 
         public void RodaRound(String token)
@@ -131,7 +157,9 @@ namespace SignalRSelfHost
                 }
                 count++;
            }
-            Clients.Group(token).patos(patos);
+
+            //Clients.Group(token).patos(patos);
+            Clients.All.patos(patos);
         }
   
 
