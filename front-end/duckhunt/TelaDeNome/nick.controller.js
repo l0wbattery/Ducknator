@@ -4,11 +4,10 @@ angular.module('duckHunt').controller('nickController', function ($scope,duckSer
     duckService.enviaNick($scope.nick,duckService.token);
   }
 
-  $scope.$on('redirectGame',function(event,redirectGame){
-    if(redirectGame){
+  $scope.$on('redirectTutorial',function(event,redirectTutorial){
+    if(redirectTutorial){
       $location.path('/tutorial');
       $scope.$apply();
     }
-    
   }); 
 });

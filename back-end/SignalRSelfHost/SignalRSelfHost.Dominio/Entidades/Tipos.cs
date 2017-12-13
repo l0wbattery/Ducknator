@@ -8,8 +8,9 @@ namespace SignalRSelfHost.Dominio.Entidades
 {
     public enum Tipos
     {
-        COMUM=1,
-        RARO=2,
-        LENDARIO=3
+        TUTORIAL = 0,
+        COMUM = 1,
+        RARO = 2,
+        LENDARIO = 3
     }
 }

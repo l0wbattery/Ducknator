@@ -10,7 +10,7 @@ namespace SignalRSelfHost.Dominio.Entidades
     {
         public static Random r = new Random();
         public List<Posicao> Posicoes = new List<Posicao>();
-        public Tipos Tipo { get; private set; }
+        public Tipos Tipo { get; set; }
         public bool Vivo { get; set; }
         public Pato()
         {
@@ -18,6 +18,13 @@ namespace SignalRSelfHost.Dominio.Entidades
             t.Wait();
             Vivo = true;
             Tipo = Tipos.COMUM;
+        }
+        //Cria pato tutorial
+        public Pato(Posicao posicao)
+        {
+            Vivo = true;
+            Tipo = Tipos.TUTORIAL;
+            Posicoes.Add(posicao);
         }
 
         private void geraPosicoesAleatorias()
