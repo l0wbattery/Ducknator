@@ -21,7 +21,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     //Inicializa o round no servidor
     $scope.rodaRound = function () {
-        duckService.rodaPatosMiniRound();
+        duckService.rodaRound();
     }
 
     // Recebe mensagens do servidor para a mira // -----------------------
@@ -36,7 +36,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     //Realiza a nimação do pato sendo atingido e chama a função para faze-lo "cair";
     function eliminarPato() {
         pato1.style.animation = "pato-atingido steps(1) forwards 0,5s";
- 
+
         pato1.addEventListener("animationend", tirarPatoDaTela);
     }
 
@@ -84,7 +84,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         }
 
         patoVoando.style.transition = "all 1s";
-        
+
     }
 
     function pad(pontuacao) {
