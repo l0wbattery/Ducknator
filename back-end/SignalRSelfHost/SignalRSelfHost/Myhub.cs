@@ -263,7 +263,7 @@ namespace SignalRSelfHost
 
             var index = Salas.IndexOf(sala);
             Salas[index].NomeUsuario = nick;
-            Clients.Caller.redirectGame(true);
+            Clients.Caller.redirectTutorial(true);
 
         }
 
