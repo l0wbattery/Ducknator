@@ -7,8 +7,7 @@ function ($, $rootScope) {
         connect: function () {
             var self = this;
 
-            connection = $.hubConnection('http://192.168.0.100:8080/signalr');
-
+            connection = $.hubConnection('http://10.99.30.61:8080/signalr');
 
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
@@ -22,12 +21,6 @@ function ($, $rootScope) {
             });
             proxy.on('patos', function (patos) {
                 $rootScope.$broadcast('patos', patos);
-            });
-            proxy.on('pato1vivo', function (morto1) {
-                $rootScope.$broadcast('pato1vivo', morto1);
-            });
-            proxy.on('pato2vivo', function (morto2) {
-                $rootScope.$broadcast('pato2vivo', morto2);
             });
             proxy.on('pontuacao', function (pontuacao) {
                 $rootScope.$broadcast('pontuacao', pontuacao);
