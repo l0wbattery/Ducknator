@@ -10,7 +10,7 @@ namespace SignalRSelfHost.Dominio.Entidades
     {
         public static Random r = new Random();
         public List<Posicao> Posicoes = new List<Posicao>();
-        public Tipos Tipo { get; private set; }
+        public Tipos Tipo { get; set; }
         public bool Vivo { get; set; }
         public Pato()
         {
