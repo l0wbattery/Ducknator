@@ -19,12 +19,7 @@ namespace SignalRSelfHost
         public static int PontuacaoTotal = 0;
         public static List<Sala> Salas = new List<Sala>();
 
-        private IDuckhunterContext context;
-
-        public MyHub(IDuckhunterContext context) : base()
-        {
-            this.context = context;
-        }
+        private IDuckhunterContext context = new DuckhunterContext();
 
         public MyHub() : base()
         {
@@ -125,6 +120,7 @@ namespace SignalRSelfHost
             Clients.Group(token).redirectEndGame(true);
             Salas.Remove(salaAtual);
         }
+
 
         public void RodaRound(String token)
         {
