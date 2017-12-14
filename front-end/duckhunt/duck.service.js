@@ -73,6 +73,9 @@ function ($, $rootScope) {
             proxy.on('fimDeRound', function(nivel) {
                 $rootScope.$broadcast('fimDeRound', nivel);
             });
+            proxy.on('acabouMiniRound', function() {
+                $rootScope.$broadcast('acabouMiniRound');
+            });
         },
         isConnecting: function () {
             return connection.state === 0;

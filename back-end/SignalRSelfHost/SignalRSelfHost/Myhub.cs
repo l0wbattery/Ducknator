@@ -188,6 +188,7 @@ namespace SignalRSelfHost
                 aTimer.Enabled = true;
                 while (Salas[index].MiniRoundAtual.getPosicoes() < 8 && PatosVivos(index, token)) ;
                 AtualizaLeaderBoard();
+                Clients.Group(token).acabouMiniRound();
                 SobeCachorro(token, index);
                 aTimer.Close();
             }
@@ -239,30 +240,23 @@ namespace SignalRSelfHost
         //Troca as posicoes dos patos
         private void TrocaPosicaoPatos(object source, ElapsedEventArgs e, String token, int index)
         {
-            try
-            {
-                Salas[index].MiniRoundAtual.GetNextPosition();
+            Salas[index].MiniRoundAtual.GetNextPosition();
 
-                var count = 0;
-                List<PatoModel> patos = new List<PatoModel>();
-                foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+            var count = 0;
+            List<PatoModel> patos = new List<PatoModel>();
+            foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+            {
+                if (pato.Vivo)
                 {
-                    if (pato.Vivo)
-                    {
-                        patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], true));
-                    }
-                    else
-                    {
-                        patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], false));
-                    }
-                    count++;
+                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], true));
                 }
-                Clients.Group(token).patos(patos);
-            }catch(Exception e)
-            {
-
+                else
+                {
+                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], false));
+                }
+                count++;
             }
-            
+            Clients.Group(token).patos(patos);
         }
 
         //faz validção se um numero se encontra dentro dos limites passados
