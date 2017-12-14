@@ -1,10 +1,9 @@
 angular.module('duckHunt').controller('tutorialController', function ($scope, $location, duckService) {
 
-    var redirectGame = false;
-    var animationDone = false;
+    var redirecionarParaJogo = false;
 
     $scope.$on('redirectGame', function (event, redirectGame) {
-        this.redirectGame = redirectGame;
+        redirecionarParaJogo = redirectGame;
     });
 
     //Inicializa o round no servidor
@@ -33,14 +32,12 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
     });
 
     fimAnimacaoMorte = function () {
-        this.animationDone = true;
-    }
+        if (redirecionarParaJogo) {
 
-    if (this.redirectGame && this.animationDone) {
+            $location.path('/jogo');
+            $scope.$apply();
 
-        $location.path('/jogo');
-        $scope.$apply();
-
+        }
     }
 
     //Recebe mensagens do servidor

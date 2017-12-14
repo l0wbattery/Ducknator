@@ -41,7 +41,7 @@ namespace SignalRSelfHost.Dominio.Entidades
             Pontos = 0;
             Nivel = 0;
             RoundAtual = new Round();
-            EmTutorial = false;//mudei pra testes
+            EmTutorial = true;//mudei pra testes
             patoTutorial = new Pato();
             patoTutorial.Tipo = Tipos.TUTORIAL;
         }
