@@ -1,8 +1,9 @@
-angular.module('duckHunt').controller('jogoController', function ($scope, duckService) {
+angular.module('duckHunt').controller('jogoController', function ($scope, duckService, $interval) {
     var pontuacao = 0000111;
     var rodada = 1;
     var disparo = 3;
     $scope.scoreIndividual = 0;
+    $scope.inicio = false;
     $scope.roundAtual = 0;
     $scope.balas = new Array(6);
     $scope.patinhoVermelho = new Array(0);
@@ -12,6 +13,14 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     var ultimaPosicaoDoPatoEmX = [];
     var patos = [];
+
+    $interval(myTimer, 9000);
+
+    function myTimer() {
+      $scope.inicio = true;
+      console.log($scope.inicio);
+      
+    }
 
 
     $scope.$on('patosMortos', function (event, patosMortos) {
@@ -85,14 +94,12 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
             } else {
                 pato.Invertido = false;
             }
-        }        
+        }
     }
 
     $scope.$on('sobeCachorro', function(event, qntdPatos) {
       $scope.qntdPatos = qntdPatos;
     });
 
-    $scope.$on('inicioRound', function(status){
-      $scope.inicioRound = status;
-    });
+
 });

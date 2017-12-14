@@ -13,10 +13,10 @@
   color: #fff;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0.8);
+  text-align: center;
 }
 
 .leaderborder > ol {
   text-align: center;
   font-size: 22px;
-  
 }
