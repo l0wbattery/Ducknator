@@ -1,10 +1,9 @@
 angular.module('duckHunt').controller('tutorialController', function ($scope, $location, duckService) {
 
+    var redirecionarParaJogo = false;
+
     $scope.$on('redirectGame', function (event, redirectGame) {
-        if (redirectGame) {
-            $location.path('/jogo');
-            $scope.$apply();
-        }
+        redirecionarParaJogo = redirectGame;
     });
 
     //Inicializa o round no servidor
@@ -12,12 +11,12 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
         duckService.rodaRound(duckService.token);
     }
 
-    $scope.$on('token',function(event,token){
+    $scope.$on('token', function (event, token) {
         console.log(token);
         duckService.token = token;
         $scope.token = token;
         $scope.$apply();
-      });
+    });
 
     $scope.$on('criarPatoTutorial', function (event, patoTutorial) {
         $scope.patoTutorial = patoTutorial;
@@ -25,10 +24,21 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
             left: ${$scope.patoTutorial.Posicoes[0].PosicaoX}px;
             top: ${$scope.patoTutorial.Posicoes[0].PosicaoY}px;
             `;
-        
+        pato = document.getElementById("patoTutorial");
+        pato.addEventListener("animationend", fimAnimacaoMorte);
+
         console.log($scope.patoTutorialStyle);
         $scope.$apply();
     });
+
+    fimAnimacaoMorte = function () {
+        if (redirecionarParaJogo) {
+
+            $location.path('/jogo');
+            $scope.$apply();
+
+        }
+    }
 
     //Recebe mensagens do servidor
     $scope.$on('messageAdded', function (event, gamma, alpha, tiros) {
