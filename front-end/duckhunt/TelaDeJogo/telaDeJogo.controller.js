@@ -108,8 +108,8 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     }*/
 
 
-    $scope.$on('sobeCachorro', function(index) {
-      $scope.index = index;
+    $scope.$on('sobeCachorro', function(qntdPatos) {
+      $scope.qntdPatos = qntdPatos;
     });
 
     $scope.$on('inicioRound', function(status){
