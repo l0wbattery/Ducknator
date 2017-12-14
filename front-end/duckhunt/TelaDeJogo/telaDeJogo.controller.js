@@ -10,9 +10,8 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     var patosBrancos = 10;
     var mira = document.getElementById("mira");
 
+    var ultimaPosicaoDoPatoEmX = [];
     var patos = [];
-    //patinhos
-
 
 
     $scope.$on('patosMortos', function (event, patosMortos) {
@@ -59,23 +58,38 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     // VERIFICA DISPARO // -----------------------------------------------
     $scope.$on('atirou', function (event, acertou,id) {
-        console.log(acertou,id); //TODO +pontuacao por tipo de pato
+        patos[id].Vivo = false; 
+        console.log(acertou,id); 
     });
 
     //MOVIMENTA PATOS //-------------------------------------------------
     $scope.$on('patos', function (event, listaDePatos) {
+        // console.log(listaDePatos);
         let i;
-        for (i = 0; i < listaDePatos.length; i++){      
-            patos[i] = listaDePatos[i];
-            movimentaPatos(patos[i]);
+        for (i = 0; i < listaDePatos.length; i++){ 
+            if(listaDePatos[i].Vivo !== false){
+                patos[i] = listaDePatos[i];
+                inverteSpriteDosPatos(patos[i], ultimaPosicaoDoPatoEmX[i], listaDePatos[i].Posicoes.PosicaoX);
+                ultimaPosicaoDoPatoEmX[i] = listaDePatos[i].Posicoes.PosicaoX;
+            }
             console.log(patos[i]);
         }
         $scope.patos = patos;
         $scope.$apply();
     });
     
-    function movimentaPatos(patoMovimentado){
-        
+    function resetaPosicaoPato(id){
+        patos[id].Posicoes.PosicaoY = 450;
+    }
+
+    function inverteSpriteDosPatos(pato, ultimaPosX, novaPosX){
+        if(ultimaPosX !== null){
+            if( ultimaPosX > novaPosX){
+                pato.Invertido = true;
+            } else {
+                pato.Invertido = false;
+            }
+        }        
     }
 
     /*function mudaAnguloDeVoo(posicaoXAnterior, posicaoYAnterior, novaPosicaoX, novaposicaoY, idPato) {
