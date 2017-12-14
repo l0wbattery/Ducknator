@@ -4,30 +4,18 @@
         <div class="tela-de-jogo">
             <div class="fundo">
                 <span class="cachorro"></span>
-                <span ng-class="{'cachorroRindo': qntdPatos == 0}"></span>
-                <span ng-class="{'cachorroMaisUmPato cachorroPato': qntdPatos == 1}"></span>
-                <span ng-class="{'cachorroMaisDoisPatos cachorroPato': qntdPatos == 2}"></span>
-                <div class="pato-wrapper" style="
-                    left:{{patos[0].Posicoes.PosicaoX}}px; 
-                    top:{{patos[0].Posicoes.PosicaoY}}px;">
-                        <div ng-class="{
-                        'pato-voando':patos[0].Vivo == true, 
-                        'pato-morrendo': patos[0].Vivo == false, 
-                        'pato': patos[0].Invertido == false, 
-                        'pato-invertido': patos[0].Invertido == true}" id="{{patos[0].Id}}">
-                        </div>
-                </div>  
-                <div class="pato-wrapper" style="
-                    left:{{patos[1].Posicoes.PosicaoX}}px; 
-                    top:{{patos[1].Posicoes.PosicaoY}}px;">
-                        <div ng-class="{
-                        'pato-voando':patos[1].Vivo == true, 
-                        'pato-morrendo': patos[1].Vivo == false, 
-                        'pato': patos[1].Invertido == false, 
-                        'pato-invertido': patos[1].Invertido == true}" id="{{patos[1].Id}}">
-                        </div>
+                <span class="cachorroPontuacao" animation-end="resetaQuantidadePatos" ng-class="{'cachorroRindo': qntdPatos === 0}"></span>
+                <span class="cachorroPontuacao" animation-end="resetaQuantidadePatos" ng-class="{'cachorroMaisUmPato cachorroPato': qntdPatos === 1}"></span>
+                <span class="cachorroPontuacao" animation-end="resetaQuantidadePatos" ng-class="{'cachorroMaisDoisPatos cachorroPato': qntdPatos === 2}"></span>
+
+                <div ng-repeat="pato in patos" class="pato-wrapper" style="left: {{pato.Posicoes.PosicaoX}}px; top: {{pato.Posicoes.PosicaoY}}px;">
+                    <div ng-class="{
+                        'pato-voando': pato.Vivo, 
+                        'pato-morrendo': !pato.Vivo, 
+                        'pato': !pato.Invertido, 
+                        'pato-invertido': pato.Invertido }" id="{{pato.Id}}">
+                    </div>
                 </div>
-                <!-- </div> -->
 
                 <div class="mira" id="mira" style="{{mira}}"></div>
 

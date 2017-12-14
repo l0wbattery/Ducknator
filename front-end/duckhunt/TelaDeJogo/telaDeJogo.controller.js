@@ -13,6 +13,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     var ultimaPosicaoDoPatoEmX = [];
     var patos = [];
 
+    $scope.resetaQuantidadePatos = resetaQuantidadePatos;
 
     $scope.$on('patosMortos', function (event, patosMortos) {
         $scope.patinhoVermelho = new Array(patosMortos);
@@ -57,42 +58,54 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     });
 
     // VERIFICA DISPARO // -----------------------------------------------
-    $scope.$on('atirou', function (event, acertou,id) {
+    $scope.$on('atirou', function (event, acertou, id) {
         patos[id].Vivo = false;
-        console.log(acertou,id);
+        $scope.patos[id].Vivo = false;
+
+        console.log(acertou, id);
     });
 
     //MOVIMENTA PATOS //-------------------------------------------------
     $scope.$on('patos', function (event, listaDePatos) {
-        // console.log(listaDePatos);
-        let i;
-        for (i = 0; i < listaDePatos.length; i++){
-            if(listaDePatos[i].Vivo !== false){
-                patos[i] = listaDePatos[i];
-                inverteSpriteDosPatos(patos[i], ultimaPosicaoDoPatoEmX[i], listaDePatos[i].Posicoes.PosicaoX);
-                ultimaPosicaoDoPatoEmX[i] = listaDePatos[i].Posicoes.PosicaoX;
-            }
-            console.log(patos[i]);
+        if(!$scope.patos) {
+            $scope.patos = listaDePatos
         }
-        $scope.patos = patos;
-        $scope.$apply();
+
+        listaDePatos.forEach(function(pato, index) {
+            if(pato.Vivo) {
+                patos[index] = pato;
+                inverteSpriteDosPatos(pato, ultimaPosicaoDoPatoEmX[index], listaDePatos[index].Posicoes.PosicaoX);
+                ultimaPosicaoDoPatoEmX[index] = pato.Posicoes.PosicaoX;
+
+                $scope.patos[index].Posicoes = pato.Posicoes;
+            }
+        })
     });
 
-    function inverteSpriteDosPatos(pato, ultimaPosX, novaPosX){
-        if(ultimaPosX !== null){
-            if( ultimaPosX > novaPosX){
+    function inverteSpriteDosPatos(pato, ultimaPosX, novaPosX) {
+        if (ultimaPosX !== null) {
+            if (ultimaPosX > novaPosX) {
                 pato.Invertido = true;
             } else {
                 pato.Invertido = false;
             }
-        }        
+        }
     }
 
-    $scope.$on('sobeCachorro', function(event, qntdPatos) {
-      $scope.qntdPatos = qntdPatos;
+    $scope.$on('sobeCachorro', function (event, qntdPatos) {
+        $scope.qntdPatos = qntdPatos;
+        
     });
 
-    $scope.$on('inicioRound', function(status){
-      $scope.inicioRound = status;
+    function resetaQuantidadePatos() {
+        $scope.qntdPatos = null;
+    }
+
+    $scope.$on("acabouMiniRound", function() {
+        $scope.patos = [];
+    })
+
+    $scope.$on('inicioRound', function (status) {
+        $scope.inicioRound = status;
     });
 });
