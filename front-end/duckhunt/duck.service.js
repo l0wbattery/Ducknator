@@ -69,6 +69,12 @@ function ($, $rootScope) {
             });
             proxy.on('rankingTotal', function(rankingTotal) {
                 $rootScope.$broadcast('rankingTotal', rankingTotal);
+            });//fimDeRound
+            proxy.on('fimDeRound', function(nivel) {
+                $rootScope.$broadcast('fimDeRound', nivel);
+            });
+            proxy.on('acabouMiniRound', function() {
+                $rootScope.$broadcast('acabouMiniRound');
             });
         },
         isConnecting: function () {

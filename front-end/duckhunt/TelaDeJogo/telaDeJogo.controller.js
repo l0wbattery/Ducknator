@@ -11,7 +11,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     var patosBrancos = 10;
     var mira = document.getElementById("mira");
 
-    var ultimaPosicaoDoPatoEmX = [];
+    var ultimaPosicaoDoPatoEmX = [500,500];
     var patos = [];
 
     $interval(myTimer, 9000);
@@ -19,7 +19,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     function myTimer() {
       $scope.inicio = true;
       console.log($scope.inicio);
-      
+
     }
 
 
@@ -65,6 +65,12 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         $scope.$apply();
     });
 
+    //numeração de cada round e chamada do proximo round
+    $scope.$on('fimDeRound', function (event, nivel) {
+        console.log(nivel+1);
+        duckService.rodaRound(duckService.token);
+    });
+
     // VERIFICA DISPARO // -----------------------------------------------
     $scope.$on('atirou', function (event, acertou,id) {
         patos[id].Vivo = false;
@@ -77,7 +83,9 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         let i;
         for (i = 0; i < listaDePatos.length; i++){
             if(listaDePatos[i].Vivo !== false){
+                console.log(ultimaPosicaoDoPatoEmX)
                 patos[i] = listaDePatos[i];
+
                 inverteSpriteDosPatos(patos[i], ultimaPosicaoDoPatoEmX[i], listaDePatos[i].Posicoes.PosicaoX);
                 ultimaPosicaoDoPatoEmX[i] = listaDePatos[i].Posicoes.PosicaoX;
             }
