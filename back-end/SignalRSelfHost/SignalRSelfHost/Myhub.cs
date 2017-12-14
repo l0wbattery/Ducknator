@@ -130,6 +130,16 @@ namespace SignalRSelfHost
             Salas.Remove(salaAtual);
         }
 
+        public void RodaTutorial(String token)
+        {
+            var salaAtual = Salas.Where(x => x.Token == token).FirstOrDefault();
+            if (salaAtual == null)
+                return;
+            var index = Salas.IndexOf(salaAtual);
+
+            IniciaTutorial(token, index);
+            
+        }
 
         public void RodaRound(String token)
         {
@@ -139,21 +149,14 @@ namespace SignalRSelfHost
                 return;
             var index = Salas.IndexOf(salaAtual);
 
-            if (Salas[index].getEstadoTutorial())
-            {
-                IniciaTutorial(token, index);
-            }
-            else
-            {
-                Salas[index].NextRound();
+            Salas[index].NextRound();
 
-                for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
-                    RodaPatosMiniRound(i, token, index);
+            for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
+                RodaPatosMiniRound(i, token, index);
 
-                if (Salas[index].RoundAtual.QntdPatosMortos < 5)
-                    FimDeJogo(token);
-
-            }
+            if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+                FimDeJogo(token);
+ 
         }
 
         public void RodaPatosMiniRound(int i, String token, int index)

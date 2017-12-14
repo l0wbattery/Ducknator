@@ -1,7 +1,7 @@
 angular.module('duckHunt').controller('tutorialController', function ($scope, $location, duckService) {
 
     var redirecionarParaJogo = false;
-
+    duckService.rodaTutorial(duckService.token);
     $scope.$on('redirectGame', function (event, redirectGame) {
         redirecionarParaJogo = redirectGame;
     });

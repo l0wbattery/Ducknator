@@ -55,6 +55,9 @@ function ($, $rootScope) {
             proxy.on('leaderBoard', function(leaderBoard) {
                 $rootScope.$broadcast('leaderBoard', leaderBoard);
             });
+            proxy.on('patoMorreu', function(patoMorreu) {
+                $rootScope.$broadcast('patoMorreu', patoMorreu);
+            });
         },
         isConnecting: function () {
             return connection.state === 0;
@@ -98,6 +101,11 @@ function ($, $rootScope) {
         enviaFimAnimacaoMorte: function (boolean){
             if(this.isConnected()){
                 proxy.invoke('enviaFimAnimacaoMorte', boolean);
+            }
+        },//RodaTutorial
+        rodaTutorial: function (token){
+            if(this.isConnected()){
+                proxy.invoke('RodaTutorial',token);
             }
         },
     }
