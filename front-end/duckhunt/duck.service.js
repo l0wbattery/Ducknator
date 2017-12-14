@@ -67,6 +67,15 @@ function ($, $rootScope) {
             proxy.on('roundAtual', function(roundAtual) {
                 $rootScope.$broadcast('roundAtual', roundAtual);
             });
+            proxy.on('rankingTotal', function(rankingTotal) {
+                $rootScope.$broadcast('rankingTotal', rankingTotal);
+            });//fimDeRound
+            proxy.on('fimDeRound', function(nivel) {
+                $rootScope.$broadcast('fimDeRound', nivel);
+            });
+            proxy.on('acabouMiniRound', function() {
+                $rootScope.$broadcast('acabouMiniRound');
+            });
         },
         isConnecting: function () {
             return connection.state === 0;
@@ -116,6 +125,9 @@ function ($, $rootScope) {
             if(this.isConnected()){
                 proxy.invoke('RodaTutorial',token);
             }
+        },
+        chamaRankingTotal: function() {
+          proxy.invoke('GetRankingTotal');
         },
     }
 }]);

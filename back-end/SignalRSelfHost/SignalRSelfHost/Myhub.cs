@@ -150,29 +150,33 @@ namespace SignalRSelfHost
 
         public void RodaRound(String token)
         {
-            Clients.Group(token).inicioRound(true);
             var salaAtual = getSalaAtual(token);
             if (salaAtual == null)
             {
                 return;
             }
             var index = Salas.IndexOf(salaAtual);
-
-            Salas[index].NextRound();
-            Clients.Group(token).patosMortos(Salas[index].RoundAtual.QntdPatosMortos);
-            Clients.Group(token).roundAtual(Salas[index].Nivel);
-            for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
+            try
             {
-                RodaPatosMiniRound(i, token, index);
+                Salas[index].NextRound();
+                Clients.Group(token).patosMortos(Salas[index].RoundAtual.QntdPatosMortos);
+                Clients.Group(token).roundAtual(Salas[index].Nivel);
+                for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
+                {
+                    RodaPatosMiniRound(i, token, index);
+                }
+                //desativado enquanto estamos testando os rounds
+                /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+                {
+                    FimDeJogo(token);
+                }*/
+                Clients.Group(token).fimDeRound(Salas[index].Nivel);
             }
-            //desativado enquanto estamos testando os rounds
-            /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+            catch(Exception e)
             {
-                FimDeJogo(token);
-            }*/
-            Clients.Group(token).fimDeRound(Salas[index].Nivel);
-        }
 
+            }
+        }
         public void RodaPatosMiniRound(int i, String token, int index)
         {
             try
@@ -184,6 +188,7 @@ namespace SignalRSelfHost
                 aTimer.Enabled = true;
                 while (Salas[index].MiniRoundAtual.getPosicoes() < 8 && PatosVivos(index, token)) ;
                 AtualizaLeaderBoard();
+                Clients.Group(token).acabouMiniRound();
                 SobeCachorro(token, index);
                 aTimer.Close();
             }
@@ -237,18 +242,13 @@ namespace SignalRSelfHost
         {
             Salas[index].MiniRoundAtual.GetNextPosition();
 
-            TrocaPosicaoPato(token, index);
-        }
-
-        public void TrocaPosicaoPato(String token, int index)
-        {
             var count = 0;
             List<PatoModel> patos = new List<PatoModel>();
             foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
             {
                 if (pato.Vivo)
                 {
-                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()],true));
+                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], true));
                 }
                 else
                 {
@@ -258,7 +258,6 @@ namespace SignalRSelfHost
             }
             Clients.Group(token).patos(patos);
         }
-
 
         //faz validção se um numero se encontra dentro dos limites passados
         public bool Between(int num, int lower, int upper, bool inclusive = false)
@@ -332,11 +331,13 @@ namespace SignalRSelfHost
         }
 
         //retorna o ranking geral
-        public List<Partida> GetRankingTotal()
+        public void GetRankingTotal()
         {
-            return context.Partidas
+            var lista = context.Partidas
                 .OrderByDescending(partida => partida.Pontos)
                 .ToList();
+
+            Clients.All.rankingTotal(lista);
         }
 
         public void AtualizaLeaderBoard()

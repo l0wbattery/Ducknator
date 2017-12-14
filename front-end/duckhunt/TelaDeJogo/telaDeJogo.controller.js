@@ -10,10 +10,9 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     var patosBrancos = 10;
     var mira = document.getElementById("mira");
 
-    var ultimaPosicaoDoPatoEmX = [];
+    var ultimaPosicaoDoPatoEmX = [500,500];
     var patos = [];
 
-    $scope.resetaQuantidadePatos = resetaQuantidadePatos;
 
     $scope.$on('patosMortos', function (event, patosMortos) {
         $scope.patinhoVermelho = new Array(patosMortos);
@@ -55,6 +54,12 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         top: ${$scope.miraY}px;
         `;
         $scope.$apply();
+    });
+
+    //numeração de cada round e chamada do proximo round
+    $scope.$on('fimDeRound', function (event, nivel) {
+        console.log(nivel+1);
+        duckService.rodaRound(duckService.token);
     });
 
     // VERIFICA DISPARO // -----------------------------------------------

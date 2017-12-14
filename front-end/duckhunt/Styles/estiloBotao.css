@@ -1,4 +1,4 @@
-.btn, .btn-nome, .btn-fim {
+.btn, .btn-nome, .btn-fim, .btn-ranking {
   position: absolute;
   color: #000;
   background-color: yellow;
@@ -17,6 +17,14 @@
   top: 65%;
 }
 
+.btn-ranking {
+  width: 100px;
+  height: 30px;
+  font-size: 20px;
+  top: 40px;
+  left: 40px;
+}
+
 .btn {
   width: 400px;
   height: 100px;
@@ -24,7 +32,7 @@
   top: 65%;
 }
 
-.btn:active, .btn-nome:active, .btn-fim:active {
+.btn:active, .btn-nome:active, .btn-fim:active, .btn-ranking:active {
   box-shadow: 0 0 transparent;
   transition-duration: .2s;
   margin-left: 5px;
