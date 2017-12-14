@@ -160,11 +160,11 @@ namespace SignalRSelfHost
             {
                 RodaPatosMiniRound(i, token, index);
             }
-
-            if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+            //desativado enquanto estamos testando os rounds
+            /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
             {
                 FimDeJogo(token);
-            }
+            }*/
         }
 
         public void RodaPatosMiniRound(int i, String token, int index)
