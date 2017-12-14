@@ -8,11 +8,11 @@ namespace SignalRSelfHost.Dominio.Entidades
 {
     public class Partida
     {
-        public int Id { get; private set; }
-        public String NomeUsuario { get; private set; }
-        public int Pontos { get; private set; }
-        public int Nivel { get; private set; }
-        public DateTime Data { get; private set; }
+        public int Id { get; set; }
+        public String NomeUsuario { get; set; }
+        public int Pontos { get; set; }
+        public int Nivel { get; set; }
+        public DateTime Data { get; set; }
 
         public Partida()
         {

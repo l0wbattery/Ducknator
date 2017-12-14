@@ -42,7 +42,14 @@ namespace SignalRSelfHost
             var sala = Salas.Where(x => x.IdsUsuarios.Contains(Context.ConnectionId)).FirstOrDefault();
             if (sala == null)
                 return base.OnDisconnected(stopCalled);
-            FimDeJogo(sala.Token);
+            if (sala.IdsUsuarios.Count > 1)
+            {
+                FimDeJogo(sala.Token);
+            }
+            else
+            {
+                Salas.Remove(sala);
+            }
             return base.OnDisconnected(stopCalled);
         }
 
@@ -133,10 +140,6 @@ namespace SignalRSelfHost
             }
             else
             {
-
-            if (Salas[index].RoundAtual.QntdPatosMortos < 5)
-                FimDeJogo(token);
-
                 Salas[index].NextRound();
 
                 for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
@@ -154,7 +157,7 @@ namespace SignalRSelfHost
             Salas[index].MiniRoundAtual = Salas[index].RoundAtual.MiniRounds[i];
             Timer aTimer = new Timer();
             aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
-            aTimer.Interval = 2000;
+            aTimer.Interval = 200;
             aTimer.Enabled = true;
             while (Salas[index].MiniRoundAtual.getPosicoes() < 5 && PatosVivos(index,token));
             AtualizaLeaderBoard();
@@ -277,7 +280,8 @@ namespace SignalRSelfHost
 
         public void SalvaPartida(String nome, int pontos, int nivel)
         {
-            context.Partidas.Add(new Partida(nome, pontos, nivel));
+            Partida partidaAdd = new Partida(nome, pontos, nivel);
+            context.Partidas.Add(partidaAdd);
             context.SaveChanges();
         }
 
@@ -291,9 +295,12 @@ namespace SignalRSelfHost
 
         public void AtualizaLeaderBoard()
         {
-            List<LeaderBoardModel> leader = Salas.OrderByDescending(x => x.Pontos)
-                                                 .Select(x => new LeaderBoardModel(x.NomeUsuario, x.Pontos))
-                                                 .ToList();
+            List<LeaderBoardModel> leader = new List<LeaderBoardModel>();
+            foreach (Sala sala in Salas)
+            {
+                leader.Add(new LeaderBoardModel(sala.NomeUsuario,sala.Pontos));
+            }
+            leader = leader.OrderByDescending(x => x.Pontos).ToList();
             Clients.All.leaderBoard(leader);
         }
 
