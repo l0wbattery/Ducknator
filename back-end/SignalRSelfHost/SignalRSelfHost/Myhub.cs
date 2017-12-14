@@ -91,6 +91,7 @@ namespace SignalRSelfHost
                         acertou = true;
                         Salas[index].finalizaTutorial();
                         Clients.Group(token).redirectGame(true);
+                        Clients.Group(token).atirou(acertou, 0);
                     }
                 }
                 else
@@ -107,16 +108,16 @@ namespace SignalRSelfHost
                             Salas[index].RoundAtual.QntdPatosMortos++;
                             Salas[index].Pontos += 1500 * (int)pato.Tipo;
                             acertou = true;
-                            var patoModel = new PatoModel(count, null);
-                            patoModel.Vivo = false;
+                            var patoModel = new PatoModel(count, null,false);
                             Clients.Group(token).patoMorreu(patoModel);
                             Clients.Group(token).patosMortos(Salas[index].RoundAtual.QntdPatosMortos);
                             Clients.Group(token).scoreIndividual(Salas[index].Pontos);
+                            Clients.Group(token).atirou(acertou,count);
                         }
                         count++;
                     }
                 }
-                Clients.Group(token).atirou(acertou);
+                
             }
         }
 
@@ -160,10 +161,10 @@ namespace SignalRSelfHost
                 RodaPatosMiniRound(i, token, index);
             }
 
-            /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+            if (Salas[index].RoundAtual.QntdPatosMortos < 5)
             {
                 FimDeJogo(token);
-            }*/
+            }
         }
 
         public void RodaPatosMiniRound(int i, String token, int index)
@@ -231,7 +232,11 @@ namespace SignalRSelfHost
             {
                 if (pato.Vivo)
                 {
-                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()]));
+                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()],true));
+                }
+                else
+                {
+                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], false));
                 }
                 count++;
             }

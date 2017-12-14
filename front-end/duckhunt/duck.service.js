@@ -16,8 +16,8 @@ function ($, $rootScope) {
             proxy.on('messageAdded', function (bolaGamma, bolaAlpha,tiros) {
                 $rootScope.$broadcast('messageAdded', bolaGamma, bolaAlpha,tiros);
             });
-            proxy.on('atirou', function (atirou) {
-                $rootScope.$broadcast('atirou', atirou);
+            proxy.on('atirou', function (atirou,id) {
+                $rootScope.$broadcast('atirou', atirou,id);
             });
             proxy.on('patos', function (patos) {
                 $rootScope.$broadcast('patos', patos);

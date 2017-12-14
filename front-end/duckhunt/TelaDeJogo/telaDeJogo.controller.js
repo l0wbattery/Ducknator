@@ -58,13 +58,9 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     });
 
     // VERIFICA DISPARO // -----------------------------------------------
-    $scope.$on('atirou', function (event, acertou) {
-        console.log(acertou); //TODO +pontuacao por tipo de pato
+    $scope.$on('atirou', function (event, acertou,id) {
+        console.log(acertou,id); //TODO +pontuacao por tipo de pato
     });
-    /*$scope.$on('patos', function (event, patos) {
-        $scope.patos = patos;
-        $scope.$apply();
-    });*/
 
     //MOVIMENTA PATOS //-------------------------------------------------
     $scope.$on('patos', function (event, listaDePatos) {

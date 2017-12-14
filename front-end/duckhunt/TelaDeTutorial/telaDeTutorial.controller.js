@@ -40,7 +40,7 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
     });
 
     //Inicia verificação de acerto do pato tutorial ao receber o sinal de tiro vindo do backend;
-    $scope.$on('atirou', function (event, acertou) {
+    $scope.$on('atirou', function (event, acertou,id) {
         if (acertou === true) {
             $scope.patoTutorial.Vivo = false;
         }
