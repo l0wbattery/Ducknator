@@ -50,7 +50,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         $scope.miraY = alpha;
 
         $scope.mira = `
-        left: ${$scope.miraX}px; 
+        left: ${$scope.miraX}px;
         top: ${$scope.miraY}px;
         `;
         $scope.$apply();
@@ -58,15 +58,15 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     // VERIFICA DISPARO // -----------------------------------------------
     $scope.$on('atirou', function (event, acertou,id) {
-        patos[id].Vivo = false; 
-        console.log(acertou,id); 
+        patos[id].Vivo = false;
+        console.log(acertou,id);
     });
 
     //MOVIMENTA PATOS //-------------------------------------------------
     $scope.$on('patos', function (event, listaDePatos) {
         // console.log(listaDePatos);
         let i;
-        for (i = 0; i < listaDePatos.length; i++){ 
+        for (i = 0; i < listaDePatos.length; i++){
             if(listaDePatos[i].Vivo !== false){
                 patos[i] = listaDePatos[i];
                 inverteSpriteDosPatos(patos[i], ultimaPosicaoDoPatoEmX[i], listaDePatos[i].Posicoes.PosicaoX);
@@ -77,7 +77,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         $scope.patos = patos;
         $scope.$apply();
     });
-    
+
     function resetaPosicaoPato(id){
         patos[id].Posicoes.PosicaoY = 450;
     }
@@ -89,24 +89,8 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
             } else {
                 pato.Invertido = false;
             }
-        }        
-    }
-
-    /*function mudaAnguloDeVoo(posicaoXAnterior, posicaoYAnterior, novaPosicaoX, novaposicaoY, idPato) {
-        let patoVoando = document.getElementById(idPato);
-        patoVoando.style.transition = "all .0s";
-
-        if ((Number(posicaoXAnterior.slice(0, posicaoXAnterior.length - 2))) < novaPosicaoX) {
-            patoVoando.style.transform = "scaleX(1)";
-        } else {
-            patoVoando.style.transform = "scaleX(-1)";
         }
-
-        patoVoando.style.transition = "all 1s";
-
     }
-    }*/
-
 
     $scope.$on('sobeCachorro', function(qntdPatos) {
       $scope.qntdPatos = qntdPatos;

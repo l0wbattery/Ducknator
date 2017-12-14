@@ -9,6 +9,11 @@ angular.module('duckHunt').config(function ($routeProvider){
         controller: 'mobileController'
     })
 
+    .when('/fim',{
+        templateUrl: 'TelaFimDeJogo/fimDeJogo.html',
+        controller: 'fimDeJogoController'
+    })
+
     .when('/tutorial',{
         templateUrl: 'TelaDeTutorial/telaDeTutorial.html',
         controller: 'tutorialController'

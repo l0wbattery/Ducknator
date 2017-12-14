@@ -20,8 +20,6 @@ namespace SignalRSelfHost
             // for more information.
 
             string url = "http://10.99.150.50:8080";
-
-
             using (WebApp.Start(url))
             {
                 Console.WriteLine("Server running on {0}", url);

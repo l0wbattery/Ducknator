@@ -30,6 +30,7 @@ body {
   border-bottom: 2px solid #fff;
   text-align: center;
   padding-bottom: 10px;
+  caret-color: yellow;
 }
 /*utilizado na home*/
 #snow{
