@@ -34,13 +34,14 @@ namespace SignalRSelfHost.Dominio.Entidades
 
         public Sala(String token, String id)
         {
+            NomeUsuario = "Player";
             Token = token;
             IdsUsuarios = new List<String>();
             IdsUsuarios.Add(id);
             Pontos = 0;
             Nivel = 0;
             RoundAtual = new Round();
-            EmTutorial = true;
+            EmTutorial = false;//mudei pra testes
             patoTutorial = new Pato();
             patoTutorial.Tipo = Tipos.TUTORIAL;
         }

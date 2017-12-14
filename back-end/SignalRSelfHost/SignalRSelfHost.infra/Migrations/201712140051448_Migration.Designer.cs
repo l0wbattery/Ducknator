@@ -7,13 +7,13 @@ namespace SignalRSelfHost.infra.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class InitialTestMigration : IMigrationMetadata
+    public sealed partial class Migration : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialTestMigration));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Migration));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712131617185_InitialTestMigration"; }
+            get { return "201712140051448_Migration"; }
         }
         
         string IMigrationMetadata.Source
