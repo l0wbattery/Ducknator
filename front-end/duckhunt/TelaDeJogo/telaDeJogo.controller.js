@@ -2,31 +2,43 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     var pontuacao = 0000111;
     var rodada = 1;
     var disparo = 3;
-
-    $scope.isPato1Vivo = true;
-    $scope.isPato2Vivo = true;
-
+    $scope.scoreIndividual = 0;
+    $scope.roundAtual = 0;
+    $scope.balas = new Array(6);
     var mira = document.getElementById("mira");
-    var pato1 = document.getElementById("pato1");
-    var pato2 = document.getElementById("pato2");
 
-    //Posições Iniciais
-    //pato1.style.top = "500px";
-    //pato1.style.left = "600px";
+    //patinhos
+    function resetPatinhos(){
+        $scope.patinhoVermelho = new Array(0);
+        $scope.patinhoBranco = new Array(10);
+    }
+    resetPatinhos();
 
-    //pato2.style.top = "500px";
-    //pato2.style.left = "100px";
-
-    var patoUmVivo = true;
+    $scope.$on('patosMortos', function (event, patosMortos) {
+        $scope.patinhoVermelho = new Array(patosMortos);
+        $scope.patinhoBranco = new Array(patosBrancos - patosMortos);
+        $scope.$apply();
+    });
 
     //Inicializa o round no servidor
     $scope.rodaRound = function () {
+        resetPatinhos();
         duckService.rodaRound();
     }
+    //score individual
+    $scope.$on('scoreIndividual', function (event, scoreIndividual) {
+        $scope.scoreIndividual = scoreIndividual;
+        $scope.$apply();
+    });
+
+    //round atual
+    $scope.$on('roundAtual', function (event, roundAtual) {
+        $scope.roundAtual = roundAtual;
+        $scope.$apply();
+    });
 
     //leaderBoard
     $scope.$on('leaderBoard', function (event, leaderBoard) {
-        console.log(leaderBoard);
         $scope.leaderBoard = leaderBoard;
         $scope.$apply();
     });
@@ -80,17 +92,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
         patoVoando.style.transition = "all 1s";
 
-    }
-
-    function pad(pontuacao) {
-        return (pontuacao < 10) ? ("0" + pontuacao) : pontuacao;
     }*/
-
-    $scope.data = {
-        score: pontuacao,
-        round: rodada,
-        shot: disparo
-    };
 
     $scope.$on('sobeCachorro', function(index) {
       $scope.index = index;

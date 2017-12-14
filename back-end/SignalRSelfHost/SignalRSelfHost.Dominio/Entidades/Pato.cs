@@ -29,13 +29,18 @@ namespace SignalRSelfHost.Dominio.Entidades
 
         private void geraPosicoesAleatorias()
         {
-            
+            //limbo
+            Posicoes.Add(new Posicao(0,0));
+            //posicao inicial
+            Posicoes.Add(new Posicao(500, 400));
             int contador = 0;
             while (contador <= 5)
             {
-                Posicoes.Add(new Posicao(r.Next(0, 801), r.Next(0,601)));
+                Posicoes.Add(new Posicao(r.Next(20, 690), r.Next(20,375)));
                 contador++;
             }
+            //posicao final
+            Posicoes.Add(new Posicao(500, -100));
         }
 
     }
