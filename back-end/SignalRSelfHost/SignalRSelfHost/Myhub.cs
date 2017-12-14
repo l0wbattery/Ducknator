@@ -156,22 +156,27 @@ namespace SignalRSelfHost
                 return;
             }
             var index = Salas.IndexOf(salaAtual);
-
-            Salas[index].NextRound();
-            Clients.Group(token).patosMortos(Salas[index].RoundAtual.QntdPatosMortos);
-            Clients.Group(token).roundAtual(Salas[index].Nivel);
-            for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
+            try
             {
-                RodaPatosMiniRound(i, token, index);
+                Salas[index].NextRound();
+                Clients.Group(token).patosMortos(Salas[index].RoundAtual.QntdPatosMortos);
+                Clients.Group(token).roundAtual(Salas[index].Nivel);
+                for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
+                {
+                    RodaPatosMiniRound(i, token, index);
+                }
+                //desativado enquanto estamos testando os rounds
+                /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+                {
+                    FimDeJogo(token);
+                }*/
+                Clients.Group(token).fimDeRound(Salas[index].Nivel);
             }
-            //desativado enquanto estamos testando os rounds
-            /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+            catch(Exception e)
             {
-                FimDeJogo(token);
-            }*/
-            Clients.Group(token).fimDeRound(Salas[index].Nivel);
-        }
 
+            }
+        }
         public void RodaPatosMiniRound(int i, String token, int index)
         {
             try
@@ -234,30 +239,31 @@ namespace SignalRSelfHost
         //Troca as posicoes dos patos
         private void TrocaPosicaoPatos(object source, ElapsedEventArgs e, String token, int index)
         {
-            Salas[index].MiniRoundAtual.GetNextPosition();
-
-            TrocaPosicaoPato(token, index);
-        }
-
-        public void TrocaPosicaoPato(String token, int index)
-        {
-            var count = 0;
-            List<PatoModel> patos = new List<PatoModel>();
-            foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+            try
             {
-                if (pato.Vivo)
-                {
-                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()],true));
-                }
-                else
-                {
-                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], false));
-                }
-                count++;
-            }
-            Clients.Group(token).patos(patos);
-        }
+                Salas[index].MiniRoundAtual.GetNextPosition();
 
+                var count = 0;
+                List<PatoModel> patos = new List<PatoModel>();
+                foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+                {
+                    if (pato.Vivo)
+                    {
+                        patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], true));
+                    }
+                    else
+                    {
+                        patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], false));
+                    }
+                    count++;
+                }
+                Clients.Group(token).patos(patos);
+            }catch(Exception e)
+            {
+
+            }
+            
+        }
 
         //faz validção se um numero se encontra dentro dos limites passados
         public bool Between(int num, int lower, int upper, bool inclusive = false)

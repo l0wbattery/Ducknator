@@ -55,6 +55,12 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         $scope.$apply();
     });
 
+    //numeração de cada round e chamada do proximo round
+    $scope.$on('fimDeRound', function (event, nivel) {
+        console.log(nivel+1);
+        duckService.rodaRound(duckService.token);
+    });
+
     // VERIFICA DISPARO // -----------------------------------------------
     $scope.$on('atirou', function (event, acertou,id) {
         patos[id].Vivo = false;

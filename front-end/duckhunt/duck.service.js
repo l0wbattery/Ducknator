@@ -7,7 +7,7 @@ function ($, $rootScope) {
         connect: function () {
             var self = this;
 
-            connection = $.hubConnection('http://10.99.30.61:8080/signalr');
+            connection = $.hubConnection('http://10.99.150.50:8080/signalr');
 
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
@@ -69,6 +69,9 @@ function ($, $rootScope) {
             });
             proxy.on('rankingTotal', function(rankingTotal) {
                 $rootScope.$broadcast('rankingTotal', rankingTotal);
+            });//fimDeRound
+            proxy.on('fimDeRound', function(nivel) {
+                $rootScope.$broadcast('fimDeRound', nivel);
             });
         },
         isConnecting: function () {
