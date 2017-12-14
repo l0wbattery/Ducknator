@@ -1,58 +1,65 @@
 <div class="star">
-        <span ng-class="{'inicioRound' : incioRound == true}"></span>
-        <div class="televisao">
-            <div class="tela-de-jogo">
-                <div class="fundo">
-                    <span class="cachorro"></span>
-                    <span ng-class="{'cachorroRindo': index == 0, 'cachorroMaisUmPato cachorroPato' : index == 1, 'cachorroMaisDoisPatos cachorroPato' : index == 2}"></span>
-                    <div ng-repeat="pato in patos">
-                        <div class="pato pato-voando" style="left:{{pato.Posicoes.PosicaoX}}px; top:{{pato.Posicoes.PosicaoY}}px;" id="{{pato.Id}}">
+    <span ng-class="{'inicioRound' : incioRound == true}"></span>
+    <div class="televisao">
+        <div class="tela-de-jogo">
+            <div class="fundo">
+                <span class="cachorro"></span>
+                <span ng-class="{'cachorroRindo': index == 0, 'cachorroMaisUmPato cachorroPato' : index == 1, 'cachorroMaisDoisPatos cachorroPato' : index == 2}"></span>
+
+                <!-- <div ng-repeat="pato in patos"> -->
+                <div class="pato" ng-class="{'pato-voando':patos[0].Vivo == true, 'pato-morrendo': patos[0].Vivo == false}" id="{{patos[0].Id}}"
+                    style="margin-left:{{patos[0].Posicoes.PosicaoX}}px; margin-top:{{patos[0].Posicoes.PosicaoY}}px; transition: 1s linear;">
+                </div>
+                <div class="pato" ng-class="{'pato-voando':patos[1].Vivo == true, 'pato-morrendo': patos[1].Vivo == false}" id="{{patos[1].Id}}"
+                    style="margin-left:{{patos[1].Posicoes.PosicaoX}}px; margin-top:{{patos[1].Posicoes.PosicaoY}}px; transition: 1s linear;">
+                </div>
+                <!-- </div> -->
+
+                <div class="mira" id="mira" style="{{mira}}"></div>
+
+                <div class="console-informacoes">
+                    <div class="box-numero-round">
+                        <p>R =
+                            <span>{{roundAtual}}</span>
+                        </p>
+                    </div>
+                    <!-- TODO transformar num NG-REPEAT -->
+                    <div class="box-municao">
+                        <div class="patinhos-flex">
+                            <div ng-repeat="bala in balas track by $index">
+                                <div class="bala"></div>
+                            </div>
+                        </div>
+                        
+                        <p>SHOT</p>
+                    </div>
+                    <div class="box-patos">
+                        <p>HIT</p>
+                        <div class="patinhos-flex">
+                            <div ng-repeat="patoVermelho in patinhoVermelho track by $index">
+                                <div class="patinhos patinho-vermelho"></div>
+                            </div>
+                            <div ng-repeat="patoBranco in patinhoBranco track by $index">
+                                <div class="patinhos patinho-branco"></div>
+                            </div>
                         </div>
                     </div>
-
-
-                    <div class="mira" style="{{mira}}" id="mira"></div>
-
-                    <div class="console-informacoes">
-                        <div class="box-numero-round">
-                            <p>R =
-                                <span>{{roundAtual}}</span>
-                            </p>
-                        </div>
-                        <!-- TODO transformar num NG-REPEAT -->
-                        <div class="box-municao">
-                            <div class="patinhos-flex">
-                                <div ng-repeat="bala in balas track by $index">
-                                    <div class="bala"></div>
-                                </div>
-                            </div>
-                            
-                            <p>SHOT</p>
-                        </div>
-                        <div class="box-patos">
-                            <p>HIT</p>
-                            <div class="patinhos-flex">
-                                <div ng-repeat="patoVermelho in patinhoVermelho track by $index">
-                                    <div class="patinhos patinho-vermelho"></div>
-                                </div>
-                                <div ng-repeat="patoBranco in patinhoBranco track by $index">
-                                    <div class="patinhos patinho-branco"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="box-score">
-                            <p>{{scoreIndividual}}</p>
-                            <p class="score">SCORE</p>
-                        </div>
+                    <div class="box-score">
+                        <p>{{scoreIndividual}}</p>
+                        <p class="score">SCORE</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="leaderborder">
-            <div>PESSOAS ONLINE</div>
-                <div ng-repeat="leader in leaderBoard">
-                    Nome: {{leader.Nome}} | Pontos: {{leader.Pontos}}
-                </div>
+    </div>
+    <div class="leaderborder">
+        <div>PESSOAS ONLINE</div>
+        <div ng-repeat="leader in leaderBoard">
+            Nome: {{leader.Nome}} | Pontos: {{leader.Pontos}}
         </div>
+    </div>
 </div>
+    
+
+    
 <button type="button" name="button" ng-click="rodaRound()">Iniciar round</button>
