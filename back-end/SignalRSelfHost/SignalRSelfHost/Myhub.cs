@@ -169,19 +169,28 @@ namespace SignalRSelfHost
             {
                 FimDeJogo(token);
             }*/
+            Clients.Group(token).fimDeRound(Salas[index].Nivel);
         }
 
         public void RodaPatosMiniRound(int i, String token, int index)
         {
-            Salas[index].MiniRoundAtual = Salas[index].RoundAtual.MiniRounds[i];
-            Timer aTimer = new Timer();
-            aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
-            aTimer.Interval = 2000;
-            aTimer.Enabled = true;
-            while (Salas[index].MiniRoundAtual.getPosicoes() < 8 && PatosVivos(index,token));
-            AtualizaLeaderBoard();
-            SobeCachorro(token,index);
-            aTimer.Close();
+            try
+            {
+                Salas[index].MiniRoundAtual = Salas[index].RoundAtual.MiniRounds[i];
+                Timer aTimer = new Timer();
+                aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
+                aTimer.Interval = 2000;
+                aTimer.Enabled = true;
+                while (Salas[index].MiniRoundAtual.getPosicoes() < 8 && PatosVivos(index, token)) ;
+                AtualizaLeaderBoard();
+                SobeCachorro(token, index);
+                aTimer.Close();
+            }
+            catch (Exception e)
+            {
+
+            }
+            
         }
 
         public void IniciaTutorial(String token, int index)
@@ -193,10 +202,12 @@ namespace SignalRSelfHost
         private void SobeCachorro(String token, int index)
         {
             if (!PatosVivos(index, token))
+            {
                 Clients.Group(token).sobeCachorro(2);
+            }
             else
             {
-                if (Salas[index].MiniRoundAtual.Patos.Where(x => x.Vivo == true).Count() > 0)
+                if (Salas[index].MiniRoundAtual.Patos.Where(x => x.Vivo == true).Count() == 1)
                 {
                     Clients.Group(token).sobeCachorro(1);
                 }
