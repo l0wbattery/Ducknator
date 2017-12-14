@@ -22,6 +22,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     }
 
+    $scope.resetaQuantidadePatos = resetaQuantidadePatos; 
 
     $scope.$on('patosMortos', function (event, patosMortos) {
         $scope.patinhoVermelho = new Array(patosMortos);
