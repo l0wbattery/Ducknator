@@ -27,6 +27,11 @@ namespace SignalRSelfHost
 
         }
 
+        private Sala getSalaAtual(String token)
+        {
+            return Salas.Where(x => x.Token.Equals(token)).FirstOrDefault();
+        }
+
         public override Task OnConnected()
         {
             Clients.Caller.isConnect(true);
@@ -54,8 +59,8 @@ namespace SignalRSelfHost
             if (token == null)
             {
                 return;
-            } 
-            var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
+            }
+            var sala = getSalaAtual(token);
             if (sala == null)
             {
                 return;
@@ -71,7 +76,7 @@ namespace SignalRSelfHost
         {
             if (token == null)
                 return;
-            var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
+            var sala = getSalaAtual(token);
             if (sala == null)
                 return;
             var index = Salas.IndexOf(sala);
@@ -123,7 +128,7 @@ namespace SignalRSelfHost
 
         public void FimDeJogo(String token)
         {
-            var salaAtual = Salas.Where(x => x.Token == token).FirstOrDefault();
+            var salaAtual = getSalaAtual(token);
             if (salaAtual == null)
                 return;
             SalvaPartida(salaAtual.NomeUsuario, salaAtual.Pontos, salaAtual.Nivel);
@@ -133,7 +138,7 @@ namespace SignalRSelfHost
 
         public void RodaTutorial(String token)
         {
-            var salaAtual = Salas.Where(x => x.Token == token).FirstOrDefault();
+            var salaAtual = getSalaAtual(token);
             if (salaAtual == null)
             {
                 return;
@@ -146,7 +151,7 @@ namespace SignalRSelfHost
         public void RodaRound(String token)
         {
             Clients.Group(token).inicioRound(true);
-            var salaAtual = Salas.Where(x => x.Token == token).FirstOrDefault();
+            var salaAtual = getSalaAtual(token);
             if (salaAtual == null)
             {
                 return;
@@ -254,7 +259,7 @@ namespace SignalRSelfHost
 
         public Task EnviaToken(String token)
         {
-            var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
+            var sala = getSalaAtual(token);
             if (sala == null)
             {
                 return null;
@@ -294,7 +299,7 @@ namespace SignalRSelfHost
 
         public void EnviaNick(String nick, String token)
         {
-            var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
+            var sala = getSalaAtual(token);
             if (sala == null)
             {
                 return;
