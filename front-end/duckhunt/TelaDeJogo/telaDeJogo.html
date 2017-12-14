@@ -4,29 +4,28 @@
         <div class="tela-de-jogo">
             <div class="fundo">
                 <span class="cachorro"></span>
-                <span ng-class="{'cachorroRindo': index == 0, 'cachorroMaisUmPato cachorroPato' : index == 1, 'cachorroMaisDoisPatos cachorroPato' : index == 2}"></span>
-
-                <!-- <div ng-repeat="pato in patos"> -->
-                <div ng-class="{
-                    'pato-voando':patos[0].Vivo == true, 
-                    'pato-morrendo': patos[0].Vivo == false, 
-                    'pato': patos[0].Invertido == false, 
-                    'pato-invertido': patos[0].Invertido == true}" 
-                    id="{{patos[0].Id}}"
-                    style="
-                        left:{{patos[0].Posicoes.PosicaoX}}px; 
-                        top:{{patos[0].Posicoes.PosicaoY}}px; 
-                        transition: 1s linear;">
-                </div>
-                <div ng-class="{
-                    'pato-voando':patos[1].Vivo == true, 
-                    'pato-morrendo': patos[1].Vivo == false, 
-                    'pato': patos[1].Invertido == false, 
-                    'pato-invertido': patos[1].Invertido == true}" 
-                    id="{{patos[1].Id}}"
-                    style="
-                        margin-left:{{patos[1].Posicoes.PosicaoX}}px; 
-                        margin-top:{{patos[1].Posicoes.PosicaoY}}px;">
+                <span ng-class="{'cachorroRindo': qntdPatos == 0}"></span>
+                <span ng-class="{'cachorroMaisUmPato cachorroPato': qntdPatos == 1}"></span>
+                <span ng-class="{'cachorroMaisDoisPatos cachorroPato': qntdPatos == 2}"></span>
+                <div class="pato-wrapper" style="
+                    left:{{patos[0].Posicoes.PosicaoX}}px; 
+                    top:{{patos[0].Posicoes.PosicaoY}}px;">
+                        <div ng-class="{
+                        'pato-voando':patos[0].Vivo == true, 
+                        'pato-morrendo': patos[0].Vivo == false, 
+                        'pato': patos[0].Invertido == false, 
+                        'pato-invertido': patos[0].Invertido == true}" id="{{patos[0].Id}}">
+                        </div>
+                </div>  
+                <div class="pato-wrapper" style="
+                    left:{{patos[1].Posicoes.PosicaoX}}px; 
+                    top:{{patos[1].Posicoes.PosicaoY}}px;">
+                        <div ng-class="{
+                        'pato-voando':patos[1].Vivo == true, 
+                        'pato-morrendo': patos[1].Vivo == false, 
+                        'pato': patos[1].Invertido == false, 
+                        'pato-invertido': patos[1].Invertido == true}" id="{{patos[1].Id}}">
+                        </div>
                 </div>
                 <!-- </div> -->
 
@@ -45,7 +44,7 @@
                                 <div class="bala"></div>
                             </div>
                         </div>
-                        
+
                         <p>SHOT</p>
                     </div>
                     <div class="box-patos">
@@ -75,7 +74,7 @@
         </ol>
     </div>
 </div>
-    
 
-    
+
+
 <button type="button" name="button" ng-click="rodaRound()">Iniciar round</button>

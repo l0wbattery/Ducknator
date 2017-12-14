@@ -79,10 +79,6 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         $scope.$apply();
     });
 
-    function resetaPosicaoPato(id){
-        patos[id].Posicoes.PosicaoY = 450;
-    }
-
     function inverteSpriteDosPatos(pato, ultimaPosX, novaPosX){
         if(ultimaPosX !== null){
             if( ultimaPosX > novaPosX){
@@ -90,10 +86,10 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
             } else {
                 pato.Invertido = false;
             }
-        }
+        }        
     }
 
-    $scope.$on('sobeCachorro', function(qntdPatos) {
+    $scope.$on('sobeCachorro', function(event, qntdPatos) {
       $scope.qntdPatos = qntdPatos;
     });
 
