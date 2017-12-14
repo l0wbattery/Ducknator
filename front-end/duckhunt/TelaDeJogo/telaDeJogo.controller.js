@@ -77,10 +77,6 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         $scope.patos = patos;
         $scope.$apply();
     });
-    
-    function resetaPosicaoPato(id){
-        patos[id].Posicoes.PosicaoY = 450;
-    }
 
     function inverteSpriteDosPatos(pato, ultimaPosX, novaPosX){
         if(ultimaPosX !== null){
@@ -92,23 +88,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         }        
     }
 
-    /*function mudaAnguloDeVoo(posicaoXAnterior, posicaoYAnterior, novaPosicaoX, novaposicaoY, idPato) {
-        let patoVoando = document.getElementById(idPato);
-        patoVoando.style.transition = "all .0s";
-
-        if ((Number(posicaoXAnterior.slice(0, posicaoXAnterior.length - 2))) < novaPosicaoX) {
-            patoVoando.style.transform = "scaleX(1)";
-        } else {
-            patoVoando.style.transform = "scaleX(-1)";
-        }
-
-        patoVoando.style.transition = "all 1s";
-
-    }
-    }*/
-
-
-    $scope.$on('sobeCachorro', function(qntdPatos) {
+    $scope.$on('sobeCachorro', function(event, qntdPatos) {
       $scope.qntdPatos = qntdPatos;
     });
 

@@ -199,7 +199,7 @@ namespace SignalRSelfHost
             }
             else
             {
-                if (Salas[index].MiniRoundAtual.Patos.Where(x => x.Vivo == true).Count() > 0)
+                if (Salas[index].MiniRoundAtual.Patos.Where(x => x.Vivo == true).Count() == 1)
                 {
                     Clients.Group(token).sobeCachorro(1);
                 }

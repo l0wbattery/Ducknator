@@ -6,19 +6,20 @@
     transform: translateX(-50%);
     transform: translateY(-50%);
     transform: scaleX(1);
-    transition: 1s linear;
+    transition: 0s;
   }
 
 .pato-invertido{
-  
-  position: absolute;
   height: 66px;
   width: 83px;
   background: url("../Sprites/sprites.png") no-repeat -1404px -3px;
-  transform: translateX(-50%);
-  transform: translateY(-50%);
   transform: scaleX(-1);
-  transition: 1s linear;
+  transition: 0s;
+}
+
+.pato-wrapper{
+  position: absolute;
+  transition: 1s;
 }
 
 .pato-voando{
