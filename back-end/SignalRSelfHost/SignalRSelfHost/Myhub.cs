@@ -194,7 +194,9 @@ namespace SignalRSelfHost
         private void SobeCachorro(String token, int index)
         {
             if (!PatosVivos(index, token))
+            {
                 Clients.Group(token).sobeCachorro(2);
+            }
             else
             {
                 if (Salas[index].MiniRoundAtual.Patos.Where(x => x.Vivo == true).Count() > 0)
