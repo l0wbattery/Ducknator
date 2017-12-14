@@ -12,12 +12,12 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
         duckService.rodaRound(duckService.token);
     }
 
-    $scope.$on('token',function(event,token){
+    $scope.$on('token', function (event, token) {
         console.log(token);
         duckService.token = token;
         $scope.token = token;
         $scope.$apply();
-      });
+    });
 
     $scope.$on('criarPatoTutorial', function (event, patoTutorial) {
         $scope.patoTutorial = patoTutorial;
@@ -25,10 +25,16 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
             left: ${$scope.patoTutorial.Posicoes[0].PosicaoX}px;
             top: ${$scope.patoTutorial.Posicoes[0].PosicaoY}px;
             `;
-        
+        pato = document.getElementById("patoTutorial");
+        pato.addEventListener("animationend", fimAnimacaoMorte);
+
         console.log($scope.patoTutorialStyle);
         $scope.$apply();
     });
+
+    aimAnimacaoMorte = function(){
+        duckService.fimAnimacaoMorte(true);
+    }
 
     //Recebe mensagens do servidor
     $scope.$on('messageAdded', function (event, gamma, alpha, tiros) {

@@ -92,6 +92,11 @@ function ($, $rootScope) {
                 proxy.invoke('EnviaNick',nick,token);
             }
         },
+        enviaFimAnimacaoMorte: function (boolean){
+            if(this.isConnected()){
+                proxy.invoke('enviaFimAnimacaoMorte', boolean);
+            }
+        },
         salvaPartida: function (sala) {
             proxy.invoke('SalvaPartida', sala);
         }
