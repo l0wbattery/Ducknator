@@ -1,0 +1,17 @@
+<div class="content-wrapper" id="snow">
+  <button type="button" name="button" ng-click="voltar()" class="btn-ranking"><-</button>
+  <div class="content content-ranking">
+    <table>
+      <tr class="titulo">
+        <th class="th">Nome</th>
+        <th class="th">Pontuacao</th>
+        <th class="th">Data da Partida</th>
+      </tr>
+      <tr ng-repeat="partida in partidas">
+        <th>{{partida.NomeUsuario}}</th>
+        <th>{{partida.Pontos}}</th>
+        <th>{{partida.Data}}</th>
+      </tr>
+    </table>
+  </div>
+</div>

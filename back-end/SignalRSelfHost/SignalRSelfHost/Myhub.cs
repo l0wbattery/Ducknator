@@ -150,7 +150,6 @@ namespace SignalRSelfHost
 
         public void RodaRound(String token)
         {
-            Clients.Group(token).inicioRound(true);
             var salaAtual = getSalaAtual(token);
             if (salaAtual == null)
             {
@@ -321,11 +320,13 @@ namespace SignalRSelfHost
         }
 
         //retorna o ranking geral
-        public List<Partida> GetRankingTotal()
+        public void GetRankingTotal()
         {
-            return context.Partidas
+            var lista = context.Partidas
                 .OrderByDescending(partida => partida.Pontos)
                 .ToList();
+
+            Clients.All.rankingTotal(lista);
         }
 
         public void AtualizaLeaderBoard()
