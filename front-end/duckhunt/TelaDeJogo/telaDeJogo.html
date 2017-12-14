@@ -7,11 +7,26 @@
                 <span ng-class="{'cachorroRindo': index == 0, 'cachorroMaisUmPato cachorroPato' : index == 1, 'cachorroMaisDoisPatos cachorroPato' : index == 2}"></span>
 
                 <!-- <div ng-repeat="pato in patos"> -->
-                <div class="pato" ng-class="{'pato-voando':patos[0].Vivo == true, 'pato-morrendo': patos[0].Vivo == false}" id="{{patos[0].Id}}"
-                    style="margin-left:{{patos[0].Posicoes.PosicaoX}}px; margin-top:{{patos[0].Posicoes.PosicaoY}}px; transition: 1s linear;">
+                <div ng-class="{
+                    'pato-voando':patos[0].Vivo == true, 
+                    'pato-morrendo': patos[0].Vivo == false, 
+                    'pato': patos[0].Invertido == false, 
+                    'pato-invertido': patos[0].Invertido == true}" 
+                    id="{{patos[0].Id}}"
+                    style="
+                        margin-left:{{patos[0].Posicoes.PosicaoX}}px; 
+                        margin-top:{{patos[0].Posicoes.PosicaoY}}px; 
+                        transition: 1s linear;">
                 </div>
-                <div class="pato" ng-class="{'pato-voando':patos[1].Vivo == true, 'pato-morrendo': patos[1].Vivo == false}" id="{{patos[1].Id}}"
-                    style="margin-left:{{patos[1].Posicoes.PosicaoX}}px; margin-top:{{patos[1].Posicoes.PosicaoY}}px; transition: 1s linear;">
+                <div ng-class="{
+                    'pato-voando':patos[1].Vivo == true, 
+                    'pato-morrendo': patos[1].Vivo == false, 
+                    'pato': patos[1].Invertido == false, 
+                    'pato-invertido': patos[1].Invertido == true}" 
+                    id="{{patos[1].Id}}"
+                    style="
+                        margin-left:{{patos[1].Posicoes.PosicaoX}}px; 
+                        margin-top:{{patos[1].Posicoes.PosicaoY}}px;">
                 </div>
                 <!-- </div> -->
 
