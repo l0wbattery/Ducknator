@@ -11,16 +11,16 @@
 
 .btn-nome {
   width: 200px;
-  height: 10vh;
-  font-size: 20px;
-  top: 480px;
+  height: 80px;
+  font-size: 30px;
+  top: 65%;
 }
 
 .btn {
   width: 400px;
   height: 100px;
   font-size: 50px;
-  top: 1000px;
+  top: 65%;
 }
 
 .btn:active, .btn-nome:active {
