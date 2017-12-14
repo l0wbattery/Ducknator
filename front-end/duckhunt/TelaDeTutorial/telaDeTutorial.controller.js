@@ -6,18 +6,6 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
         redirecionarParaJogo = redirectGame;
     });
 
-    //Inicializa o round no servidor
-    $scope.rodaRound = function () {
-        duckService.rodaRound(duckService.token);
-    }
-
-    $scope.$on('token', function (event, token) {
-        console.log(token);
-        duckService.token = token;
-        $scope.token = token;
-        $scope.$apply();
-    });
-
     $scope.$on('criarPatoTutorial', function (event, patoTutorial) {
         $scope.patoTutorial = patoTutorial;
         $scope.patoTutorialStyle = `
@@ -26,8 +14,6 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
             `;
         pato = document.getElementById("patoTutorial");
         pato.addEventListener("animationend", fimAnimacaoMorte);
-
-        console.log($scope.patoTutorialStyle);
         $scope.$apply();
     });
 

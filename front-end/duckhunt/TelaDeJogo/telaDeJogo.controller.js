@@ -10,19 +10,14 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     var pato1 = document.getElementById("pato1");
     var pato2 = document.getElementById("pato2");
 
-    //Posições Iniciais
-    //pato1.style.top = "500px";
-    //pato1.style.left = "600px";
-
-    //pato2.style.top = "500px";
-    //pato2.style.left = "100px";
-
-    var patoUmVivo = true;
+    var patos = [];
 
     //Inicializa o round no servidor
     $scope.rodaRound = function () {
-        duckService.rodaRound();
+        duckService.rodaRound(duckService.token);
     }
+
+    var patoUmVivo = true;
 
     //leaderBoard
     $scope.$on('leaderBoard', function (event, leaderBoard) {
@@ -34,9 +29,13 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     // Recebe mensagens do servidor para a mira // -----------------------
     $scope.$on('messageAdded', function (event, gamma, alpha, tiros) {
         $scope.tiros = tiros;
-        mira.style.left = gamma + "px";
-        mira.style.top = alpha + "px";
+        $scope.miraX = gamma;
+        $scope.miraY = alpha;
 
+        $scope.mira = `
+        left: ${$scope.miraX}px; 
+        top: ${$scope.miraY}px;
+        `;
         $scope.$apply();
     });
 
@@ -46,18 +45,21 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         if (acertou) eliminarPato(); //TODO +pontuacao por tipo de pato
     });
 
-    // MOVIMENTA PATOS //-------------------------------------------------
-    // $scope.$on('patos', function (event, posicoes) {
-    //     foreach(pato in posicoes) {
-    //         mudaAnguloDeVoo(pato.style.left, pato.style.top, pato.Posicoes.PosicaoX, pato.Posicoes.posicaoY, "pato");
-    //         pato.style.top = pato.Posicoes.PosicaoY + "px";
-    //         pato.style.left = pato.Posicoes.PosicaoX + "px";
-    //         $scope.$apply();
-    //     }
-    // });
-
-
-
+    //MOVIMENTA PATOS //-------------------------------------------------
+    $scope.$on('patos', function (event, listaDePatos) {
+        let i;
+        for (i = 0; i < listaDePatos.length; i++){      
+            patos[i] = listaDePatos[i];
+            movimentaPatos(patos[i]);
+            console.log(patos[i]);
+        }
+        $scope.patos = patos;
+        $scope.$apply();
+    });
+    
+    function movimentaPatos(patoMovimentado){
+        
+    }
 
     // $scope.$on('pato2', function (event, posicaoPato2) {
     //
@@ -66,7 +68,6 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     //     pato2.style.top = posicaoPato2.PosicaoY + "px";
     //     pato2.style.left = posicaoPato2.PosicaoX + "px";
     // });
-
 
     /*function mudaAnguloDeVoo(posicaoXAnterior, posicaoYAnterior, novaPosicaoX, novaposicaoY, idPato) {
         let patoVoando = document.getElementById(idPato);
@@ -81,9 +82,6 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         patoVoando.style.transition = "all 1s";
 
     }
-
-    function pad(pontuacao) {
-        return (pontuacao < 10) ? ("0" + pontuacao) : pontuacao;
     }*/
 
     $scope.data = {
