@@ -2,26 +2,45 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     var pontuacao = 0000111;
     var rodada = 1;
     var disparo = 3;
-
-    $scope.isPato1Vivo = true;
-    $scope.isPato2Vivo = true;
-
+    $scope.scoreIndividual = 0;
+    $scope.roundAtual = 0;
+    $scope.balas = new Array(6);
     var mira = document.getElementById("mira");
-    var pato1 = document.getElementById("pato1");
-    var pato2 = document.getElementById("pato2");
 
     var patos = [];
+    //patinhos
+    function resetPatinhos(){
+        $scope.patinhoVermelho = new Array(0);
+        $scope.patinhoBranco = new Array(10);
+    }
+    resetPatinhos();
+
+    $scope.$on('patosMortos', function (event, patosMortos) {
+        $scope.patinhoVermelho = new Array(patosMortos);
+        $scope.patinhoBranco = new Array(patosBrancos - patosMortos);
+        $scope.$apply();
+    });
 
     //Inicializa o round no servidor
     $scope.rodaRound = function () {
         duckService.rodaRound(duckService.token);
+        resetPatinhos();
+        duckService.rodaRound();
     }
+    //score individual
+    $scope.$on('scoreIndividual', function (event, scoreIndividual) {
+        $scope.scoreIndividual = scoreIndividual;
+        $scope.$apply();
+    });
 
-    var patoUmVivo = true;
+    //round atual
+    $scope.$on('roundAtual', function (event, roundAtual) {
+        $scope.roundAtual = roundAtual;
+        $scope.$apply();
+    });
 
     //leaderBoard
     $scope.$on('leaderBoard', function (event, leaderBoard) {
-        console.log(leaderBoard);
         $scope.leaderBoard = leaderBoard;
         $scope.$apply();
     });
@@ -83,12 +102,6 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     }
     }*/
-
-    $scope.data = {
-        score: pontuacao,
-        round: rodada,
-        shot: disparo
-    };
 
     $scope.$on('sobeCachorro', function(index) {
       $scope.index = index;

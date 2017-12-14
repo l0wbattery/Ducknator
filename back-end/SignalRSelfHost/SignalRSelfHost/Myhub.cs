@@ -110,12 +110,12 @@ namespace SignalRSelfHost
                             var patoModel = new PatoModel(count, null);
                             patoModel.Vivo = false;
                             Clients.Group(token).patoMorreu(patoModel);
+                            Clients.Group(token).patosMortos(Salas[index].RoundAtual.QntdPatosMortos);
+                            Clients.Group(token).scoreIndividual(Salas[index].Pontos);
                         }
                         count++;
-
                     }
                 }
-
                 Clients.Group(token).atirou(acertou);
             }
         }
@@ -134,11 +134,12 @@ namespace SignalRSelfHost
         {
             var salaAtual = Salas.Where(x => x.Token == token).FirstOrDefault();
             if (salaAtual == null)
+            {
                 return;
+            }
             var index = Salas.IndexOf(salaAtual);
 
             IniciaTutorial(token, index);
-            
         }
 
         public void RodaRound(String token)
@@ -146,17 +147,22 @@ namespace SignalRSelfHost
             Clients.Group(token).inicioRound(true);
             var salaAtual = Salas.Where(x => x.Token == token).FirstOrDefault();
             if (salaAtual == null)
+            {
                 return;
+            }
             var index = Salas.IndexOf(salaAtual);
 
             Salas[index].NextRound();
-
+            Clients.Group(token).roundAtual(Salas[index].Nivel);
             for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
+            {
                 RodaPatosMiniRound(i, token, index);
+            }
 
             if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+            {
                 FimDeJogo(token);
- 
+            }
         }
 
         public void RodaPatosMiniRound(int i, String token, int index)
@@ -185,11 +191,14 @@ namespace SignalRSelfHost
             else
             {
                 if (Salas[index].MiniRoundAtual.Patos.Where(x => x.Vivo == true).Count() > 0)
+                {
                     Clients.Group(token).sobeCachorro(1);
+                }
                 else
+                {
                     Clients.Group(token).sobeCachorro(0);
+                }  
             }
-
         }
 
         //verifica se ainda ha patos vivos no round
@@ -241,7 +250,9 @@ namespace SignalRSelfHost
         {
             var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
             if (sala == null)
+            {
                 return null;
+            }
             var index = Salas.IndexOf(sala);
 
             Salas[index].IdsUsuarios.Add(Context.ConnectionId);
@@ -279,14 +290,16 @@ namespace SignalRSelfHost
         {
             var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
             if (sala == null)
+            {
                 return;
+            }
             if (nick == null)
+            {
                 nick = "";
-
+            }
             var index = Salas.IndexOf(sala);
             Salas[index].NomeUsuario = nick;
             Clients.Caller.redirectTutorial(true);
-
         }
 
         public void SalvaPartida(String nome, int pontos, int nivel)
@@ -321,11 +334,15 @@ namespace SignalRSelfHost
             string formato;
 
             if (parametro == 1)
+            {
                 //filtra por mes
                 formato = "MM/yyyy";
+            }
             else
+            {
                 //filtra por dia
                 formato = "dd/MM/yyyy";
+            }
 
             string dataAtual = DateTime.Now.Date.ToString(formato);
 

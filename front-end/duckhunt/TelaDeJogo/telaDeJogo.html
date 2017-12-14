@@ -18,11 +18,37 @@
 
                 <div class="mira" id="mira" style="{{mira}}"></div>
 
-                <div class="console-informacoes">
-                    <div class="box-numero-round">
-                        <p>R =
-                            <span>{{data.round}}</span>
-                        </p>
+                    <div class="console-informacoes">
+                        <div class="box-numero-round">
+                            <p>R =
+                                <span>{{roundAtual}}</span>
+                            </p>
+                        </div>
+                        <!-- TODO transformar num NG-REPEAT -->
+                        <div class="box-municao">
+                            <div class="patinhos-flex">
+                                <div ng-repeat="bala in balas track by $index">
+                                    <div class="bala"></div>
+                                </div>
+                            </div>
+                            
+                            <p>SHOT</p>
+                        </div>
+                        <div class="box-patos">
+                            <p>HIT</p>
+                            <div class="patinhos-flex">
+                                <div ng-repeat="patoVermelho in patosVermelhos(patinhoVermelho) track by $index">
+                                    <div class="patinhos patinho-vermelho"></div>
+                                </div>
+                                <div ng-repeat="patoBranco in patinhoBranco track by $index">
+                                    <div class="patinhos patinho-branco"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="box-score">
+                            <p>{{scoreIndividual}}</p>
+                            <p class="score">SCORE</p>
+                        </div>
                     </div>
                     <!-- TODO transformar num NG-REPEAT -->
                     <div class="box-municao">

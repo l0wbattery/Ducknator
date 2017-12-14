@@ -57,6 +57,15 @@ function ($, $rootScope) {
             });
             proxy.on('patoMorreu', function(patoMorreu) {
                 $rootScope.$broadcast('patoMorreu', patoMorreu);
+            });//patosMortos
+            proxy.on('patosMortos', function(patosMortos) {
+                $rootScope.$broadcast('patosMortos', patosMortos);
+            });//scoreIndividual
+            proxy.on('scoreIndividual', function(scoreIndividual) {
+                $rootScope.$broadcast('scoreIndividual', scoreIndividual);
+            });//roundAtual
+            proxy.on('roundAtual', function(roundAtual) {
+                $rootScope.$broadcast('roundAtual', roundAtual);
             });
         },
         isConnecting: function () {

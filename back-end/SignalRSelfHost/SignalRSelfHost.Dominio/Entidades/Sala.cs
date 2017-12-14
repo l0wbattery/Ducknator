@@ -49,8 +49,8 @@ namespace SignalRSelfHost.Dominio.Entidades
         //Cria limites de movimento da mira;
         public void LimitaMovimentoDaMira()
         {
-            if (xBola > 800) xBola = 800;
-            if (yBola > 600) yBola = 600;
+            if (xBola > 710) xBola = 710;
+            if (yBola > 510) yBola = 510;
             if (xBola < 0) xBola = 0;
             if (yBola < 0) yBola = 0;
         }
