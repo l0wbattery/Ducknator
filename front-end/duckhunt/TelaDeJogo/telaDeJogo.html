@@ -61,7 +61,6 @@
                     </div>
                     <div class="box-score">
                         <p>{{scoreIndividual}}</p>
-                        <p class="score">SCORE</p>
                     </div>
                 </div>
             </div>
@@ -69,9 +68,11 @@
     </div>
     <div class="leaderborder">
         <div>PESSOAS ONLINE</div>
-        <div ng-repeat="leader in leaderBoard">
-            Nome: {{leader.Nome}} | Pontos: {{leader.Pontos}}
-        </div>
+        <ol>
+            <li ng-repeat="leader in leaderBoard">
+                {{leader.Nome}} | {{leader.Pontos}}
+            </li>
+        </ol>
     </div>
 </div>
     
