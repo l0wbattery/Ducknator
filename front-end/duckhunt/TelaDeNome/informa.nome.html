@@ -1,7 +1,9 @@
-<div class="content-wrapper">
-  <div class="content-nome content">
-    <label for="token-number" class="text arvo">DIGITE SEU NOME:</label>
-    <input autofocus="autofocus" type="text" class="text" name="token-number" value="" ng-model="nick" id="token-number" placeholder="NOME">
-    <button type="button" class="btn-nome text" name="button" ng-click="enviarNick();">ENVIAR</button>
+<form ng-submit="enviarNick()">
+  <div class="content-wrapper">
+    <div class="content-nome content">
+      <label for="token-number" class="text arvo">DIGITE SEU NOME:</label>
+      <input autofocus="autofocus" type="text" class="text" name="token-number" value="" ng-model="nick" id="token-number" placeholder="NOME">
+      <button type="submit" class="btn-nome text" name="button">ENVIAR</button>
+    </div>
   </div>
-</div>
+</form>
