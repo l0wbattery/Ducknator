@@ -17,7 +17,6 @@ namespace SignalRSelfHost.Dominio.Entidades
             {
                 Posicoes++;
             }
-            
         }
         public int getPosicoes()
         {

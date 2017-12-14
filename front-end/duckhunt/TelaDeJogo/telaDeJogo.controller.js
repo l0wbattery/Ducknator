@@ -5,24 +5,24 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     $scope.scoreIndividual = 0;
     $scope.roundAtual = 0;
     $scope.balas = new Array(6);
+    $scope.patinhoVermelho = new Array(0);
+    $scope.patinhoBranco = new Array(10);
+    var patosBrancos = 10;
     var mira = document.getElementById("mira");
 
     //patinhos
-    function resetPatinhos(){
-        $scope.patinhoVermelho = new Array(0);
-        $scope.patinhoBranco = new Array(10);
-    }
-    resetPatinhos();
+
+
 
     $scope.$on('patosMortos', function (event, patosMortos) {
         $scope.patinhoVermelho = new Array(patosMortos);
-        $scope.patinhoBranco = new Array(patosBrancos - patosMortos);
+        let aux = patosBrancos - patosMortos;
+        $scope.patinhoBranco = new Array(aux);
         $scope.$apply();
     });
 
     //Inicializa o round no servidor
     $scope.rodaRound = function () {
-        resetPatinhos();
         duckService.rodaRound();
     }
     //score individual
@@ -54,8 +54,11 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     // VERIFICA DISPARO // -----------------------------------------------
     $scope.$on('atirou', function (event, acertou) {
-        console.log(acertou);
-        if (acertou) eliminarPato(); //TODO +pontuacao por tipo de pato
+        console.log(acertou); //TODO +pontuacao por tipo de pato
+    });
+    $scope.$on('patos', function (event, patos) {
+        $scope.patos = patos;
+        $scope.$apply();
     });
 
     // MOVIMENTA PATOS //-------------------------------------------------
@@ -67,19 +70,6 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     //         $scope.$apply();
     //     }
     // });
-
-
-
-
-    // $scope.$on('pato2', function (event, posicaoPato2) {
-    //
-    //     mudaAnguloDeVoo(pato2.style.left, pato2.style.top, posicaoPato2.PosicaoX, posicaoPato2.posicaoY, "pato2");
-    //
-    //     pato2.style.top = posicaoPato2.PosicaoY + "px";
-    //     pato2.style.left = posicaoPato2.PosicaoX + "px";
-    // });
-
-
     /*function mudaAnguloDeVoo(posicaoXAnterior, posicaoYAnterior, novaPosicaoX, novaposicaoY, idPato) {
         let patoVoando = document.getElementById(idPato);
         patoVoando.style.transition = "all .0s";
@@ -93,6 +83,10 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         patoVoando.style.transition = "all 1s";
 
     }*/
+
+    $scope.rodaRound = function(){
+        duckService.rodaRound(duckService.token);
+    }
 
     $scope.$on('sobeCachorro', function(index) {
       $scope.index = index;

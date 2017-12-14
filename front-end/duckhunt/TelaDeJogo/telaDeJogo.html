@@ -32,7 +32,7 @@
                         <div class="box-patos">
                             <p>HIT</p>
                             <div class="patinhos-flex">
-                                <div ng-repeat="patoVermelho in patosVermelhos(patinhoVermelho) track by $index">
+                                <div ng-repeat="patoVermelho in patinhoVermelho track by $index">
                                     <div class="patinhos patinho-vermelho"></div>
                                 </div>
                                 <div ng-repeat="patoBranco in patinhoBranco track by $index">
@@ -55,3 +55,4 @@
                 </div>
         </div>
 </div>
+<button type="button" name="button" ng-click="rodaRound()">Iniciar round</button>

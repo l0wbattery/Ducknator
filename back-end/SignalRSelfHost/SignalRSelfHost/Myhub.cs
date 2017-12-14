@@ -153,16 +153,17 @@ namespace SignalRSelfHost
             var index = Salas.IndexOf(salaAtual);
 
             Salas[index].NextRound();
+            Clients.Group(token).patosMortos(Salas[index].RoundAtual.QntdPatosMortos);
             Clients.Group(token).roundAtual(Salas[index].Nivel);
             for (int i = 0; i < Salas[index].RoundAtual.MiniRounds.Count; i++)
             {
                 RodaPatosMiniRound(i, token, index);
             }
 
-            if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+            /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
             {
                 FimDeJogo(token);
-            }
+            }*/
         }
 
         public void RodaPatosMiniRound(int i, String token, int index)
@@ -172,7 +173,7 @@ namespace SignalRSelfHost
             aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
             aTimer.Interval = 2000;
             aTimer.Enabled = true;
-            while (Salas[index].MiniRoundAtual.getPosicoes() < 5 && PatosVivos(index,token));
+            while (Salas[index].MiniRoundAtual.getPosicoes() < 8 && PatosVivos(index,token));
             AtualizaLeaderBoard();
             SobeCachorro(token,index);
             aTimer.Close();

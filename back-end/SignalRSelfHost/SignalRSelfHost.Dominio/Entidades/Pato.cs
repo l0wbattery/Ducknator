@@ -32,7 +32,7 @@ namespace SignalRSelfHost.Dominio.Entidades
             //limbo
             Posicoes.Add(new Posicao(0,0));
             //posicao inicial
-            Posicoes.Add(new Posicao(500, 400));
+            Posicoes.Add(new Posicao(500, 550));
             int contador = 0;
             while (contador <= 5)
             {
