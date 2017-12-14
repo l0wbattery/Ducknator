@@ -11,11 +11,11 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     var pato2 = document.getElementById("pato2");
 
     //Posições Iniciais
-    pato1.style.top = "500px";
-    pato1.style.left = "600px";
+    //pato1.style.top = "500px";
+    //pato1.style.left = "600px";
 
-    pato2.style.top = "500px";
-    pato2.style.left = "100px";
+    //pato2.style.top = "500px";
+    //pato2.style.left = "100px";
 
     var patoUmVivo = true;
 
@@ -23,6 +23,13 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     $scope.rodaRound = function () {
         duckService.rodaRound();
     }
+
+    //leaderBoard
+    $scope.$on('leaderBoard', function (event, leaderBoard) {
+        console.log(leaderBoard);
+        $scope.leaderBoard = leaderBoard;
+        $scope.$apply();
+    });
 
     // Recebe mensagens do servidor para a mira // -----------------------
     $scope.$on('messageAdded', function (event, gamma, alpha, tiros) {
@@ -61,7 +68,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     // });
 
 
-    function mudaAnguloDeVoo(posicaoXAnterior, posicaoYAnterior, novaPosicaoX, novaposicaoY, idPato) {
+    /*function mudaAnguloDeVoo(posicaoXAnterior, posicaoYAnterior, novaPosicaoX, novaposicaoY, idPato) {
         let patoVoando = document.getElementById(idPato);
         patoVoando.style.transition = "all .0s";
 
@@ -77,7 +84,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     function pad(pontuacao) {
         return (pontuacao < 10) ? ("0" + pontuacao) : pontuacao;
-    }
+    }*/
 
     $scope.data = {
         score: pontuacao,

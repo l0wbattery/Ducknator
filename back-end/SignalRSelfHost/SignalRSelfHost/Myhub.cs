@@ -14,9 +14,10 @@ namespace SignalRSelfHost
     [HubName("HubMessage")]
     public class MyHub : Hub
     {
+        private const int yPatoConst = 31;
+        private const int xPatoConst = 43;
         private static int tiros = 0;
 
-        public static int PontuacaoTotal = 0;
         public static List<Sala> Salas = new List<Sala>();
 
         private IDuckhunterContext context = new DuckhunterContext();
@@ -51,10 +52,14 @@ namespace SignalRSelfHost
         public void SendMessage(double bolaGamma, double bolaAlpha, String token)
         {
             if (token == null)
+            {
                 return;
+            } 
             var sala = Salas.Where(x => x.Token == token).FirstOrDefault();
             if (sala == null)
+            {
                 return;
+            }
             var index = Salas.IndexOf(sala);
             Salas[index].xBola = Salas[index].xBola + ((int)Math.Round(bolaGamma * 30) * -1);
             Salas[index].yBola = Salas[index].yBola + ((int)Math.Round(bolaAlpha * 30) * -1);
@@ -79,8 +84,8 @@ namespace SignalRSelfHost
                 {
                     var yPatoTutorial = 250;
                     var xPatoTutorial = 350;
-                    if (Between(Salas[index].yBola, yPatoTutorial - 31, yPatoTutorial + 31) &&
-                        Between(Salas[index].xBola, xPatoTutorial - 43, xPatoTutorial + 43) &&
+                    if (Between(Salas[index].yBola, yPatoTutorial - yPatoConst, yPatoTutorial + yPatoConst) &&
+                        Between(Salas[index].xBola, xPatoTutorial - xPatoConst, xPatoTutorial + xPatoConst) &&
                         Salas[index].patoTutorial.Vivo)
                     {
                         acertou = true;
@@ -96,11 +101,15 @@ namespace SignalRSelfHost
                         var yPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoY;
                         var xPato = pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()].PosicaoX;
 
-                        if (Between(Salas[index].yBola, yPato - 20, yPato + 20) && Between(Salas[index].xBola, xPato - 20, xPato + 20) && pato.Vivo)
+                        if (Between(Salas[index].yBola, yPato - yPatoConst, yPato + yPatoConst) && Between(Salas[index].xBola, xPato - xPatoConst, xPato + xPatoConst) && pato.Vivo)
                         {
                             Salas[index].MiniRoundAtual.Patos[count].Vivo = false;
                             Salas[index].RoundAtual.QntdPatosMortos++;
+                            Salas[index].Pontos += 1500 * (int)pato.Tipo;
                             acertou = true;
+                            var patoModel = new PatoModel(count, null);
+                            patoModel.Vivo = false;
+                            Clients.Group(token).patoMorreu(patoModel);
                         }
                         count++;
 
@@ -144,7 +153,6 @@ namespace SignalRSelfHost
                 if (Salas[index].RoundAtual.QntdPatosMortos < 5)
                     FimDeJogo(token);
 
-                Clients.Group(token).pontuacao(PontuacaoTotal);
             }
         }
 
@@ -153,7 +161,7 @@ namespace SignalRSelfHost
             Salas[index].MiniRoundAtual = Salas[index].RoundAtual.MiniRounds[i];
             Timer aTimer = new Timer();
             aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
-            aTimer.Interval = 200;
+            aTimer.Interval = 2000;
             aTimer.Enabled = true;
             while (Salas[index].MiniRoundAtual.getPosicoes() < 5 && PatosVivos(index,token));
             AtualizaLeaderBoard();
@@ -185,11 +193,15 @@ namespace SignalRSelfHost
         private bool PatosVivos(int index, String token)
         {
             foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+            {
                 if (pato.Vivo)
+                {
                     return true;
-
+                }
+            }
             return false;
         }
+
         //Troca as posicoes dos patos
         private void TrocaPosicaoPatos(object source, ElapsedEventArgs e, String token, int index)
         {

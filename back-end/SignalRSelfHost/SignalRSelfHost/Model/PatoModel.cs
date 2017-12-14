@@ -11,11 +11,12 @@ namespace SignalRSelfHost.Model
     {
         public int Id { get; set; }
         public Posicao Posicoes { get; set; }
-
+        public bool Vivo { get; set; }
         public PatoModel(int id, Posicao posicoes)
         {
             Id = id;
             Posicoes = posicoes;
+            Vivo = true;
         }
     }
 }

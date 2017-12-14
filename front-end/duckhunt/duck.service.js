@@ -52,6 +52,9 @@ function ($, $rootScope) {
             proxy.on('inicioRound', function(status) {
               $rootScope.$broadcast('inicioRound', status);
             });
+            proxy.on('leaderBoard', function(leaderBoard) {
+                $rootScope.$broadcast('leaderBoard', leaderBoard);
+            });
         },
         isConnecting: function () {
             return connection.state === 0;
@@ -92,8 +95,5 @@ function ($, $rootScope) {
                 proxy.invoke('EnviaNick',nick,token);
             }
         },
-        salvaPartida: function (sala) {
-            proxy.invoke('SalvaPartida', sala);
-        }
     }
 }]);
