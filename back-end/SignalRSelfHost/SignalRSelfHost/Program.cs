@@ -19,11 +19,8 @@ namespace SignalRSelfHost
             // See http://msdn.microsoft.com/en-us/library/system.net.httplistener.aspx 
             // for more information.
 
-<<<<<<< HEAD
             string url = "http://10.99.198.115:8081";
-=======
-            string url = "http://10.99.30.61:8080";
->>>>>>> a2ad82fab8a9f63e2f5af8b0b3e2cfb533f7ab5e
+            //string url = "http://10.99.30.61:8080";
 
 
             using (WebApp.Start(url))
