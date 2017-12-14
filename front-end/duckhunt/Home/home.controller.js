@@ -19,5 +19,8 @@ angular.module('duckHunt').controller('homeController', function ($scope,duckSer
     }
 
   });
+  $scope.ranking = function() {
+    $location.path('/rankingTotal');
+  }
 
 });

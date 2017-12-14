@@ -1,4 +1,4 @@
-.btn, .btn-nome, .btn-fim, .btn-ranking {
+.btn, .btn-nome, .btn-fim, .btn-ranking, .btn-home {
   position: absolute;
   color: #000;
   background-color: yellow;
@@ -17,7 +17,7 @@
   top: 65%;
 }
 
-.btn-ranking {
+.btn-ranking, .btn-home {
   width: 100px;
   height: 30px;
   font-size: 20px;
@@ -32,7 +32,7 @@
   top: 65%;
 }
 
-.btn:active, .btn-nome:active, .btn-fim:active, .btn-ranking:active {
+.btn:active, .btn-nome:active, .btn-fim:active, .btn-ranking:active, .btn-home:active {
   box-shadow: 0 0 transparent;
   transition-duration: .2s;
   margin-left: 5px;
