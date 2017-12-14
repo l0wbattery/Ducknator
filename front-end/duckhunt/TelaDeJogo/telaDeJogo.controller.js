@@ -50,7 +50,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         $scope.miraY = alpha;
 
         $scope.mira = `
-        left: ${$scope.miraX}px; 
+        left: ${$scope.miraX}px;
         top: ${$scope.miraY}px;
         `;
         $scope.$apply();
@@ -58,15 +58,15 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     // VERIFICA DISPARO // -----------------------------------------------
     $scope.$on('atirou', function (event, acertou,id) {
-        patos[id].Vivo = false; 
-        console.log(acertou,id); 
+        patos[id].Vivo = false;
+        console.log(acertou,id);
     });
 
     //MOVIMENTA PATOS //-------------------------------------------------
     $scope.$on('patos', function (event, listaDePatos) {
         // console.log(listaDePatos);
         let i;
-        for (i = 0; i < listaDePatos.length; i++){ 
+        for (i = 0; i < listaDePatos.length; i++){
             if(listaDePatos[i].Vivo !== false){
                 patos[i] = listaDePatos[i];
                 inverteSpriteDosPatos(patos[i], ultimaPosicaoDoPatoEmX[i], listaDePatos[i].Posicoes.PosicaoX);

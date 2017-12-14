@@ -3,6 +3,7 @@
   font-family: '8bit';
   width: 19vw;
   height: 70vh;
+  font-size: 30px;
   margin-left: 5px;
   border: 1px solid #fff;
   display: inline-block;
@@ -14,6 +15,8 @@
   background-color: rgba(0, 0, 0, 0.8);
 }
 
-.leaderborder > div {
+.leaderborder > ol {
   text-align: center;
+  font-size: 22px;
+  
 }
