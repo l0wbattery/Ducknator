@@ -4,6 +4,5 @@ angular.module('duckHunt').controller('fimDeJogoController', function($scope, $l
   $scope.recomecar = function() {
     $location.path('/ducknator');
     location.reload();
-    $scope.apply();
   }
 })

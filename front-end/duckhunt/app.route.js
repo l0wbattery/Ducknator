@@ -14,6 +14,11 @@ angular.module('duckHunt').config(function ($routeProvider){
         controller: 'fimDeJogoController'
     })
 
+    .when('/rankingTotal',{
+        templateUrl: 'TelaDeRanking/rankingTotal.html',
+        controller: 'rankingTotalController'
+    })
+
     .when('/tutorial',{
         templateUrl: 'TelaDeTutorial/telaDeTutorial.html',
         controller: 'tutorialController'
