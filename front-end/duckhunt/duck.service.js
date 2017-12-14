@@ -7,7 +7,11 @@ function ($, $rootScope) {
         connect: function () {
             var self = this;
 
+<<<<<<< HEAD
             connection = $.hubConnection('http://10.99.198.115:8081/signalr');
+=======
+            connection = $.hubConnection('http://10.99.30.61:8080/signalr');
+>>>>>>> a2ad82fab8a9f63e2f5af8b0b3e2cfb533f7ab5e
 
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
@@ -46,8 +50,8 @@ function ($, $rootScope) {
             proxy.on('redirectGame', function (redirectGame) {
                 $rootScope.$broadcast('redirectGame', redirectGame);
             });
-            proxy.on('sobeCachorro', function(index) {
-              $rootScope.$broadcast('sobeCachorro', index);
+            proxy.on('sobeCachorro', function(qntdPatos) {
+              $rootScope.$broadcast('sobeCachorro', qntdPatos);
             });
             proxy.on('inicioRound', function(status) {
               $rootScope.$broadcast('inicioRound', status);
