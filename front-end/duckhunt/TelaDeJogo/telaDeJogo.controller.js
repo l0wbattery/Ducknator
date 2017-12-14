@@ -10,9 +10,8 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     var patosBrancos = 10;
     var mira = document.getElementById("mira");
 
-    var ultimaPosicaoDoPatoEmX = [];
+    var ultimaPosicaoDoPatoEmX = [500,500];
     var patos = [];
-
 
     $scope.$on('patosMortos', function (event, patosMortos) {
         $scope.patinhoVermelho = new Array(patosMortos);
@@ -68,7 +67,9 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         let i;
         for (i = 0; i < listaDePatos.length; i++){
             if(listaDePatos[i].Vivo !== false){
+                console.log(ultimaPosicaoDoPatoEmX)
                 patos[i] = listaDePatos[i];
+                
                 inverteSpriteDosPatos(patos[i], ultimaPosicaoDoPatoEmX[i], listaDePatos[i].Posicoes.PosicaoX);
                 ultimaPosicaoDoPatoEmX[i] = listaDePatos[i].Posicoes.PosicaoX;
             }
