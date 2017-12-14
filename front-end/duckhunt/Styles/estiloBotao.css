@@ -1,4 +1,4 @@
-.btn, .btn-nome {
+.btn, .btn-nome, .btn-fim {
   position: absolute;
   color: #000;
   background-color: yellow;
@@ -7,6 +7,7 @@
   justify-content: center;
   border: 0;
   transition-duration: .2s;
+  font-family: porticooblique;
 }
 
 .btn-nome {
@@ -23,9 +24,16 @@
   top: 65%;
 }
 
-.btn:active, .btn-nome:active {
+.btn:active, .btn-nome:active, .btn-fim:active {
   box-shadow: 0 0 transparent;
   transition-duration: .2s;
   margin-left: 5px;
   margin-top: 5px;
+}
+
+.btn-fim {
+  width: 200px;
+  height: 70px;
+  font-size: 25px;
+  top: 450px;
 }
