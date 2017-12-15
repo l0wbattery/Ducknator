@@ -88,7 +88,8 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         listaDePatos.forEach(function(pato, index) {
             if(pato.Vivo) {
                 patos[index] = pato;
-                inverteSpriteDosPatos(pato, ultimaPosicaoDoPatoEmX[index], listaDePatos[index].Posicoes.PosicaoX);
+                
+                $scope.patos[index].Invertido = inverteSpriteDosPatos(pato, ultimaPosicaoDoPatoEmX[index], patos[index].Posicoes.PosicaoX);
                 ultimaPosicaoDoPatoEmX[index] = pato.Posicoes.PosicaoX;
 
                 $scope.patos[index].Posicoes = pato.Posicoes;
@@ -99,9 +100,9 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     function inverteSpriteDosPatos(pato, ultimaPosX, novaPosX) {
         if (ultimaPosX !== null) {
             if (ultimaPosX > novaPosX) {
-                pato.Invertido = true;
+                return true;
             } else {
-                pato.Invertido = false;
+                return false;
             }
         }
     }
