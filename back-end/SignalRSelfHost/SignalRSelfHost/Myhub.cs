@@ -29,7 +29,15 @@ namespace SignalRSelfHost
 
         private Sala getSalaAtual(String token)
         {
-            return Salas.Where(x => x.Token.Equals(token)).FirstOrDefault();
+            try
+            {
+                return Salas.Where(x => x.Token.Equals(token)).FirstOrDefault();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+            
         }
 
         public override Task OnConnected()
@@ -166,15 +174,15 @@ namespace SignalRSelfHost
                     RodaPatosMiniRound(i, token, index);
                 }
                 //desativado enquanto estamos testando os rounds
-                /*if (Salas[index].RoundAtual.QntdPatosMortos < 5)
+                if (Salas[index].RoundAtual.QntdPatosMortos < 5)
                 {
                     FimDeJogo(token);
-                }*/
+                }
                 Clients.Group(token).fimDeRound(Salas[index].Nivel);
             }
             catch(Exception e)
             {
-
+                return;
             }
         }
         public void RodaPatosMiniRound(int i, String token, int index)
@@ -207,32 +215,47 @@ namespace SignalRSelfHost
         //metodo para subir o cachorro de acordo com a quantidade de patos
         private void SobeCachorro(String token, int index)
         {
-            if (!PatosVivos(index, token))
+            try
             {
-                Clients.Group(token).sobeCachorro(2);
-            }
-            else
-            {
-                if (Salas[index].MiniRoundAtual.Patos.Where(x => x.Vivo == true).Count() == 1)
+                if (!PatosVivos(index, token))
                 {
-                    Clients.Group(token).sobeCachorro(1);
+                    Clients.Group(token).sobeCachorro(2);
                 }
                 else
                 {
-                    Clients.Group(token).sobeCachorro(0);
-                }  
+                    if (Salas[index].MiniRoundAtual.Patos.Where(x => x.Vivo == true).Count() == 1)
+                    {
+                        Clients.Group(token).sobeCachorro(1);
+                    }
+                    else
+                    {
+                        Clients.Group(token).sobeCachorro(0);
+                    }
+                }
+            }
+            catch(Exception e)
+            {
+                return;
             }
         }
 
         //verifica se ainda ha patos vivos no round
         private bool PatosVivos(int index, String token)
         {
-            foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+            try
             {
-                if (pato.Vivo)
+                foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
                 {
-                    return true;
+                    if (pato.Vivo)
+                    {
+                        return true;
+                    }
                 }
+                return false;
+            }
+            catch(Exception e)
+            {
+
             }
             return false;
         }
@@ -240,23 +263,30 @@ namespace SignalRSelfHost
         //Troca as posicoes dos patos
         private void TrocaPosicaoPatos(object source, ElapsedEventArgs e, String token, int index)
         {
-            Salas[index].MiniRoundAtual.GetNextPosition();
-
-            var count = 0;
-            List<PatoModel> patos = new List<PatoModel>();
-            foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
+            try
             {
-                if (pato.Vivo)
+                Salas[index].MiniRoundAtual.GetNextPosition();
+
+                var count = 0;
+                List<PatoModel> patos = new List<PatoModel>();
+                foreach (Pato pato in Salas[index].MiniRoundAtual.Patos)
                 {
-                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], true));
+                    if (pato.Vivo)
+                    {
+                        patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], true));
+                    }
+                    else
+                    {
+                        patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], false));
+                    }
+                    count++;
                 }
-                else
-                {
-                    patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], false));
-                }
-                count++;
+                Clients.Group(token).patos(patos);
             }
-            Clients.Group(token).patos(patos);
+            catch(Exception f)
+            {
+
+            }
         }
 
         //faz validção se um numero se encontra dentro dos limites passados
