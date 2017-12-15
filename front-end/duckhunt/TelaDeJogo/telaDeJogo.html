@@ -10,9 +10,9 @@
 
                 <div ng-repeat="pato in patos" class="pato-wrapper" style="left: {{pato.Posicoes.PosicaoX}}px; top: {{pato.Posicoes.PosicaoY}}px;">
                     <div ng-class="{
-                        'pato-voando': pato.Vivo, 
-                        'pato-morrendo': !pato.Vivo, 
-                        'pato': !pato.Invertido, 
+                        'pato-voando': pato.Vivo,
+                        'pato-morrendo': !pato.Vivo,
+                        'pato': !pato.Invertido,
                         'pato-invertido': pato.Invertido }" id="{{pato.Id}}">
                     </div>
                 </div>
@@ -62,7 +62,7 @@
         </ol>
     </div>
 </div>
-<span ng-class="{'inicioRound' : inicio}">Round 1</span>
+<span ng-class="{'inicioRound' : inicio, 'inicioRound' : roundAtual == 1}" animation-end="resetaValorInicio">Round {{roundAtual}}</span>
 
 
 <button type="button" name="button" ng-click="rodaRound()">Iniciar round</button>

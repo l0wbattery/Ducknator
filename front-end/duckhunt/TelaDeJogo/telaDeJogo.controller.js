@@ -1,4 +1,4 @@
-angular.module('duckHunt').controller('jogoController', function ($scope, duckService, $interval, $timeout) {
+angular.module('duckHunt').controller('jogoController', function ($scope, duckService, $interval, $timeout, $location) {
     var pontuacao = 0000111;
     var rodada = 1;
     var disparo = 3;
@@ -14,14 +14,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     var ultimaPosicaoDoPatoEmX = [500,500];
     var patos = [];
 
-    $interval(myTimer, 9000);
-
-    function myTimer() {
-      $scope.inicio = true;
-      console.log($scope.inicio);
-    }
-
-    $scope.resetaQuantidadePatos = resetaQuantidadePatos; 
+    $scope.resetaQuantidadePatos = resetaQuantidadePatos;
 
     $scope.$on('patosMortos', function (event, patosMortos) {
         $scope.patinhoVermelho = new Array(patosMortos);
@@ -52,6 +45,11 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         $scope.$apply();
     });
 
+    $scope.$on('redirectEndGame', function () {
+        $location.path('/fim');
+        $scope.$apply();
+    });
+
     // Recebe mensagens do servidor para a mira // -----------------------
     $scope.$on('messageAdded', function (event, gamma, alpha, tiros) {
         $scope.tiros = tiros;
@@ -68,8 +66,12 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     //numeração de cada round e chamada do proximo round
     $scope.$on('fimDeRound', function (event, nivel) {
         console.log(nivel+1);
+        $scope.inicio = true;
+        $scope.$apply();
         duckService.rodaRound(duckService.token);
     });
+
+
 
     // VERIFICA DISPARO // -----------------------------------------------
     $scope.$on('atirou', function (event, acertou, id) {
@@ -108,11 +110,17 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
 
     $scope.$on('sobeCachorro', function (event, qntdPatos) {
         $scope.qntdPatos = qntdPatos;
-        
+
     });
 
     function resetaQuantidadePatos() {
         $scope.qntdPatos = null;
+    }
+
+    $scope.resetaValorInicio = function () {
+        $scope.inicio = false;
+        $scope.$apply();
+        console.log($scope.inicio);
     }
 
     $scope.$on("acabouMiniRound", function() {
@@ -121,7 +129,4 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
         }, 1000);
     })
 
-    $scope.$on('inicioRound', function (status) {
-        $scope.inicioRound = status;
-    });
 });

@@ -7,7 +7,7 @@ function ($, $rootScope) {
         connect: function () {
             var self = this;
 
-            connection = $.hubConnection('http://10.99.198.115:8081/signalr');
+            connection = $.hubConnection('http://192.168.0.13:8081/signalr');
 
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
@@ -75,6 +75,9 @@ function ($, $rootScope) {
             });
             proxy.on('acabouMiniRound', function() {
                 $rootScope.$broadcast('acabouMiniRound');
+            });
+            proxy.on('redirectEndGame', function() {
+                $rootScope.$broadcast('redirectEndGame');
             });
         },
         isConnecting: function () {
