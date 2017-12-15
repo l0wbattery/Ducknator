@@ -54,7 +54,7 @@ namespace SignalRSelfHost
             return base.OnDisconnected(stopCalled);
         }
 
-        public void SendMessage(double bolaGamma, double bolaAlpha, String token)
+        public void SendMessage(double bolaGamma, double bolaAlpha, String token, Boolean isChrome)
         {
             if (token == null)
             {
@@ -65,9 +65,19 @@ namespace SignalRSelfHost
             {
                 return;
             }
+
             var index = Salas.IndexOf(sala);
-            Salas[index].xBola = Salas[index].xBola + ((int)Math.Round(bolaGamma * 30) * -1);
-            Salas[index].yBola = Salas[index].yBola + ((int)Math.Round(bolaAlpha * 30) * -1);
+            if (isChrome)
+            {
+                Salas[index].xBola = Salas[index].xBola + ((int)Math.Round(bolaGamma * 20) * -1);
+                Salas[index].yBola = Salas[index].yBola + ((int)Math.Round(bolaAlpha * 20) * -1);
+            }
+            else
+            {
+                Salas[index].xBola = Salas[index].xBola + ((int)Math.Round(bolaGamma / 3) * -1);
+                Salas[index].yBola = Salas[index].yBola + ((int)Math.Round(bolaAlpha / 3) * -1);
+
+            }
             Salas[index].LimitaMovimentoDaMira();
             Clients.Group(token).messageAdded(Salas[index].xBola, Salas[index].yBola, tiros);
         }
@@ -113,16 +123,16 @@ namespace SignalRSelfHost
                             Salas[index].RoundAtual.QntdPatosMortos++;
                             Salas[index].Pontos += 1500 * (int)pato.Tipo;
                             acertou = true;
-                            var patoModel = new PatoModel(count, null,false);
+                            var patoModel = new PatoModel(count, null, false);
                             Clients.Group(token).patoMorreu(patoModel);
                             Clients.Group(token).patosMortos(Salas[index].RoundAtual.QntdPatosMortos);
                             Clients.Group(token).scoreIndividual(Salas[index].Pontos);
-                            Clients.Group(token).atirou(acertou,count);
+                            Clients.Group(token).atirou(acertou, count);
                         }
                         count++;
                     }
                 }
-                
+
             }
         }
 
@@ -172,7 +182,7 @@ namespace SignalRSelfHost
                 }*/
                 Clients.Group(token).fimDeRound(Salas[index].Nivel);
             }
-            catch(Exception e)
+            catch (Exception e)
             {
 
             }
@@ -196,7 +206,7 @@ namespace SignalRSelfHost
             {
 
             }
-            
+
         }
 
         public void IniciaTutorial(String token, int index)
@@ -220,7 +230,7 @@ namespace SignalRSelfHost
                 else
                 {
                     Clients.Group(token).sobeCachorro(0);
-                }  
+                }
             }
         }
 
@@ -345,7 +355,7 @@ namespace SignalRSelfHost
             List<LeaderBoardModel> leader = new List<LeaderBoardModel>();
             foreach (Sala sala in Salas)
             {
-                leader.Add(new LeaderBoardModel(sala.NomeUsuario,sala.Pontos));
+                leader.Add(new LeaderBoardModel(sala.NomeUsuario, sala.Pontos));
             }
             leader = leader.OrderByDescending(x => x.Pontos).ToList();
             Clients.All.leaderBoard(leader);
