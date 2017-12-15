@@ -3,6 +3,12 @@
   font-size: 30px;
   background-color: #000;
   color: #fff;
+  height: auto;
+  width: auto;
+  padding: 20px;
+  position: absolute;
+  top: 40px;
+  margin-bottom: 40px;
 }
 
 .titulo {
@@ -10,6 +16,7 @@
   font-family: porticooblique;
   position: relative;
   top: 20px;
+  line-height: 170%;
 }
 
 table {
@@ -18,4 +25,8 @@ table {
 
 .th {
   margin: 0;
+}
+
+tr > th {
+  line-height: 150%;
 }
