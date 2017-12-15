@@ -89,9 +89,9 @@ function ($, $rootScope) {
         connectionState: function () {
             return connection.state;
         },
-        sendMessage: function (bolaGamma, bolaAlpha,token) {
+        sendMessage: function (bolaGamma, bolaAlpha, token, isChrome) {
             if(this.isConnected()) {
-                proxy.invoke('SendMessage', bolaGamma, bolaAlpha,token).Result;
+                proxy.invoke('SendMessage', bolaGamma, bolaAlpha, token, isChrome).Result;
             }
         },
         atirar: function (token){
