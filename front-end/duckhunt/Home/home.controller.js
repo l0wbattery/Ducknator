@@ -7,6 +7,9 @@ angular.module('duckHunt').controller('homeController', function ($scope,duckSer
     $scope.$apply();
   });
 
+  var str = "12345.00";
+  str = str.slice(0, -1);
+
   $scope.$on('isConnect',function(event,isConnect){
     if(isConnect){
       duckService.generateToken();

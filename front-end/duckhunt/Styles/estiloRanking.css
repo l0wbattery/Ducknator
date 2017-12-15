@@ -1,7 +1,7 @@
 .content-ranking {
   font-family: '8bit';
   font-size: 30px;
-  background-color: #000;
+  background-color: rgba(0,50,50,0.5);
   color: #fff;
   height: auto;
   width: auto;

@@ -57,8 +57,15 @@
         <div>PESSOAS ONLINE</div>
         <ol>
             <li ng-repeat="leader in leaderBoard">
-                {{leader.Nome}} | {{leader.Pontos}}
-            </li>
+                <div class="leader-board">
+                    <div class="leader-board__name">
+                        {{leader.Nome}}
+                    </div>
+                    <div class="leader-board__score">
+                        {{leader.Pontos}}
+                    </div>
+                </div>
+            </li>   
         </ol>
     </div>
 </div>
