@@ -1,4 +1,4 @@
-angular.module('duckHunt').controller('jogoController', function ($scope, duckService, $interval) {
+angular.module('duckHunt').controller('jogoController', function ($scope, duckService, $interval, $timeout) {
     var pontuacao = 0000111;
     var rodada = 1;
     var disparo = 3;
@@ -19,7 +19,6 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     function myTimer() {
       $scope.inicio = true;
       console.log($scope.inicio);
-
     }
 
     $scope.resetaQuantidadePatos = resetaQuantidadePatos; 
@@ -117,7 +116,9 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     }
 
     $scope.$on("acabouMiniRound", function() {
-        $scope.patos = [];
+        $timeout(function() {
+            $scope.patos = undefined
+        }, 1000);
     })
 
     $scope.$on('inicioRound', function (status) {
