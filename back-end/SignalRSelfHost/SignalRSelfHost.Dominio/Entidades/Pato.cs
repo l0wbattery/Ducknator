@@ -17,7 +17,7 @@ namespace SignalRSelfHost.Dominio.Entidades
             var t = Task.Run(() => geraPosicoesAleatorias());
             t.Wait();
             Vivo = true;
-            Tipo = Tipos.COMUM;
+            Tipo = geraTipoPato();
         }
         //Cria pato tutorial
         public Pato(Posicao posicao)
@@ -41,6 +41,28 @@ namespace SignalRSelfHost.Dominio.Entidades
             }
             //posicao final
             Posicoes.Add(new Posicao(500, -100));
+        }
+
+        private Tipos geraTipoPato()
+        {
+            Random random = new Random();
+            var chance = random.NextDouble();
+
+            if (chance <= 0.75)
+            {
+                Console.WriteLine("COMUM");
+                return Tipos.COMUM;
+            } else if (chance > 0.75 && chance <= 0.95)
+            {
+                Console.WriteLine("RARO");
+                return Tipos.RARO;
+            } else if (chance > 0.95)
+            {
+                Console.WriteLine("LENDARIO");
+                return Tipos.LENDARIO;
+            }
+            return Tipos.COMUM;
+
         }
 
     }

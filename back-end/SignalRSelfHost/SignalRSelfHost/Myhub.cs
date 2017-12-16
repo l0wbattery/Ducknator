@@ -131,7 +131,7 @@ namespace SignalRSelfHost
                             Salas[index].RoundAtual.QntdPatosMortos++;
                             Salas[index].Pontos += 1500 * (int)pato.Tipo;
                             acertou = true;
-                            var patoModel = new PatoModel(count, null, false);
+                            var patoModel = new PatoModel(count, null, false, pato.Tipo);
                             Clients.Group(token).patoMorreu(patoModel);
                             Clients.Group(token).patosMortos(Salas[index].RoundAtual.QntdPatosMortos);
                             Clients.Group(token).scoreIndividual(Salas[index].Pontos);
@@ -283,11 +283,11 @@ namespace SignalRSelfHost
                 {
                     if (pato.Vivo)
                     {
-                        patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], true));
+                        patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], true, pato.Tipo));
                     }
                     else
                     {
-                        patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], false));
+                        patos.Add(new PatoModel(count, pato.Posicoes[Salas[index].MiniRoundAtual.getPosicoes()], false, pato.Tipo));
                     }
                     count++;
                 }
