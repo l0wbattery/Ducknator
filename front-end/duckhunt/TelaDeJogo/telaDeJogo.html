@@ -9,11 +9,24 @@
                 <span class="cachorroPontuacao" animation-end="resetaQuantidadePatos" ng-class="{'cachorroMaisDoisPatos cachorroPato': qntdPatos === 2}"></span>
 
                 <div ng-repeat="pato in patos" class="pato-wrapper" style="left: {{pato.Posicoes.PosicaoX}}px; top: {{pato.Posicoes.PosicaoY}}px;">
-                    <div ng-class="{
-                        'pato-voando': pato.Vivo,
-                        'pato-morrendo': !pato.Vivo,
+                  <div ng-if="pato.Tipo === 1" ng-class="{
+                    'pato-voando': pato.Vivo,
+                    'pato-morrendo': !pato.Vivo,
+                    'pato': !pato.Invertido,
+                    'pato-invertido': pato.Invertido }" id="{{pato.Id}}
+                    }">
+                  </div>
+                    <div ng-if="pato.Tipo === 2" class="pato-raro pato-raro-lendario" ng-class="{
+                        'pato-raro-voando': pato.Vivo,
+                        'pato-raro-morrendo': !pato.Vivo,
                         'pato': !pato.Invertido,
-                        'pato-invertido': pato.Invertido }" id="{{pato.Id}}">
+                        'pato-raro-invertido': pato.Invertido }" id="{{pato.Id}}">
+                    </div>
+                    <div ng-if="pato.Tipo === 3" class="pato-lendario pato-raro-lendario" ng-class="{
+                        'pato-lendario-voando': pato.Vivo,
+                        'pato-lendario-morrendo': !pato.Vivo,
+                        'pato': !pato.Invertido,
+                        'pato-lendario-invertido': pato.Invertido }" id="{{pato.Id}}">
                     </div>
                 </div>
 
@@ -65,7 +78,7 @@
                         {{leader.Pontos}}
                     </div>
                 </div>
-            </li>   
+            </li>
         </ol>
     </div>
 </div>

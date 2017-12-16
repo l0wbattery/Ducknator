@@ -183,7 +183,7 @@ namespace SignalRSelfHost
                 {
                     RodaPatosMiniRound(i, token, index);
                 }
-                //desativado enquanto estamos testando os rounds
+                
                 if (Salas[index].RoundAtual.QntdPatosMortos < 5)
                 {
                     FimDeJogo(token);

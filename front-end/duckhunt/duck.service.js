@@ -69,6 +69,12 @@ function ($, $rootScope) {
             });
             proxy.on('rankingTotal', function(rankingTotal) {
                 $rootScope.$broadcast('rankingTotal', rankingTotal);
+            });
+            proxy.on('rankingPorDia', function(rankingPorDia) {
+                $rootScope.$broadcast('rankingPorDia', rankingPorDia);
+            });
+            proxy.on('rankingPorMes', function(rankingPorMes) {
+                $rootScope.$broadcast('rankingPorMes', rankingPorMes);
             });//fimDeRound
             proxy.on('fimDeRound', function(nivel) {
                 $rootScope.$broadcast('fimDeRound', nivel);
@@ -131,6 +137,12 @@ function ($, $rootScope) {
         },
         chamaRankingTotal: function() {
           proxy.invoke('GetRankingTotal');
+        },
+        chamaRankingPorDia: function() {
+          proxy.invoke('GetRankingComFiltro', 2);
+        },
+        chamaRankingPorMes: function() {
+          proxy.invoke('GetRankingComFiltro', 1);
         },
     }
 }]);
