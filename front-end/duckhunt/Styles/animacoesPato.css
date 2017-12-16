@@ -3,9 +3,33 @@
   to { background-position: -1652px -3px; }
 }
 
+@keyframes pato-raro-voando {
+  from { background-position: -252px -238px; }
+  to { background-position: -495px -238px; }
+}
+
+@keyframes pato-lendario-voando {
+  from { background-position: -508px -238px; }
+  to { background-position: -755px -238px; }
+}
+
 @keyframes pato-morrendo{
   0% { background-position: -1655px -7px; transform: translateY(0px);}
   25% { background-position: -1655px -7px; transform: translateY(0px); }
   25.1% { opacity: 1; background-position: -1735px -7px; transform: translateY(0px);}
   100% { opacity: 0; background-position: -1735px -7px; transform: translateY(300px);}
+}
+
+@keyframes pato-raro-morrendo {
+  0% { background-position: -253px -474px; transform: translateY(0px);}
+  25% { background-position: -253px -474px; transform: translateY(0px); }
+  25.1% { opacity: 1; background-position: -331px -474px; transform: translateY(0px);}
+  100% { opacity: 0; background-position: -331px -474px; transform: translateY(300px);}
+}
+
+@keyframes pato-lendario-morrendo {
+  0% { background-position: -513px -474px; transform: translateY(0px);}
+  25% { background-position: -513px -474px; transform: translateY(0px); }
+  25.1% { opacity: 1; background-position: -591px -474px; transform: translateY(0px);}
+  100% { opacity: 0; background-position: -591px -474px; transform: translateY(300px);}
 }
