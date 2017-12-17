@@ -4,7 +4,7 @@ angular.module('duckHunt').controller('mobileController', function ($scope, duck
     let contador = 0;
     var patoY;
     var patoX;
-    var tiro = new Audio('audio/Winchester12.mp3.mp3');
+    var tiro = new Audio('../Audio/Winchester12.mp3');
     $scope.contador = contador;
     
     var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') >= 0;
