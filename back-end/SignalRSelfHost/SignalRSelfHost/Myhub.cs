@@ -328,12 +328,11 @@ namespace SignalRSelfHost
 
             Salas[index].IdsUsuarios.Add(Context.ConnectionId);
             //editar lista q já existe
-            var v = Task.Run(() => Clients.Caller.redirectMobile(true));
-            v.Wait();
-            var t = Task.Run(() => Clients.OthersInGroup(token).redirectNome(true));
-            t.Wait();
+            Clients.Caller.redirectMobile(true);
 
-            return Groups.Add(Context.ConnectionId, token.ToString());
+            Clients.OthersInGroup(token).redirectNome(true);
+
+            return Groups.Add(Context.ConnectionId, token);
         }
 
         //Método que retorna um token aleatório entre 0 e 8999
