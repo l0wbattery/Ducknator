@@ -4,6 +4,7 @@ angular.module('duckHunt').controller('mobileController', function ($scope, duck
     let contador = 0;
     var patoY;
     var patoX;
+    var tiro = new Audio('audio/Winchester12.mp3.mp3');
     $scope.contador = contador;
     
     var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') >= 0;
@@ -21,6 +22,7 @@ angular.module('duckHunt').controller('mobileController', function ($scope, duck
     $scope.conta = function(){
         console.log('clicou');
         duckService.atirar(duckService.token);
+        tiro.play();
     }
 });
 
