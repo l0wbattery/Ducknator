@@ -202,7 +202,7 @@ namespace SignalRSelfHost
                 Salas[index].MiniRoundAtual = Salas[index].RoundAtual.MiniRounds[i];
                 Timer aTimer = new Timer();
                 aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
-                aTimer.Interval = 2000;
+                aTimer.Interval = Dificuldade(index);
                 aTimer.Enabled = true;
                 while (Salas[index].MiniRoundAtual.getPosicoes() < 8 && PatosVivos(index, token)) ;
                 AtualizaLeaderBoard();
@@ -215,6 +215,16 @@ namespace SignalRSelfHost
 
             }
 
+        }
+        private int Dificuldade(int index)
+        {
+            int nivel = Salas[index].Nivel;
+            int retorno = 4000 - (300 * nivel);
+            if (retorno < 1000)
+            {
+                retorno = 1000;
+            }
+            return retorno;
         }
 
         public void IniciaTutorial(String token, int index)

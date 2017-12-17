@@ -45,23 +45,23 @@ namespace SignalRSelfHost.Dominio.Entidades
 
         private Tipos geraTipoPato()
         {
-            Random random = new Random();
-            var chance = random.NextDouble();
+            var chance = r.NextDouble();
 
             if (chance <= 0.75)
             {
                 Console.WriteLine("COMUM");
                 return Tipos.COMUM;
-            } else if (chance > 0.75 && chance <= 0.95)
+            }
+            else if (chance > 0.75 && chance <= 0.95)
             {
                 Console.WriteLine("RARO");
                 return Tipos.RARO;
-            } else if (chance > 0.95)
+            }
+            else
             {
                 Console.WriteLine("LENDARIO");
                 return Tipos.LENDARIO;
             }
-            return Tipos.COMUM;
 
         }
 
