@@ -202,7 +202,7 @@ namespace SignalRSelfHost
                 Salas[index].MiniRoundAtual = Salas[index].RoundAtual.MiniRounds[i];
                 Timer aTimer = new Timer();
                 aTimer.Elapsed += (sender, e) => TrocaPosicaoPatos(sender, e, token, index);
-                aTimer.Interval = 2000;
+                aTimer.Interval = Dificuldade(index);
                 aTimer.Enabled = true;
                 while (Salas[index].MiniRoundAtual.getPosicoes() < 8 && PatosVivos(index, token)) ;
                 AtualizaLeaderBoard();
@@ -215,6 +215,16 @@ namespace SignalRSelfHost
 
             }
 
+        }
+        private int Dificuldade(int index)
+        {
+            int nivel = Salas[index].Nivel;
+            int retorno = 4000 - (300 * nivel);
+            if (retorno < 1000)
+            {
+                retorno = 1000;
+            }
+            return retorno;
         }
 
         public void IniciaTutorial(String token, int index)
@@ -392,7 +402,7 @@ namespace SignalRSelfHost
         }
 
         //retorna o ranking mensal ou diario
-        public List<Partida> GetRankingComFiltro(int parametro)
+        public void GetRankingComFiltro(int parametro)
         {
             string formato;
 
@@ -408,12 +418,21 @@ namespace SignalRSelfHost
             }
 
             string dataAtual = DateTime.Now.Date.ToString(formato);
+            List<Partida> resultado = new List<Partida>();
+            var partidas =  context.Partidas.ToList();
+            foreach (var partida in partidas)
+            {
+                string dataPartida = partida.Data.ToString(formato);
+                if (dataPartida.Equals(dataAtual))
+                    resultado.Add(partida);
+            }
 
-            return context.Partidas
-                .Where(partida => partida.Data.Date.ToString(formato).Equals(dataAtual))
-                .OrderByDescending(partida => partida.Pontos)
-                .ToList();
+            if(parametro == 1)
+                Clients.All.rankingPorMes(resultado);
+            else
+                Clients.All.rankingPorDia(resultado);
         }
+
 
     }
 }

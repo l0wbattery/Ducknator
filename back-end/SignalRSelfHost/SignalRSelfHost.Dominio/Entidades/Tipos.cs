@@ -11,7 +11,7 @@ namespace SignalRSelfHost.Dominio.Entidades
         //valor inteiro corresponde ao multiplicador de pontos
         TUTORIAL = 0,
         COMUM = 1,
-        RARO = 2,
-        LENDARIO = 3
+        RARO = 3,
+        LENDARIO = 7
     }
 }

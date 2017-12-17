@@ -26,4 +26,12 @@ angular.module('duckHunt').controller('homeController', function ($scope,duckSer
     $location.path('/rankingTotal');
   }
 
+  $scope.rankingDiario = function() {
+    $location.path('/rankingPorDia');
+  }
+
+  $scope.rankingMensal = function() {
+    $location.path('/rankingPorMes');
+  }
+
 });

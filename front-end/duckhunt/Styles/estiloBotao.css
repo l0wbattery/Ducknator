@@ -10,6 +10,11 @@
   font-family: porticooblique;
 }
 
+.btn-ranking-diario, .btn-ranking.mensal, .btn-home {
+  white-space: nowrap;
+  width: 200px;
+}
+
 .btn-nome {
   width: 200px;
   height: 80px;
@@ -17,8 +22,11 @@
   top: 65%;
 }
 
-.btn-ranking, .btn-home {
+.btn-ranking {
   width: 100px;
+}
+
+.btn-ranking, .btn-home {
   height: 30px;
   font-size: 20px;
   top: 40px;
