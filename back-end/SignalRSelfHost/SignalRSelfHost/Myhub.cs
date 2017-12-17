@@ -392,7 +392,7 @@ namespace SignalRSelfHost
         }
 
         //retorna o ranking mensal ou diario
-        public List<Partida> GetRankingComFiltro(int parametro)
+        public void GetRankingComFiltro(int parametro)
         {
             string formato;
 
@@ -408,12 +408,21 @@ namespace SignalRSelfHost
             }
 
             string dataAtual = DateTime.Now.Date.ToString(formato);
+            List<Partida> resultado = new List<Partida>();
+            var partidas =  context.Partidas.ToList();
+            foreach (var partida in partidas)
+            {
+                string dataPartida = partida.Data.ToString(formato);
+                if (dataPartida.Equals(dataAtual))
+                    resultado.Add(partida);
+            }
 
-            return context.Partidas
-                .Where(partida => partida.Data.Date.ToString(formato).Equals(dataAtual))
-                .OrderByDescending(partida => partida.Pontos)
-                .ToList();
+            if(parametro == 1)
+                Clients.All.rankingPorMes(resultado);
+            else
+                Clients.All.rankingPorDia(resultado);
         }
+
 
     }
 }
