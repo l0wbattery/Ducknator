@@ -424,15 +424,19 @@ namespace SignalRSelfHost
             {
                 string dataPartida = partida.Data.ToString(formato);
                 if (dataPartida.Equals(dataAtual))
+                {
                     resultado.Add(partida);
+                }
             }
-
-            if(parametro == 1)
+            resultado = resultado.OrderByDescending(partida => partida.Pontos).ToList();
+            if (parametro == 1)
+            {
                 Clients.All.rankingPorMes(resultado);
+            }
             else
+            {
                 Clients.All.rankingPorDia(resultado);
+            }   
         }
-
-
     }
 }

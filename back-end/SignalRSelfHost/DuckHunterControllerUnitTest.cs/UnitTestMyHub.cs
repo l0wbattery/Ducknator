@@ -23,7 +23,20 @@ namespace DuckHunterControllerUnitTest.cs
         private IDuckhunterContext testContextInstance = new DuckhunterContext();
         private MyHub myHub = new MyHub();
 
+        private void groupManagerSetup(Mock<IGroupManager> groupManagerMock, string connectionId)
+        {
+            var groupsJoined = new List<string>();
+            groupManagerMock.Setup(g => g.Add(connectionId, It.IsAny<string>()))
+                    .Returns(Task.FromResult<object>(null))
+                    .Callback<string, string>((cid, groupToJoin) =>
+                        groupsJoined.Add(groupToJoin));
+        }
 
+        private HubCallerContext criaContexto(string connectionId)
+        {
+            return new HubCallerContext(request: null,
+                                         connectionId: connectionId);
+        }
 
         [TestMethod]
         public void Deve_SalvarPartida_Corretamente()
@@ -50,20 +63,12 @@ namespace DuckHunterControllerUnitTest.cs
         public void CriarSalaTest()
         {
             var groupManagerMock = new Mock<IGroupManager>();
-            var connectionId = Guid.NewGuid().ToString();
-            var groupsJoined = new List<string>();
-            groupManagerMock.Setup(g => g.Add(connectionId, It.IsAny<string>()))
-                    .Returns(Task.FromResult<object>(null))
-                    .Callback<string, string>((cid, groupToJoin) =>
-                        groupsJoined.Add(groupToJoin));
-
+            string connectionId = Guid.NewGuid().ToString();
             bool sendCalled = false;
-            var hub = new MyHub();
             var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
-            hub.Clients = mockClients.Object;
-            hub.Context = new HubCallerContext(request: null,
-                                         connectionId: connectionId);
-            hub.Groups = groupManagerMock.Object;
+            myHub.Clients = mockClients.Object;
+            myHub.Context = criaContexto(connectionId);
+            myHub.Groups = groupManagerMock.Object;
             dynamic all = new ExpandoObject();
             string tokenSala = null;
             all.token = new Action<string>((token) =>
@@ -72,9 +77,44 @@ namespace DuckHunterControllerUnitTest.cs
                 tokenSala = token;
             });
             mockClients.Setup(m => m.Caller).Returns((ExpandoObject)all);
-            hub.GenerateToken();
+            myHub.GenerateToken();
             Assert.IsTrue(sendCalled);
             Assert.IsNotNull(tokenSala);
         }
+        [TestMethod]
+        public void TestaGeradorToken()
+        {
+            var hub = new MyHub();
+            string token = hub.GeraToken(new Random());
+            Assert.AreEqual(4, token.Length);
+        }
+        [TestMethod]
+        public void EnviarNickTest()
+        {
+            var groupManagerMock = new Mock<IGroupManager>();
+            string connectionId = Guid.NewGuid().ToString();
+            var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
+            myHub.Clients = mockClients.Object;
+            myHub.Context = criaContexto(connectionId);
+            myHub.Groups = groupManagerMock.Object;
+            dynamic all = new ExpandoObject();
+            string tokenSala = null;
+            all.token = new Action<string>((token) =>
+            {
+                tokenSala = token;
+            });
+            mockClients.Setup(m => m.Caller).Returns((ExpandoObject)all);
+            myHub.GenerateToken();
+            dynamic enviaNick = new ExpandoObject();
+            bool redirectTrue = false;
+            enviaNick.redirectTutorial = new Action<bool>((redirect) =>
+            {
+                redirectTrue = redirect;
+            });
+            mockClients.Setup(m => m.Caller).Returns((ExpandoObject)enviaNick);
+            myHub.EnviaNick("teste",tokenSala);
+            Assert.IsTrue(redirectTrue);
+        }
+
     }
 }
