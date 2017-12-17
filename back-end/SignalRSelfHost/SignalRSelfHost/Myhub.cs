@@ -397,7 +397,7 @@ namespace SignalRSelfHost
             {
                 leader.Add(new LeaderBoardModel(sala.NomeUsuario, sala.Pontos));
             }
-            leader = leader.OrderByDescending(x => x.Pontos).ToList();
+            leader = leader.OrderByDescending(x => x.Pontos).Take(10).ToList();
             Clients.All.leaderBoard(leader);
         }
 
