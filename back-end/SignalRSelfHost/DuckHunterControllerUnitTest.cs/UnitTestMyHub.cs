@@ -169,7 +169,7 @@ namespace DuckHunterControllerUnitTest.cs
         public void Deve_RetornarRakning_FiltradoPorMes()
         {
             var dataAtual = "12/2017";
-            var partidas = testContextInstance.Partidas.OrderByDescending(x => x.Pontos).ToList();
+            var partidas = testContextInstance.Partidas.ToList();
             List<Partida> resultado = new List<Partida>();
             foreach (var partida in partidas)
             {
@@ -181,6 +181,53 @@ namespace DuckHunterControllerUnitTest.cs
             }
 
             Assert.IsTrue(resultado[0].Pontos == 20);
+        }
+
+        [TestMethod]
+        public void EnviaTokenTest()
+        {
+            var groupManagerMock = new Mock<IGroupManager>();
+            string connectionId = Guid.NewGuid().ToString();
+            var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
+            var groupsJoined = new List<string>();
+            groupManagerMock.Setup(g => g.Add(connectionId, It.IsAny<string>()))
+                    .Returns(Task.FromResult<object>(null))
+                    .Callback<string, string>((cid, groupToJoin) =>
+                        groupsJoined.Add(groupToJoin));
+            myHub.Clients = mockClients.Object;
+            myHub.Context = criaContexto(connectionId);
+            myHub.Groups = groupManagerMock.Object;
+            dynamic all = new ExpandoObject();
+            string tokenSala = null;
+            all.token = new Action<string>((token) =>
+            {
+                tokenSala = token;
+            });
+            mockClients.Setup(m => m.Caller).Returns((ExpandoObject)all);
+            myHub.GenerateToken();
+            dynamic pagem = new ExpandoObject();
+            bool mobile = false;
+            pagem.redirectMobile = new Action<bool>((truee) =>
+            {
+                mobile = truee;
+            });
+            mockClients.Setup(m => m.Caller).Returns((ExpandoObject)pagem);
+            dynamic pagen = new ExpandoObject();
+            bool nick = false;
+            pagen.redirectNome = new Action<bool>((truee) =>
+            {
+                nick = truee;
+            });
+            mockClients.Setup(m => m.OthersInGroup(tokenSala)).Returns((ExpandoObject)pagen);
+
+            myHub.EnviaToken(tokenSala);
+
+            // Assert
+            groupManagerMock.VerifyAll();
+
+            Assert.IsTrue(mobile);
+            Assert.IsTrue(nick);
+            Assert.AreEqual(2, groupsJoined.Count);
         }
 
     }
