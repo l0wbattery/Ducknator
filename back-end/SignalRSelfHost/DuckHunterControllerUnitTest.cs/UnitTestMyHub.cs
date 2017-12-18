@@ -117,6 +117,73 @@ namespace DuckHunterControllerUnitTest.cs
         }
 
         [TestMethod]
+        public void FimDeJogoTest()
+        {
+            var groupManagerMock = new Mock<IGroupManager>();
+            string connectionId = Guid.NewGuid().ToString();
+            var mockClients = new Mock<IHubCallerConnectionContext<dynamic>>();
+            myHub.Clients = mockClients.Object;
+            myHub.Context = criaContexto(connectionId);
+            myHub.Groups = groupManagerMock.Object;
+            dynamic all = new ExpandoObject();
+            string tokenSala = null;
+            all.token = new Action<string>((token) =>
+            {
+                tokenSala = token;
+            });
+            mockClients.Setup(m => m.Caller).Returns((ExpandoObject)all);
+            myHub.GenerateToken();
+            dynamic fimdejogo = new ExpandoObject();
+            bool foiRedirecionado = false;
+            fimdejogo.redirectEndGame = new Action<bool>((redirecionado) =>
+            {
+                foiRedirecionado = redirecionado;
+            });
+            mockClients.Setup(m => m.Group(tokenSala)).Returns((ExpandoObject)fimdejogo);
+            myHub.FimDeJogo(tokenSala);
+            Assert.IsNotNull(tokenSala);
+            Assert.IsTrue(foiRedirecionado);
+
+        }
+
+        [TestMethod]
+        public void Deve_RetornarRakning_FiltradoPorDia()
+        {
+            var dataAtual = "22/12/2017";
+            var partidas = testContextInstance.Partidas.OrderByDescending(x => x.Pontos).ToList();
+            List<Partida> resultado = new List<Partida>();
+            foreach (var partida in partidas)
+            {
+                string dataPartida = partida.Data.ToString("dd/MM/yyyy");
+                if (dataPartida.Equals(dataAtual))
+                {
+                    resultado.Add(partida);
+                }
+            }
+
+            Assert.IsTrue(partidas[0].Pontos == 20);
+            Assert.IsTrue(resultado.Count() == 0);
+        }
+
+        [TestMethod]
+        public void Deve_RetornarRakning_FiltradoPorMes()
+        {
+            var dataAtual = "12/2017";
+            var partidas = testContextInstance.Partidas.ToList();
+            List<Partida> resultado = new List<Partida>();
+            foreach (var partida in partidas)
+            {
+                string dataPartida = partida.Data.ToString("MM/yyyy");
+                if (dataPartida.Equals(dataAtual))
+                {
+                    resultado.Add(partida);
+                }
+            }
+
+            Assert.IsTrue(resultado[0].Pontos == 20);
+        }
+
+        [TestMethod]
         public void EnviaTokenTest()
         {
             var groupManagerMock = new Mock<IGroupManager>();
@@ -160,7 +227,7 @@ namespace DuckHunterControllerUnitTest.cs
 
             Assert.IsTrue(mobile);
             Assert.IsTrue(nick);
-            Assert.AreEqual(2,groupsJoined.Count);
+            Assert.AreEqual(2, groupsJoined.Count);
         }
 
     }

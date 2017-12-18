@@ -380,13 +380,14 @@ namespace SignalRSelfHost
         }
 
         //retorna o ranking geral
-        public void GetRankingTotal()
+        public List<Partida> GetRankingTotal()
         {
             var lista = context.Partidas
                 .OrderByDescending(partida => partida.Pontos)
                 .ToList();
-
+            
             Clients.All.rankingTotal(lista);
+            return lista;
         }
 
         public void AtualizaLeaderBoard()
@@ -401,7 +402,7 @@ namespace SignalRSelfHost
         }
 
         //retorna o ranking mensal ou diario
-        public void GetRankingComFiltro(int parametro)
+        public List<Partida> GetRankingComFiltro(int parametro)
         {
             string formato;
 
@@ -435,7 +436,9 @@ namespace SignalRSelfHost
             else
             {
                 Clients.All.rankingPorDia(resultado);
-            }   
+            }
+
+            return resultado;
         }
     }
 }
