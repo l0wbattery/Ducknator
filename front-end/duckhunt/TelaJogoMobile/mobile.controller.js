@@ -22,7 +22,10 @@ angular.module('duckHunt').controller('mobileController', function ($scope, duck
     $scope.conta = function(){
         console.log('clicou');
         duckService.atirar(duckService.token);
+        tiro.currentTime = 0;
         tiro.play();
+        
     }
+
 });
 
