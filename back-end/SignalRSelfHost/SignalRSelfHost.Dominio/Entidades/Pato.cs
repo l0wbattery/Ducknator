@@ -14,8 +14,7 @@ namespace SignalRSelfHost.Dominio.Entidades
         public bool Vivo { get; set; }
         public Pato()
         {
-            var t = Task.Run(() => GeraPosicoesAleatorias());
-            t.Wait();
+            GeraPosicoesAleatorias();
             Vivo = true;
             Tipo = GeraTipoPato();
         }
