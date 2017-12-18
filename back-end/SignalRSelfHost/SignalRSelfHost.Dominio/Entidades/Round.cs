@@ -22,14 +22,19 @@ namespace SignalRSelfHost.Dominio.Entidades
         public void NextMiniRound()
         {
             if(MiniRoundIterator < 5)
+            {
                 MiniRoundIterator++;
+            }
+               
         }
 
         public void GerarMiniRounds()
         {
             MiniRounds = new List<MiniRound>();
             for (int i = 0; i < 5; i++)
+            {
                 MiniRounds.Add(new MiniRound());
+            }   
         }
     }
 }
