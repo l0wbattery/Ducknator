@@ -10,12 +10,22 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     $scope.patinhoBranco = new Array(10);
     var patosBrancos = 10;
     var mira = document.getElementById("mira");
+    var loopSomDeFundo = new Audio('../Audio/CountryMusicLoop.mp3'); 
+
 
     var ultimaPosicaoDoPatoEmX = [500,500];
     var patos = [];
     $timeout(function() {
         inicioJogo();
     }, 1000);
+
+    //Realiza o Loop do som de fundo
+    loopSomDeFundo.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    }, false);
+
+    loopSomDeFundo.play();
     
     $scope.resetaQuantidadePatos = resetaQuantidadePatos;
 
@@ -49,6 +59,7 @@ angular.module('duckHunt').controller('jogoController', function ($scope, duckSe
     });
 
     $scope.$on('redirectEndGame', function () {
+        loopSomDeFundo.pause();
         $location.path('/fim');
         $scope.$apply();
     });
