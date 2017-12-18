@@ -26,7 +26,7 @@ namespace DuckHunterControllerUnitTest.cs
         {
             MiniRound miniRound = new MiniRound();
 
-            for (var i=0; i<=10; i++)
+            for (var i=0; i<10; i++)
             {
                 miniRound.GetNextPosition();
             }
@@ -34,7 +34,7 @@ namespace DuckHunterControllerUnitTest.cs
             var resultado = miniRound.getPosicoes();
 
             Assert.IsTrue(miniRound.Patos.Count == 2);
-            Assert.IsTrue(miniRound.Posicoes == 10);
+            Assert.IsTrue(miniRound.Posicoes == 9);
         }
     }
 }
