@@ -108,6 +108,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\LeaderBoardModel.cs" />
     <Compile Include="Model\PatoModel.cs" />
     <Compile Include="MyHub.cs" />
     <Compile Include="Program.cs" />

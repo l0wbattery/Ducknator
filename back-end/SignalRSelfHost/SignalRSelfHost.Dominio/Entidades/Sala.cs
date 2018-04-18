@@ -8,18 +8,23 @@ namespace SignalRSelfHost.Dominio.Entidades
 {
     public class Sala
     {
+        public bool EmTutorial { get; set; }
         public int Id { get; private set; }
         public String Token { get; private set; }
         public String NomeUsuario { get; set; }
         public List<String> IdsUsuarios { get; private set; }
-        public int Pontos { get; private set; }
+        public int Pontos { get; set; }
         public int Nivel { get; private set; }
-        public MiniRound MiniRoundAtual { get; private set; }
+        public MiniRound MiniRoundAtual { get; set; }
         public Round RoundAtual { get; private set; }
+        public Pato patoTutorial;
+        public int yBola = 300;
+        public int xBola = 300;
 
         public void NextRound()
         {
             RoundAtual = new Round();
+            Nivel++;
         }
         public void NextMiniRound()
         {
@@ -29,13 +34,37 @@ namespace SignalRSelfHost.Dominio.Entidades
 
         public Sala(String token, String id)
         {
+            NomeUsuario = "Player";
             Token = token;
             IdsUsuarios = new List<String>();
             IdsUsuarios.Add(id);
             Pontos = 0;
             Nivel = 0;
             RoundAtual = new Round();
+            EmTutorial = true;//mudei pra testes
+            patoTutorial = new Pato();
+            patoTutorial.Tipo = Tipos.TUTORIAL;
         }
-        
+
+        //Cria limites de movimento da mira;
+        public void LimitaMovimentoDaMira()
+        {
+            if (xBola > 710) xBola = 710;
+            if (yBola > 510) yBola = 510;
+            if (xBola < 0) xBola = 0;
+            if (yBola < 0) yBola = 0;
+        }
+
+        public void finalizaTutorial()
+        {
+            patoTutorial.Vivo = false;
+            EmTutorial = false;
+        }
+
+        public bool getEstadoTutorial()
+        {
+            return EmTutorial;
+        }
+
     }
 }

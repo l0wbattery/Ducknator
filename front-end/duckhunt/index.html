@@ -1,11 +1,13 @@
 ﻿<!DOCTYPE html>
 <html >
 <head>
-    <title>SignalR Simple Chat</title>
+    <title>DUCKNATOR!!!</title>
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
     <link rel="stylesheet" href="/Styles/animacoesAvisos.css">
     <link rel="stylesheet" href="/Styles/animacoesCachorro.css">
     <link rel="stylesheet" href="/Styles/animacoesPato.css">
     <link rel="stylesheet" href="/Styles/animacoesPlanoDeFundo.css">
+    <link rel="stylesheet" href="/Styles/animacoesRound.css">
     <link rel="stylesheet" href="/Styles/estilo.css">
     <link rel="stylesheet" href="/Styles/estiloArma.css">
     <link rel="stylesheet" href="/Styles/estiloAvisos.css">
@@ -17,21 +19,25 @@
     <link rel="stylesheet" href="/Styles/estiloPato.css">
     <link rel="stylesheet" href="/Styles/estiloTextos.css">
     <link rel="stylesheet" href="/Styles/estiloTiro.css">
+    <link rel="stylesheet" href="/Styles/estiloPatinhos.css">
     <link rel="stylesheet" href="/Styles/estiloToken.css">
     <link rel="stylesheet" href="/Styles/estiloWrapper.css">
     <link rel="stylesheet" href="/Styles/estiloBoxInformacoes.css">
     <link rel="stylesheet" href="/Styles/estiloTelaJogo.css">
     <link rel="stylesheet" href="/Styles/estiloTelaTutorial.css">
     <link rel="stylesheet" href="/Styles/estiloLeaderboard.css">
+    <link rel="stylesheet" href="/Styles/estiloFimDeJogo.css">
+    <link rel="stylesheet" href="/Styles/estiloRanking.css">
+    <link rel="stylesheet" href="/Styles/estiloRound.css">
     <link rel="stylesheet" href="/Styles/fontes.css">
-	  <link rel="stylesheet" href="Teste/bola.css">
+	<link rel="stylesheet" href="Teste/bola.css">
 </head>
 <body ng-app="duckHunt">
     <div class="header"></div>
     <div ng-view></div>
     <div class="bottom"></div>
     <!--Script references. -->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js" type="text/javascript"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.js" type="text/javascript"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular-route.min.js" type="text/javascript"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js" type="text/javascript"></script>
 
@@ -41,12 +47,18 @@
     <script src="app.module.js"></script>
     <script src="app.route.js"></script>
     <script src="duck.service.js"></script>
+    <script src="AnimationEnd/animation-end.directive.js"></script>
     <script src="Teste/desktop.controller.js"></script>
     <script src="TelaJogoMobile/mobile.controller.js"></script>
     <script src="TelaDeJogo/telaDeJogo.controller.js"></script>
     <script src="TelaDeNome/nick.controller.js"></script>
     <script src="TelaDeToken/token.controller.js"></script>
+    <script src="TelaFimDeJogo/fimDeJogo.controller.js"></script>
     <script src="Home/home.controller.js"></script>
+    <script src="TelaDeRanking/rankingTotal.controller.js"></script>
+    <script src="TelaDeRanking/ranking.controller.js"></script>
+    <script src="TelaDeRanking/rankingPorDia.controller.js"></script>
+    <script src="TelaDeRanking/rankingPorMes.controller.js"></script>
     <script src="TelaDeTutorial/telaDeTutorial.controller.js"></script>
     <!--Reference the SignalR library. -->
     <script src="Scripts/jquery.signalR-2.2.1.min.js"></script>

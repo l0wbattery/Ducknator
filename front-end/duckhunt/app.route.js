@@ -9,6 +9,26 @@ angular.module('duckHunt').config(function ($routeProvider){
         controller: 'mobileController'
     })
 
+    .when('/fim',{
+        templateUrl: 'TelaFimDeJogo/fimDeJogo.html',
+        controller: 'fimDeJogoController'
+    })
+
+    .when('/rankingTotal',{
+        templateUrl: 'TelaDeRanking/rankingTotal.html',
+        controller: 'rankingTotalController'
+    })
+
+    .when('/rankingPorDia',{
+        templateUrl: 'TelaDeRanking/rankingPorDia.html',
+        controller: 'rankingPorDiaController'
+    })
+
+    .when('/rankingPorMes',{
+        templateUrl: 'TelaDeRanking/rankingPorMes.html',
+        controller: 'rankingPorMesController'
+    })
+
     .when('/tutorial',{
         templateUrl: 'TelaDeTutorial/telaDeTutorial.html',
         controller: 'tutorialController'

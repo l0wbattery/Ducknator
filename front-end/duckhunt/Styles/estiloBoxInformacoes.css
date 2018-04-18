@@ -67,10 +67,9 @@
     position: absolute;
     top: 130px;
     left: 570px;
-
     font-family: '8bit';
     color: white;
-
+    font-size:  25px;
     background-color: black;
     border-style: solid;
     border-width: 3px;
@@ -98,4 +97,5 @@ p {
   width: 20px;
 	height: 20px;
   margin: -4px;
+  margin-left: 4px;
 }

@@ -1,0 +1,17 @@
+.inicioRound {
+  position: absolute;
+  top: 0px;
+  left:350px;
+  color: #000;
+  font-size: 100%;
+  background-color: #FF7400;
+  width: auto;
+  height: auto;
+  padding: 20px;
+  animation: apareceAviso 4s;
+  transition-duration: .1s;
+  font-family: '8bit';
+  border-radius: 3px;
+  z-index: -1;
+  display: inline;
+}

@@ -1,29 +1,55 @@
-.btn, .btn-nome {
+.btn, .btn-nome, .btn-fim, .btn-ranking, .btn-home {
+  position: absolute;
   color: #000;
   background-color: yellow;
   box-shadow: .2em .2em #f05805;
   display: flex;
-  align-self: center;
   justify-content: center;
   border: 0;
   transition-duration: .2s;
+  font-family: porticooblique;
+}
+
+.btn-ranking-diario, .btn-ranking.mensal, .btn-home {
+  white-space: nowrap;
+  width: 200px;
 }
 
 .btn-nome {
   width: 200px;
-  height: 200vh;
+  height: 80px;
+  font-size: 30px;
+  top: 65%;
+}
+
+.btn-ranking {
+  width: 100px;
+}
+
+.btn-ranking, .btn-home {
+  height: 30px;
   font-size: 20px;
-  margin-top: 10px;
+  top: 40px;
+  left: 40px;
 }
 
 .btn {
   width: 400px;
   height: 100px;
   font-size: 50px;
-  margin-top: 40px;
+  top: 65%;
 }
 
-.btn:active, .btn-nome:active {
+.btn:active, .btn-nome:active, .btn-fim:active, .btn-ranking:active, .btn-home:active {
   box-shadow: 0 0 transparent;
   transition-duration: .2s;
+  margin-left: 5px;
+  margin-top: 5px;
+}
+
+.btn-fim {
+  width: 200px;
+  height: 70px;
+  font-size: 25px;
+  top:540px;
 }

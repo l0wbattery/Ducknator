@@ -7,7 +7,7 @@ function ($, $rootScope) {
         connect: function () {
             var self = this;
 
-            connection = $.hubConnection('http://10.99.150.49:8080/signalr');
+            connection = $.hubConnection('http://192.168.0.104:8080/signalr');
 
             proxy = connection.createHubProxy('HubMessage');
             connection.start().done(function() {
@@ -16,20 +16,11 @@ function ($, $rootScope) {
             proxy.on('messageAdded', function (bolaGamma, bolaAlpha,tiros) {
                 $rootScope.$broadcast('messageAdded', bolaGamma, bolaAlpha,tiros);
             });
-            proxy.on('atirou', function (atirou) {
-                $rootScope.$broadcast('atirou', atirou);
+            proxy.on('atirou', function (atirou,id) {
+                $rootScope.$broadcast('atirou', atirou,id);
             });
-            proxy.on('pato1', function (pato1) {
-                $rootScope.$broadcast('pato1', pato1);
-            });
-            proxy.on('pato2', function (pato2) {
-                $rootScope.$broadcast('pato2', pato2);
-            });
-            proxy.on('pato1vivo', function (morto1) {
-                $rootScope.$broadcast('pato1vivo', morto1);
-            });
-            proxy.on('pato2vivo', function (morto2) {
-                $rootScope.$broadcast('pato2vivo', morto2);
+            proxy.on('patos', function (patos) {
+                $rootScope.$broadcast('patos', patos);
             });
             proxy.on('pontuacao', function (pontuacao) {
                 $rootScope.$broadcast('pontuacao', pontuacao);
@@ -40,14 +31,59 @@ function ($, $rootScope) {
             proxy.on('isConnect', function (isConnect) {
                 $rootScope.$broadcast('isConnect', isConnect);
             });
+            proxy.on('criarPatoTutorial', function (patoTutorial){
+                $rootScope.$broadcast('criarPatoTutorial', patoTutorial);
+            });
             proxy.on('redirectMobile', function (redirectMobile) {
                 $rootScope.$broadcast('redirectMobile', redirectMobile);
             });
             proxy.on('redirectNome', function (redirectNome) {
                 $rootScope.$broadcast('redirectNome', redirectNome);
             });
+            proxy.on('redirectTutorial', function (redirectTutorial){
+                $rootScope.$broadcast('redirectTutorial', redirectTutorial);
+            })
             proxy.on('redirectGame', function (redirectGame) {
                 $rootScope.$broadcast('redirectGame', redirectGame);
+            });
+            proxy.on('sobeCachorro', function(qntdPatos) {
+              $rootScope.$broadcast('sobeCachorro', qntdPatos);
+            });
+            proxy.on('inicioRound', function(status) {
+              $rootScope.$broadcast('inicioRound', status);
+            });
+            proxy.on('leaderBoard', function(leaderBoard) {
+                $rootScope.$broadcast('leaderBoard', leaderBoard);
+            });
+            proxy.on('patoMorreu', function(patoMorreu) {
+                $rootScope.$broadcast('patoMorreu', patoMorreu);
+            });//patosMortos
+            proxy.on('patosMortos', function(patosMortos) {
+                $rootScope.$broadcast('patosMortos', patosMortos);
+            });//scoreIndividual
+            proxy.on('scoreIndividual', function(scoreIndividual) {
+                $rootScope.$broadcast('scoreIndividual', scoreIndividual);
+            });//roundAtual
+            proxy.on('roundAtual', function(roundAtual) {
+                $rootScope.$broadcast('roundAtual', roundAtual);
+            });
+            proxy.on('rankingTotal', function(rankingTotal) {
+                $rootScope.$broadcast('rankingTotal', rankingTotal);
+            });
+            proxy.on('rankingPorDia', function(rankingPorDia) {
+                $rootScope.$broadcast('rankingPorDia', rankingPorDia);
+            });
+            proxy.on('rankingPorMes', function(rankingPorMes) {
+                $rootScope.$broadcast('rankingPorMes', rankingPorMes);
+            });//fimDeRound
+            proxy.on('fimDeRound', function(nivel) {
+                $rootScope.$broadcast('fimDeRound', nivel);
+            });
+            proxy.on('acabouMiniRound', function() {
+                $rootScope.$broadcast('acabouMiniRound');
+            });
+            proxy.on('redirectEndGame', function() {
+                $rootScope.$broadcast('redirectEndGame');
             });
         },
         isConnecting: function () {
@@ -59,9 +95,9 @@ function ($, $rootScope) {
         connectionState: function () {
             return connection.state;
         },
-        sendMessage: function (bolaGamma, bolaAlpha,token) {
+        sendMessage: function (bolaGamma, bolaAlpha, token, isChrome) {
             if(this.isConnected()) {
-                proxy.invoke('SendMessage', bolaGamma, bolaAlpha,token).Result;
+                proxy.invoke('SendMessage', bolaGamma, bolaAlpha, token, isChrome).Result;
             }
         },
         atirar: function (token){
@@ -69,9 +105,9 @@ function ($, $rootScope) {
                 proxy.invoke('Atirar',token);
             }
         },
-        rodaPatosMiniRound: function (){
+        rodaRound: function (token){
             if(this.isConnected()){
-                proxy.invoke('RodaRound').Result;
+                proxy.invoke('RodaRound',token).Result;
             }
         },
         generateToken: function (){
@@ -88,6 +124,25 @@ function ($, $rootScope) {
             if(this.isConnected()){
                 proxy.invoke('EnviaNick',nick,token);
             }
+        },
+        enviaFimAnimacaoMorte: function (boolean){
+            if(this.isConnected()){
+                proxy.invoke('enviaFimAnimacaoMorte', boolean);
+            }
+        },//RodaTutorial
+        rodaTutorial: function (token){
+            if(this.isConnected()){
+                proxy.invoke('RodaTutorial',token);
+            }
+        },
+        chamaRankingTotal: function() {
+          proxy.invoke('GetRankingTotal');
+        },
+        chamaRankingPorDia: function() {
+          proxy.invoke('GetRankingComFiltro', 2);
+        },
+        chamaRankingPorMes: function() {
+          proxy.invoke('GetRankingComFiltro', 1);
         },
     }
 }]);

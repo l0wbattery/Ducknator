@@ -1,101 +1,155 @@
-angular.module('duckHunt').controller('jogoController', function ($scope, duckService) {
+angular.module('duckHunt').controller('jogoController', function ($scope, duckService, $interval, $timeout, $location) {
     var pontuacao = 0000111;
     var rodada = 1;
     var disparo = 3;
-
-    $scope.isPato1Vivo = true;
-    $scope.isPato2Vivo = true;
-
+    $scope.scoreIndividual = 0;
+    $scope.inicio = false;
+    $scope.roundAtual = 0;
+    $scope.balas = new Array(6);
+    $scope.patinhoVermelho = new Array(0);
+    $scope.patinhoBranco = new Array(10);
+    var patosBrancos = 10;
     var mira = document.getElementById("mira");
-    var pato1 = document.getElementById("pato1");
-    var pato2 = document.getElementById("pato2");
+    var loopSomDeFundo = new Audio('../Audio/CountryMusicLoop.mp3'); 
 
-    //Posições Iniciais
-    pato1.style.top = "500px";
-    pato1.style.left = "600px";
 
-    pato2.style.top = "500px";
-    pato2.style.left = "100px";
+    var ultimaPosicaoDoPatoEmX = [500,500];
+    var patos = [];
+    $timeout(function() {
+        inicioJogo();
+    }, 1000);
 
-    var patoUmVivo = true;
+    //Realiza o Loop do som de fundo
+    loopSomDeFundo.addEventListener('ended', function() {
+        this.currentTime = 0;
+        this.play();
+    }, false);
+
+    loopSomDeFundo.play();
+    
+    $scope.resetaQuantidadePatos = resetaQuantidadePatos;
+
+    $scope.$on('patosMortos', function (event, patosMortos) {
+        $scope.patinhoVermelho = new Array(patosMortos);
+        let aux = patosBrancos - patosMortos;
+        $scope.patinhoBranco = new Array(aux);
+        $scope.$apply();
+    });
 
     //Inicializa o round no servidor
     $scope.rodaRound = function () {
-        duckService.rodaPatosMiniRound();
+        duckService.rodaRound(duckService.token);
     }
+    //score individual
+    $scope.$on('scoreIndividual', function (event, scoreIndividual) {
+        $scope.scoreIndividual = scoreIndividual;
+        $scope.$apply();
+    });
+
+    //round atual
+    $scope.$on('roundAtual', function (event, roundAtual) {
+        $scope.roundAtual = roundAtual;
+        $scope.$apply();
+    });
+
+    //leaderBoard
+    $scope.$on('leaderBoard', function (event, leaderBoard) {
+        $scope.leaderBoard = leaderBoard;
+        $scope.$apply();
+    });
+
+    $scope.$on('redirectEndGame', function () {
+        loopSomDeFundo.pause();
+        $location.path('/fim');
+        $scope.$apply();
+    });
 
     // Recebe mensagens do servidor para a mira // -----------------------
     $scope.$on('messageAdded', function (event, gamma, alpha, tiros) {
         $scope.tiros = tiros;
-        mira.style.left = gamma + "px";
-        mira.style.top = alpha + "px";
+        $scope.miraX = gamma;
+        $scope.miraY = alpha;
 
+        $scope.mira = `
+        left: ${$scope.miraX}px;
+        top: ${$scope.miraY}px;
+        `;
         $scope.$apply();
     });
 
-    //Realiza a nimação do pato sendo atingido e chama a função para faze-lo "cair";
-    function eliminarPato() {
-        pato1.style.animation = "pato-atingido steps(1) forwards 0,5s";
- 
-        pato1.addEventListener("animationend", tirarPatoDaTela);
-    }
+    //numeração de cada round e chamada do proximo round
+    $scope.$on('fimDeRound', function (event, nivel) {
+        let valorNivel = nivel+1;
+        $scope.nivel = valorNivel;
+        $scope.inicio = true;
+        $scope.$apply();
+        $timeout(function() {
+            duckService.rodaRound(duckService.token);
+        }, 3000);
+    });
 
-    //Faz o pato "cair" após ser atingido e inicia função de remoção;
-    function tirarPatoDaTela() {
-
-        pato1.style.animation = "pato-morrendo 1s forwards linear";
-
+    function inicioJogo(){
+        let valorNivel = 1;
+        $scope.nivel = valorNivel;
+        $scope.inicio = true;
+        $scope.$apply();
+        $timeout(function() {
+            duckService.rodaRound(duckService.token);
+        }, 1000);
     }
 
     // VERIFICA DISPARO // -----------------------------------------------
-    $scope.$on('atirou', function (event, acertou) {
-        console.log(acertou);
-        if(acertou )eliminarPato();
-        pontuacao += 100;
+    $scope.$on('atirou', function (event, acertou, id) {
+        patos[id].Vivo = false;
+        $scope.patos[id].Vivo = false;
     });
 
-    // MOVIMENTA PATOS //-------------------------------------------------
-    $scope.$on('pato1', function (event, posicaoPato1) {
-
-        mudaAnguloDeVoo(pato1.style.left, pato1.style.top, posicaoPato1.PosicaoX, posicaoPato1.posicaoY, "pato1");
-
-        pato1.style.top = posicaoPato1.PosicaoY + "px";
-        pato1.style.left = posicaoPato1.PosicaoX + "px";
-
-        $scope.$apply();
-    });
-    $scope.$on('pato2', function (event, posicaoPato2) {
-
-        mudaAnguloDeVoo(pato2.style.left, pato2.style.top, posicaoPato2.PosicaoX, posicaoPato2.posicaoY, "pato2");
-
-        pato2.style.top = posicaoPato2.PosicaoY + "px";
-        pato2.style.left = posicaoPato2.PosicaoX + "px";
-    });
-
-
-    function mudaAnguloDeVoo(posicaoXAnterior, posicaoYAnterior, novaPosicaoX, novaposicaoY, idPato) {
-        let patoVoando = document.getElementById(idPato);
-        patoVoando.style.transition = "all .0s";
-
-        if ((Number(posicaoXAnterior.slice(0,posicaoXAnterior.length-2))) < novaPosicaoX) {
-            patoVoando.style.transform = "scaleX(1)";
-        } else {
-            patoVoando.style.transform = "scaleX(-1)";
+    //MOVIMENTA PATOS //-------------------------------------------------
+    $scope.$on('patos', function (event, listaDePatos) {
+        if(!$scope.patos) {
+            $scope.patos = listaDePatos
         }
 
-        patoVoando.style.transition = "all 1s";
-        
+        listaDePatos.forEach(function(pato, index) {
+            if(pato.Vivo) {
+                patos[index] = pato;
+                
+                $scope.patos[index].Invertido = inverteSpriteDosPatos(pato, ultimaPosicaoDoPatoEmX[index], patos[index].Posicoes.PosicaoX);
+                ultimaPosicaoDoPatoEmX[index] = pato.Posicoes.PosicaoX;
+
+                $scope.patos[index].Posicoes = pato.Posicoes;
+            }
+        })
+    });
+
+    function inverteSpriteDosPatos(pato, ultimaPosX, novaPosX) {
+        if (ultimaPosX !== null) {
+            if (ultimaPosX > novaPosX) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
-    function pad(pontuacao) {
-        return (pontuacao < 10) ? ("0" + pontuacao) : pontuacao;
+    $scope.$on('sobeCachorro', function (event, qntdPatos) {
+        $scope.qntdPatos = qntdPatos;
+
+    });
+
+    function resetaQuantidadePatos() {
+        $scope.qntdPatos = null;
     }
 
-    $scope.data = {
-        score: pontuacao,
-        round: rodada,
-        shot: disparo
-    };
+    $scope.resetaValorInicio = function () {
+        $scope.inicio = false;
+        $scope.$apply();
+    }
 
+    $scope.$on("acabouMiniRound", function() {
+        $timeout(function() {
+            $scope.patos = undefined
+        }, 1000);
+    })
 
 });

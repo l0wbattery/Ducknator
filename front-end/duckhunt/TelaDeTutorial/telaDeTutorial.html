@@ -1,15 +1,10 @@
-<div class="content-wrapper">
-    <div class="content-nome content">
-
-        <div class="pato" 
-            ng-class="{'pato-voando':patoTutorial.vivo == true, 'pato-morrendo': patoTutorial.vivo == false}" 
-            id="patoTutorial">
-        </div>
+<div class="televisao">
+    <div class="tela-de-jogo">
+        <span class="pato pato-normal" animation-end="fimAnimacaoMorte" ng-class="{'pato-voando':patoTutorial.Vivo == true, 'pato-morrendo': patoTutorial.Vivo == false}" id="patoTutorial" style="{{patoTutorialStyle}}"></span>
 
         <div class="mira" id="mira" style="{{mira}}"></div>
         <div class="tela-tutorial-aviso aviso-instrucoes">Para iniciar o jogo mire e atire no pato.</div>
         <div class="tela-tutorial-aviso aviso-giroscopio">É necessário que seu dispositivo tenha um giroscópio para jogar.</div>
         <div class="tela-tutorial-aviso aviso-som">Para uma melhor experiência aumente o volume do seu dispositivo.</div>
     </div>
-</div>
 </div>

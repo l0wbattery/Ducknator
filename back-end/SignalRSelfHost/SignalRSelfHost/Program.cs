@@ -19,8 +19,7 @@ namespace SignalRSelfHost
             // See http://msdn.microsoft.com/en-us/library/system.net.httplistener.aspx 
             // for more information.
 
-            string url = "http://10.99.150.49:8080";
-
+            string url = "http://192.168.0.104:8080";
             using (WebApp.Start(url))
             {
                 Console.WriteLine("Server running on {0}", url);

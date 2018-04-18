@@ -30,12 +30,13 @@ body {
   border-bottom: 2px solid #fff;
   text-align: center;
   padding-bottom: 10px;
+  caret-color: yellow;
 }
 /*utilizado na home*/
 #snow{
   background-color: #000;
 	font-family: Androgyne;
-	background-image: url('https://www.idbox-monaco.com/index/IMG/light-point.png'), url('http://www.wearewebstars.dk/codepen/img//s3.png');
+	background-image: url('https://www.idbox-monaco.com/index/IMG/light-point.png'), url('http://www.wearewebstars.dk/codepen/img/s3.png');
 	height: 100%;
 	left: 0;
 	position: absolute;

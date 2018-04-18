@@ -4,28 +4,28 @@ angular.module('duckHunt').controller('mobileController', function ($scope, duck
     let contador = 0;
     var patoY;
     var patoX;
+    var tiro = new Audio('../Audio/Winchester12.mp3');
     $scope.contador = contador;
+    
+    var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') >= 0;
+    
     function handleMotionEvent(event) {
         
         bolaGamma = event.rotationRate.gamma;
         bolaAlpha = event.rotationRate.alpha;
 
-        duckService.sendMessage(bolaGamma, bolaAlpha,duckService.token);
+        duckService.sendMessage(bolaGamma, bolaAlpha, duckService.token, isChrome);
     }
 
     window.addEventListener("devicemotion", handleMotionEvent, true);
 
-    
-    $scope.$on('pato1', function (event, pato1) {
-        patoY = pato1.PosicaoY;
-        patoX = pato1.PosicaoX;
-        $scope.stylewtf2 = "top:" + (pato1.PosicaoY) + "px; left:" + (pato1.PosicaoX) + "px;";
-        $scope.$apply();
-    });
-
     $scope.conta = function(){
         console.log('clicou');
         duckService.atirar(duckService.token);
+        tiro.currentTime = 0;
+        tiro.play();
+        
     }
+
 });
 

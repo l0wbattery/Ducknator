@@ -3,6 +3,7 @@
   font-family: '8bit';
   width: 19vw;
   height: 70vh;
+  font-size: 30px;
   margin-left: 5px;
   border: 1px solid #fff;
   display: inline-block;
@@ -12,8 +13,50 @@
   color: #fff;
   padding: 5px;
   background-color: rgba(0, 0, 0, 0.8);
+  text-align: center;
 }
 
-.leaderborder > div {
+.leaderborder > ol {
   text-align: center;
+  font-size: 22px;
+  counter-reset: leader-board;
+  list-style: none;
+  padding-left: 0;
+}
+
+.leaderborder > ol li {
+  counter-increment: leader-board;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.leaderborder > ol li:first-child {
+  color: #ffd600;
+}
+
+.leaderborder > ol li:before {
+  content: "#" counter(leader-board);
+  margin-left: 10px;
+}
+
+.leader-board {
+  text-align: left;
+  margin-left: 10px;
+  width: 100%;
+}
+
+.leader-board__name,
+.leader-board__score {
+  text-align: left;
+}
+
+.leader-board__name {
+  font-size: 16px;
+  line-height: 12px;
+  text-overflow: ellipsis;
+  max-width: 90%;
+  white-space: nowrap;
+  overflow: hidden;
 }

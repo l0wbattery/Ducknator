@@ -1,10 +1,28 @@
 angular.module('duckHunt').controller('tutorialController', function ($scope, $location, duckService) {
 
-    $scope.patoTutorial = {
-        vivo: true,
-        pontos: 100,
-        tipo: 1
-    };
+    $scope.fimAnimacaoMorte = fimAnimacaoMorte;
+
+    var redirecionarParaJogo = false;
+    duckService.rodaTutorial(duckService.token);
+    $scope.$on('redirectGame', function (event, redirectGame) {
+        redirecionarParaJogo = redirectGame;
+    });
+
+    $scope.$on('criarPatoTutorial', function (event, patoTutorial) {
+        $scope.patoTutorial = patoTutorial;
+        $scope.patoTutorialStyle = `
+            left: ${$scope.patoTutorial.Posicoes[0].PosicaoX}px;
+            top: ${$scope.patoTutorial.Posicoes[0].PosicaoY}px;
+            `;
+    });
+
+    function fimAnimacaoMorte() {
+        if (redirecionarParaJogo) {
+
+            $location.path('/jogo');
+            $scope.$apply();
+        }
+    }
 
     //Recebe mensagens do servidor
     $scope.$on('messageAdded', function (event, gamma, alpha, tiros) {
@@ -12,24 +30,17 @@ angular.module('duckHunt').controller('tutorialController', function ($scope, $l
         $scope.miraX = gamma;
         $scope.miraY = alpha;
 
-        $scope.mira = "left:" + ($scope.miraX) + "px; top:" + ($scope.miraY) + "px;";
+        $scope.mira = `
+        left: ${$scope.miraX}px; 
+        top: ${$scope.miraY}px;
+        `;
         $scope.$apply();
     });
 
-    //Verifica se a mira está dentro do hitbox do pato;
-    
-
-
-    //Redireciona para a tela de jogo e chama o inicio da partida;
-    function removerDiv() {
-        duckService.rodaPatosMiniRound();
-        $location.path('/jogo');
-    }
-
     //Inicia verificação de acerto do pato tutorial ao receber o sinal de tiro vindo do backend;
-    $scope.$on('atirou', function (event, acertou) {
-        if(acertou === true){
-            $scope.patoTutorial.vivo = false;
+    $scope.$on('atirou', function (event, acertou, id) {
+        if (acertou === true) {
+            $scope.patoTutorial.Vivo = false;
         }
     });
 });

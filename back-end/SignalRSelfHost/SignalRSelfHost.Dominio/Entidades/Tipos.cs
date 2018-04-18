@@ -8,8 +8,10 @@ namespace SignalRSelfHost.Dominio.Entidades
 {
     public enum Tipos
     {
-        COMUM=1,
-        RARO=2,
-        LENDARIO=3
+        //valor inteiro corresponde ao multiplicador de pontos
+        TUTORIAL = 0,
+        COMUM = 1,
+        RARO = 3,
+        LENDARIO = 7
     }
 }

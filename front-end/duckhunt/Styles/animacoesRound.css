@@ -1,0 +1,14 @@
+@keyframes apareceAviso {
+  0% {
+    top: 10px;
+    font-size: 100%;
+   }  
+  50% {
+    top: 250px;
+    font-size: 200%;
+  }
+   100% {
+    top: 10px;
+    font-size: 100%;
+  }
+}

@@ -15,6 +15,11 @@
   font-weight: lighter;
 }
 
+.token-token {
+  font-size: 200%;
+  color: yellow;
+}
+
 .i {
   margin: 10px;
   width: auto;

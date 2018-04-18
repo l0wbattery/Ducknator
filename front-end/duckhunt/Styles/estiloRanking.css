@@ -1,0 +1,32 @@
+.content-ranking {
+  font-family: '8bit';
+  font-size: 30px;
+  background-color: rgba(0,50,50,0.5);
+  color: #fff;
+  height: auto;
+  width: auto;
+  padding: 20px;
+  position: absolute;
+  top: 40px;
+  margin-bottom: 40px;
+}
+
+.titulo {
+  color: yellow;
+  font-family: porticooblique;
+  position: relative;
+  top: 20px;
+  line-height: 170%;
+}
+
+table {
+  width: 60vw;
+}
+
+.th {
+  margin: 0;
+}
+
+tr > th {
+  line-height: 150%;
+}

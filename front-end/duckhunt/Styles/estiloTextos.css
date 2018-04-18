@@ -1,6 +1,7 @@
 .ip {
-  font-weight: bold;
-  margin-left: 130px;
+  font-size: 150%;
+  font-weight: lighter;
+  margin-left: 70px;
 }
 
 .rotated {
@@ -27,5 +28,5 @@ h2:hover {
 .ip, .number {
   color: #fff;
   letter-spacing: 2px;
-  font-family: '8bit';
+  font-family: porticooblique;
 }

@@ -10,25 +10,55 @@ namespace SignalRSelfHost.Dominio.Entidades
     {
         public static Random r = new Random();
         public List<Posicao> Posicoes = new List<Posicao>();
-        public Tipos Tipo { get; private set; }
+        public Tipos Tipo { get; set; }
         public bool Vivo { get; set; }
         public Pato()
         {
-            var t = Task.Run(() => geraPosicoesAleatorias());
-            t.Wait();
+            GeraPosicoesAleatorias();
             Vivo = true;
-            Tipo = Tipos.COMUM;
+            Tipo = GeraTipoPato();
+        }
+        //Cria pato tutorial
+        public Pato(Posicao posicao)
+        {
+            Vivo = true;
+            Tipo = Tipos.TUTORIAL;
+            Posicoes.Add(posicao);
         }
 
-        private void geraPosicoesAleatorias()
+        private void GeraPosicoesAleatorias()
         {
-            
+            //limbo
+            Posicoes.Add(new Posicao(500, 550));
+            //posicao inicial
+            Posicoes.Add(new Posicao(500, 550));
             int contador = 0;
             while (contador <= 5)
             {
-                Posicoes.Add(new Posicao(r.Next(0, 801), r.Next(0,601)));
+                Posicoes.Add(new Posicao(r.Next(20, 690), r.Next(20,375)));
                 contador++;
             }
+            //posicao final
+            Posicoes.Add(new Posicao(500, -100));
+        }
+
+        private Tipos GeraTipoPato()
+        {
+            var chance = r.NextDouble();
+
+            if (chance <= 0.75)
+            {
+                return Tipos.COMUM;
+            }
+            else if (chance > 0.75 && chance <= 0.95)
+            {
+                return Tipos.RARO;
+            }
+            else
+            {
+                return Tipos.LENDARIO;
+            }
+
         }
 
     }

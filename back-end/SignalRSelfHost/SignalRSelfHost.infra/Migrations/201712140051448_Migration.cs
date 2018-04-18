@@ -3,7 +3,7 @@ namespace SignalRSelfHost.infra.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class MigrationDeTeste : DbMigration
+    public partial class Migration : DbMigration
     {
         public override void Up()
         {

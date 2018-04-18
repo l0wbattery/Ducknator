@@ -1,58 +1,83 @@
-<button type="button" name="button" ng-click="rodaRound()">Iniciar round</button>
 <div class="star">
-        <div class="televisao">
-            <div class="tela-de-jogo">
-                <div class="fundo">
-                    <span class="cachorro"></span>
-                    <span class="cachorroRindo"></span>
-                    <span class="cachorroMaisUmPato cachorroPato"></span>
-                    <span class="cachorroMaisDoisPatos cachorroPato"></span>
+    <div class="televisao">
+        <div class="tela-de-jogo">
+            <div class="fundo">
+                <span class="cachorro"></span>
+                <span class="cachorroPontuacao" animation-end="resetaQuantidadePatos" ng-class="{'cachorroRindo': qntdPatos === 0}"></span>
+                <span class="cachorroPontuacao" animation-end="resetaQuantidadePatos" ng-class="{'cachorroMaisUmPato cachorroPato': qntdPatos === 1}"></span>
+                <span class="cachorroPontuacao" animation-end="resetaQuantidadePatos" ng-class="{'cachorroMaisDoisPatos cachorroPato': qntdPatos === 2}"></span>
 
-                    <div class="pato" 
-                        ng-class="{'pato-voando':pato1.vivo == true, 'pato-morrendo': pato1.vivo == false}" 
-                        id="pato1">
+                <div ng-repeat="pato in patos" class="pato-wrapper" style="left: {{pato.Posicoes.PosicaoX}}px; top: {{pato.Posicoes.PosicaoY}}px;">
+                    <div ng-if="pato.Tipo === 1" class="pato pato-normal" ng-class="{
+                        'pato-voando': pato.Vivo,
+                        'pato-morrendo': !pato.Vivo,
+                        'pato': !pato.Invertido,
+                        'pato-invertido': pato.Invertido }" id="{{pato.Id}}}">
                     </div>
-                    
-                    <div class="pato" 
-                        ng-class="{'pato-voando':pato2.vivo == true, 'pato-morrendo': pato2.vivo == false}" 
-                        id="pato2">
+                    <div ng-if="pato.Tipo === 3" class="pato-raro pato-raro-lendario" ng-class="{
+                        'pato-raro-voando': pato.Vivo,
+                        'pato-raro-morrendo': !pato.Vivo,
+                        'pato': !pato.Invertido,
+                        'pato-invertido': pato.Invertido }" id="{{pato.Id}}}">
                     </div>
+                    <div ng-if="pato.Tipo === 7" class="pato-lendario pato-raro-lendario" ng-class="{
+                        'pato-lendario-voando': pato.Vivo,
+                        'pato-lendario-morrendo': !pato.Vivo,
+                        'pato': !pato.Invertido,
+                        'pato-invertido': pato.Invertido }" id="{{pato.Id}}}">
+                    </div>
+                </div>
 
-                    <div class="mira" style="{{mira}}" id="mira"></div>
+                <div class="mira" id="mira" style="{{mira}}"></div>
 
-                    <div class="console-informacoes">
-                        <div class="box-numero-round">
-                            <p>R =
-                                <span>{{data.round}}</span>
-                            </p>
+                <div class="console-informacoes">
+                    <div class="box-numero-round">
+                        <p>R =
+                            <span>{{roundAtual}}</span>
+                        </p>
+                    </div>
+                    <!-- TODO transformar num NG-REPEAT -->
+                    <div class="box-municao">
+                        <div class="patinhos-flex">
+                            <div ng-repeat="bala in balas track by $index">
+                                <div class="bala"></div>
+                            </div>
                         </div>
-                        <!-- TODO transformar num NG-REPEAT -->
-                        <div class="box-municao">
-                            <div class="bala"></div>
-                            <div class="bala"></div>
-                            <div class="bala"></div>
-                            <div class="bala"></div>
-                            <div class="bala"></div>
-                            <div class="bala"></div>
-                            <div class="bala"></div>
-                            <p>SHOT</p>
+
+                        <p>SHOT</p>
+                    </div>
+                    <div class="box-patos">
+                        <p>HIT</p>
+                        <div class="patinhos-flex">
+                            <div ng-repeat="patoVermelho in patinhoVermelho track by $index">
+                                <div class="patinhos patinho-vermelho"></div>
+                            </div>
+                            <div ng-repeat="patoBranco in patinhoBranco track by $index">
+                                <div class="patinhos patinho-branco"></div>
+                            </div>
                         </div>
-                        <div class="box-patos">
-                            <p>HIT</p>
-                            <p></p>
-                        </div>
-                        <div class="box-score">
-                            <p>{{data.score}}</p>
-                            <p class="score">SCORE</p>
-                        </div>
+                    </div>
+                    <div class="box-score">
+                        <p>{{scoreIndividual}}</p>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="leaderborder">
-            <div>PESSOAS ONLINE</div>
-            <!-- <ul>
-          inserir pessoas online aqui
-        </ul> -->
-        </div>
+    </div>
+    <div class="leaderborder">
+        <div>PESSOAS ONLINE</div>
+        <ol>
+            <li ng-repeat="leader in leaderBoard">
+                <div class="leader-board">
+                    <div class="leader-board__name">
+                        {{leader.Nome}}
+                    </div>
+                    <div class="leader-board__score">
+                        {{leader.Pontos}}
+                    </div>
+                </div>
+            </li>
+        </ol>
+    </div>
 </div>
+<span ng-class="{'inicioRound' : inicio}" animation-end="resetaValorInicio">Round {{nivel}}</span>

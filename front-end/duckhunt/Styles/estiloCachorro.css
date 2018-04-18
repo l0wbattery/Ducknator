@@ -20,13 +20,14 @@
   width: 86px;
   background-position: -1188px -21px;
   animation: aparecer 4s forwards;
+  animation-delay: 0s;
 }
 
 .cachorroMaisDoisPatos {
   width: 112px;
   background-position: -1285px -21px;
   animation: aparecer 4s forwards;
-  animation-delay: 9s;
+  animation-delay: 0s;
 }
 
 .cachorroRindo {
@@ -39,6 +40,6 @@
   animation: rir .3s steps(1) infinite,
             aparecer 4s forwards;
   animation-fill-mode: both;
-  animation-delay: 0s, 5s;
+  animation-delay: 0s, 1s;
   transition: opacity 0.00001s ease-in-out;
 }

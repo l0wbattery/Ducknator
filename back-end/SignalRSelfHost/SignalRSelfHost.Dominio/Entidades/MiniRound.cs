@@ -17,7 +17,6 @@ namespace SignalRSelfHost.Dominio.Entidades
             {
                 Posicoes++;
             }
-            
         }
         public int getPosicoes()
         {
@@ -25,9 +24,13 @@ namespace SignalRSelfHost.Dominio.Entidades
         }
         public MiniRound()
         {
+            Patos = new List<Pato>();
             Posicoes = 0;
             for (int i = 0; i < 2; i++)
+            {
                 Patos.Add(new Pato());
+            }
+                
         }
 
     }

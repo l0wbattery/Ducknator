@@ -2,16 +2,70 @@
     position: absolute;
     height: 66px;
     width: 83px;
-    background: url("../Sprites/sprites.png") no-repeat -1404px -3px;
     transform: translateX(-50%);
     transform: translateY(-50%);
+    transform: scaleX(1);
+    transition: 0s;
+    background-repeat: no-repeat;
   }
+
+  .pato-normal {
+    background: url('../Sprites/sprites.png');
+    background-position: -1404px -21px;
+  }
+
+  .pato-raro {
+    background-position: -252px -238px;
+  }
+
+  .pato-lendario {
+    background-position: -1404px -3px;
+  }
+
+.pato-invertido{
+  height: 66px;
+  width: 83px;
+  transform: scaleX(-1);
+  transition: 0s;
+}
+
+.pato-raro-lendario {
+  background-image: url("../Sprites/spriteDog.png");
+}
+
+.pato-raro-invertido {
+  background-position: -356px -474px;
+}
+
+.pato-lendario-invertido {
+  background-position: -616px -474px;
+}
+
+.pato-wrapper{
+  position: absolute;
+  transition: 1s;
+}
 
 .pato-voando{
   animation: pato-voando 0.5s steps(3) infinite;
 }
 
 .pato-morrendo{
-  animation: pato-morrendo 2s linear forwards;
+  animation: pato-morrendo 1s linear forwards;
 }
 
+.pato-raro-voando {
+  animation: pato-raro-voando 0.5s steps(3) infinite;
+}
+
+.pato-lendario-voando {
+  animation: pato-lendario-voando 0.5s steps(3) infinite;
+}
+
+.pato-raro-morrendo {
+  animation: pato-raro-morrendo 1s linear forwards;
+}
+
+.pato-lendario-morrendo {
+  animation: pato-lendario-morrendo 1s linear forwards;
+}
